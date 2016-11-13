@@ -9,4 +9,5 @@ src/main/webapp/components/*
 
 *.iml
 
-main.css
+/src/main/webapp/css/all.css
+/src/main/webapp/js/all.js

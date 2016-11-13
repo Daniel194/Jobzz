@@ -45,7 +45,7 @@ public class Application {
             http
                     .httpBasic().and()
                     .authorizeRequests()
-                    .antMatchers("/index.html", "/home.html", "/login.html", "/").permitAll().anyRequest()
+                    .antMatchers("/index.html", "/home.html", "/login.html", "/", "/css/*", "/js/*").permitAll().anyRequest()
                     .authenticated().and()
                     .csrf()
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());

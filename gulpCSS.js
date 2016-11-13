@@ -7,7 +7,7 @@ var config = {
 };
 
 gulp.task('css', function () {
-    return gulp.src('src/main/webapp/css/main.scss')
+    return gulp.src('src/main/webapp/css/all.scss')
         .pipe(sass({
             includePaths: [config.bootstrapDir + '/assets/stylesheets']
         }))
