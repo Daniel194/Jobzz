@@ -1,0 +1,22 @@
+{
+  "name": "Jobzz",
+  "homepage": "https://github.com/Daniel194/Jobzz",
+  "authors": [
+    "Daniel194 <lungu.daniel94@gmail.com>"
+  ],
+  "description": "Jobzz",
+  "main": "jobzz",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "bootstrap-sass": "^3.3.7"
+  }
+}
