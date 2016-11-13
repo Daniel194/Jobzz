@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @SpringBootApplication
 @RestController
-public class JobzzApplication {
+public class Application {
 
     @RequestMapping("/user")
     public Principal user(Principal user) {
@@ -27,14 +27,14 @@ public class JobzzApplication {
 
     @RequestMapping("/resource")
     public Map<String, Object> home() {
-        Map<String, Object> model = new HashMap<String, Object>();
+        Map<String, Object> model = new HashMap<>();
         model.put("id", UUID.randomUUID().toString());
         model.put("content", "Hello World");
         return model;
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(JobzzApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
     @Configuration
