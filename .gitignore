@@ -11,3 +11,4 @@ src/main/webapp/components/*
 
 /src/main/webapp/css/all.css
 /src/main/webapp/js/all.js
+/src/main/resources/database.properties
