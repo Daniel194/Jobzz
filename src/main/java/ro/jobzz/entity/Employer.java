@@ -1,4 +1,4 @@
-package ro.jobzz.model;
+package ro.jobzz.entity;
 
 
 import javax.persistence.Entity;
