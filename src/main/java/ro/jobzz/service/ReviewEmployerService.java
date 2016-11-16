@@ -12,7 +12,7 @@ public class ReviewEmployerService {
 
     @Autowired
     public ReviewEmployerService(ReviewEmployerRepository repository) {
-        Assert.notNull(repository, "Employer Repository must be not null !");
+        Assert.notNull(repository, "Review Repository must be not null !");
 
         this.repository = repository;
     }
