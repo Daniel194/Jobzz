@@ -74,14 +74,14 @@ CREATE TABLE jobzz.review_employee (
 );
 
 CREATE TABLE jobzz.employee_posting (
-  employee_id INT  NOT NULL,
-  posting_id  INT  NOT NULL,
-  price       INT  NOT NULL,
-  currency    INT  NOT NULL,
-  date        DATE NOT NULL,
-  commnet     VARCHAR(255),
-  status      INT  NOT NULL,
-  PRIMARY KEY (employee_id, posting_id),
+  employee_posting_id INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  employee_id         INT  NOT NULL,
+  posting_id          INT  NOT NULL,
+  price               INT  NOT NULL,
+  currency            INT  NOT NULL,
+  date                DATE NOT NULL,
+  commnet             VARCHAR(255),
+  status              INT  NOT NULL,
   FOREIGN KEY (employee_id) REFERENCES employee (employee_id),
   FOREIGN KEY (posting_id) REFERENCES posting (posting_id)
 );
