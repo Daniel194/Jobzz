@@ -1,12 +1,10 @@
 package ro.jobzz.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Blob;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 public class Employer {
@@ -15,25 +13,37 @@ public class Employer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer employerId;
 
+    @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(unique = true, nullable = false, length = 10)
     private String phoneNumber;
 
+    @Column(nullable = false)
     private Date dateOfBirth;
 
+    @Column(nullable = false)
     private String firstName;
 
+    @Column(nullable = false)
     private String lastName;
 
+    @Column(nullable = false, length = 16)
     private String cardNumber;
 
-    private String expirationDate;
+    @Column(nullable = false)
+    private Date expirationDate;
 
+    @Column(nullable = false, length = 3)
     private String cvv;
 
+    @Column(nullable = false)
     private Integer reputation;
 
     private Blob profilePicture;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employer")
+    private Set<ReviewEmployer> reviewEmployer;
 
     public Employer() {
     }
@@ -94,11 +104,11 @@ public class Employer {
         this.cardNumber = cardNumber;
     }
 
-    public String getExpirationDate() {
+    public Date getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(String expirationDate) {
+    public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -124,5 +134,13 @@ public class Employer {
 
     public void setProfilePicture(Blob profilePicture) {
         this.profilePicture = profilePicture;
+    }
+
+    public Set<ReviewEmployer> getReviewEmployer() {
+        return reviewEmployer;
+    }
+
+    public void setReviewEmployer(Set<ReviewEmployer> reviewEmployer) {
+        this.reviewEmployer = reviewEmployer;
     }
 }
