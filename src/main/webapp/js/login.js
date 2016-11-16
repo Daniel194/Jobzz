@@ -2,11 +2,11 @@ angular.module('jobzz', ['ngRoute'])
     .config(function ($routeProvider, $httpProvider) {
 
         $routeProvider.when('/', {
-            templateUrl: 'home.html',
+            templateUrl: '/view/home.html',
             controller: 'home',
             controllerAs: 'controller'
         }).when('/login', {
-            templateUrl: 'login.html',
+            templateUrl: '/view/login.html',
             controller: 'navigation',
             controllerAs: 'controller'
         }).otherwise('/');

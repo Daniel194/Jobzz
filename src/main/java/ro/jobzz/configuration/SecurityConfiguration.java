@@ -15,7 +15,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic().and()
                 .authorizeRequests()
-                .antMatchers("/index.html", "/home.html", "/login.html", "/", "/css/*", "/js/*").permitAll().anyRequest()
+                .antMatchers("/index.html", "/view/home.html", "/view/login.html", "/", "/css/*", "/js/*").permitAll().anyRequest()
                 .authenticated().and()
                 .csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
