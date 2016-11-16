@@ -20,8 +20,4 @@ public class EmployerService {
         this.repository = repository;
     }
 
-    public List<Employer> findAll() {
-        return repository.findAll();
-    }
-
 }

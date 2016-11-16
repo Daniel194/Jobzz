@@ -85,3 +85,11 @@ CREATE TABLE jobzz.employee_posting (
   FOREIGN KEY (employee_id) REFERENCES employee (employee_id),
   FOREIGN KEY (posting_id) REFERENCES posting (posting_id)
 );
+
+-- INSERT JOBS
+
+INSERT INTO jobzz.job VALUES (1, 'Zugrav');
+INSERT INTO jobzz.job VALUES (2, 'Instalator');
+INSERT INTO jobzz.job VALUES (3, 'Electrician');
+INSERT INTO jobzz.job VALUES (4, 'Constructor');
+INSERT INTO jobzz.job VALUES (5, 'Amenajari Interioare');

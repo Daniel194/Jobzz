@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ro.jobzz.entity.Employer;
-import ro.jobzz.service.EmployerService;
+import ro.jobzz.entity.Job;
+import ro.jobzz.service.JobService;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -16,11 +16,11 @@ import java.util.UUID;
 @RestController
 public class Login {
 
-    private EmployerService service;
+    private JobService service;
 
     @Autowired
-    public Login(EmployerService service) {
-        Assert.notNull(service, "Employer Service must be not null !");
+    public Login(JobService service) {
+        Assert.notNull(service, "Job Service must be not null !");
 
         this.service = service;
     }
@@ -33,11 +33,12 @@ public class Login {
     @RequestMapping("/resource")
     public Map<String, Object> home() {
 
-        List<Employer> employers = service.findAll();
+        List<Job> jobs = service.findAll();
 
         Map<String, Object> model = new HashMap<>();
         model.put("id", UUID.randomUUID().toString());
         model.put("content", "Hello World");
+        model.put("jobs", jobs);
 
         return model;
     }
