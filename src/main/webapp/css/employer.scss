@@ -1,0 +1,18 @@
+$employer-color: #3063A5;
+
+.employer-login {
+  @extend .login;
+  border-color: $employer-color;
+}
+
+.employer-login-header {
+  @extend .login-header;
+  background-color: $employer-color;
+}
+
+.employer-btn {
+  @extend .btn-primary;
+  background-image: none;
+  background-color: $employer-color;
+  border-color: $employer-color;
+}

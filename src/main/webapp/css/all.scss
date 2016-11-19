@@ -18,6 +18,8 @@ ng\:form {
   position: absolute;
 }
 
-@import "login";
 @import "../components/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "../components/bootstrap-sass/assets/stylesheets/bootstrap/theme";
+@import "login";
+@import "employee";
+@import "employer";
