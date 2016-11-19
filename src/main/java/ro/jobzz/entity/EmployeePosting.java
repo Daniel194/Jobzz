@@ -15,14 +15,14 @@ public class EmployeePosting {
     private Employee employee;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "posting_id", nullable = false)
-    private Posting posting;
+    @JoinColumn(name = "employer_posting_id", nullable = false)
+    private EmployerPosting employerPosting;
 
     @Column(nullable = false)
     private Integer price;
 
-    @Column(nullable = false)
-    private Integer currency;
+    @Column(nullable = false, length = 3)
+    private String currency;
 
     @Column(nullable = false)
     private Date date;
@@ -51,12 +51,12 @@ public class EmployeePosting {
         this.employee = employee;
     }
 
-    public Posting getPosting() {
-        return posting;
+    public EmployerPosting getEmployerPosting() {
+        return employerPosting;
     }
 
-    public void setPosting(Posting posting) {
-        this.posting = posting;
+    public void setEmployerPosting(EmployerPosting employerPosting) {
+        this.employerPosting = employerPosting;
     }
 
     public Integer getPrice() {
@@ -67,11 +67,11 @@ public class EmployeePosting {
         this.price = price;
     }
 
-    public Integer getCurrency() {
+    public String getCurrency() {
         return currency;
     }
 
-    public void setCurrency(Integer currency) {
+    public void setCurrency(String currency) {
         this.currency = currency;
     }
 

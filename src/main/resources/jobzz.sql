@@ -27,17 +27,17 @@ CREATE TABLE jobzz.review_employer (
   FOREIGN KEY (employer_id) REFERENCES employer (employer_id)
 );
 
-CREATE TABLE jobzz.posting (
-  posting_id  INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  employer_id INT          NOT NULL,
-  name        VARCHAR(255) NOT NULL,
-  description VARCHAR(255) NOT NULL,
-  longitude   FLOAT        NOT NULL,
-  latitude    FLOAT        NOT NULL,
-  job_id      INT          NOT NULL,
-  start_date  DATE         NOT NULL,
-  end_date    DATE         NOT NULL,
-  status      INT          NOT NULL,
+CREATE TABLE jobzz.employer_posting (
+  employer_posting_id INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  employer_id         INT          NOT NULL,
+  name                VARCHAR(255) NOT NULL,
+  description         VARCHAR(255) NOT NULL,
+  longitude           FLOAT        NOT NULL,
+  latitude            FLOAT        NOT NULL,
+  job_id              INT          NOT NULL,
+  start_date          DATE         NOT NULL,
+  end_date            DATE         NOT NULL,
+  status              INT          NOT NULL,
   FOREIGN KEY (employer_id) REFERENCES employer (employer_id)
 );
 
@@ -74,16 +74,16 @@ CREATE TABLE jobzz.review_employee (
 );
 
 CREATE TABLE jobzz.employee_posting (
-  employee_posting_id INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  employee_id         INT  NOT NULL,
-  posting_id          INT  NOT NULL,
-  price               INT  NOT NULL,
-  currency            INT  NOT NULL,
-  date                DATE NOT NULL,
+  employee_posting_id INT        NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  employee_id         INT        NOT NULL,
+  employer_posting_id INT        NOT NULL,
+  price               INT        NOT NULL,
+  currency            VARCHAR(3) NOT NULL,
+  date                DATE       NOT NULL,
   commnet             VARCHAR(255),
-  status              INT  NOT NULL,
+  status              INT        NOT NULL,
   FOREIGN KEY (employee_id) REFERENCES employee (employee_id),
-  FOREIGN KEY (posting_id) REFERENCES posting (posting_id)
+  FOREIGN KEY (employer_posting_id) REFERENCES employer_posting (employer_posting_id)
 );
 
 -- INSERT JOBS

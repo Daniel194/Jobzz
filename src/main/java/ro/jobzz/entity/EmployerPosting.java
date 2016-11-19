@@ -5,11 +5,11 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-public class Posting {
+public class EmployerPosting {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer postingId;
+    private Integer employerPostingId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employer_id", nullable = false)
@@ -39,15 +39,15 @@ public class Posting {
     @Column(nullable = false)
     private Integer status;
 
-    public Posting() {
+    public EmployerPosting() {
     }
 
-    public Integer getPostingId() {
-        return postingId;
+    public Integer getEmployerPostingId() {
+        return employerPostingId;
     }
 
-    public void setPostingId(Integer postingId) {
-        this.postingId = postingId;
+    public void setEmployerPostingId(Integer employerPostingId) {
+        this.employerPostingId = employerPostingId;
     }
 
     public Employer getEmployer() {
