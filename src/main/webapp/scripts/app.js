@@ -5,7 +5,18 @@ angular.module('jobzz', ['ngRoute'])
             templateUrl: '/views/login.html',
             controller: 'LoginCtrl',
             controllerAs: 'LoginCtrl'
-        }).otherwise('/');
+        })
+            .when('/create-account-employee', {
+                templateUrl: '/views/create-account-employee.html',
+                controller: 'CreateAccountEmployeeCtrl',
+                controllerAs: 'CreateAccountEmployeeCtrl'
+            })
+            .when('/create-account-employer', {
+                templateUrl: '/views/create-account-employer.html',
+                controller: 'CreateAccountEmployerCtrl',
+                controllerAs: 'CreateAccountEmployerCtrl'
+            })
+            .otherwise('/');
 
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 

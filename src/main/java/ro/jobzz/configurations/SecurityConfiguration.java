@@ -15,12 +15,16 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic().and()
                 .authorizeRequests()
-                .antMatchers("/index.html",
+                .antMatchers("/",
+                        "/index.html",
                         "/views/login.html",
-                        "/",
+                        "/views/create-account-employee.html",
+                        "/views/create-account-employer.html",
                         "/styles/*",
                         "/scripts/*",
-                        "/scripts/controllers/login.js")
+                        "/scripts/controllers/login.js",
+                        "/scripts/controllers/createAccountEmployee.js",
+                        "/scripts/controllers/createAccountEmployer.js")
                 .permitAll().anyRequest()
                 .authenticated().and()
                 .csrf()
