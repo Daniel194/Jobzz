@@ -45,6 +45,9 @@ public class Employer {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employer")
     private Set<ReviewEmployer> reviewEmployer;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employer")
+    private Set<EmployerPosting> employerPostings;
+
     public Employer() {
     }
 
@@ -142,5 +145,13 @@ public class Employer {
 
     public void setReviewEmployer(Set<ReviewEmployer> reviewEmployer) {
         this.reviewEmployer = reviewEmployer;
+    }
+
+    public Set<EmployerPosting> getEmployerPostings() {
+        return employerPostings;
+    }
+
+    public void setEmployerPostings(Set<EmployerPosting> employerPostings) {
+        this.employerPostings = employerPostings;
     }
 }

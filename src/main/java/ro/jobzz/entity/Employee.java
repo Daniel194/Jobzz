@@ -3,6 +3,7 @@ package ro.jobzz.entity;
 import javax.persistence.*;
 import java.sql.Blob;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 public class Employee {
@@ -43,6 +44,13 @@ public class Employee {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id", nullable = false)
     private Job job;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
+    private Set<ReviewEmployee> reviewEmployee;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
+    private Set<EmployeePosting> employeePostings;
+
 
     public Employee() {
     }
@@ -141,5 +149,21 @@ public class Employee {
 
     public void setJob(Job job) {
         this.job = job;
+    }
+
+    public Set<ReviewEmployee> getReviewEmployee() {
+        return reviewEmployee;
+    }
+
+    public void setReviewEmployee(Set<ReviewEmployee> reviewEmployee) {
+        this.reviewEmployee = reviewEmployee;
+    }
+
+    public Set<EmployeePosting> getEmployeePostings() {
+        return employeePostings;
+    }
+
+    public void setEmployeePostings(Set<EmployeePosting> employeePostings) {
+        this.employeePostings = employeePostings;
     }
 }

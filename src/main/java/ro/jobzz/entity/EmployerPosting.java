@@ -3,6 +3,7 @@ package ro.jobzz.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 public class EmployerPosting {
@@ -38,6 +39,9 @@ public class EmployerPosting {
 
     @Column(nullable = false)
     private Integer status;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employerPosting")
+    private Set<EmployeePosting> employeePostings;
 
     public EmployerPosting() {
     }
@@ -120,5 +124,13 @@ public class EmployerPosting {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Set<EmployeePosting> getEmployeePostings() {
+        return employeePostings;
+    }
+
+    public void setEmployeePostings(Set<EmployeePosting> employeePostings) {
+        this.employeePostings = employeePostings;
     }
 }
