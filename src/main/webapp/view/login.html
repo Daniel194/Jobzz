@@ -3,16 +3,16 @@
         <div class="employer-login">
             <div class="text-center employer-login-header">Employer</div>
             <div class="login-body">
-                <form role="form" ng-submit="controller.login()">
+                <form role="form" ng-submit="controller.employerLogin()">
                     <div class="form-group">
                         <label for="employer_username">Username:</label>
                         <input type="text" class="form-control" id="employer_username" name="username"
-                               ng-model="controller.credentials.username"/>
+                               ng-model="controller.credentials.employer.username"/>
                     </div>
                     <div class="form-group">
                         <label for="employer_password">Password:</label>
                         <input type="password" class="form-control" id="employer_password" name="password"
-                               ng-model="controller.credentials.password"/>
+                               ng-model="controller.credentials.employer.password"/>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn employer-btn">Log in</button>
@@ -28,16 +28,16 @@
         <div class="employee-login">
             <div class="text-center employee-login-header">Employee</div>
             <div class="login-body">
-                <form role="form" ng-submit="controller.login()">
+                <form role="form" ng-submit="controller.employeeLogin()">
                     <div class="form-group">
                         <label for="employee_username">Username:</label>
                         <input type="text" class="form-control" id="employee_username" name="username"
-                               ng-model="controller.credentials.username"/>
+                               ng-model="controller.credentials.employee.username"/>
                     </div>
                     <div class="form-group">
                         <label for="employee_password">Password:</label>
                         <input type="password" class="form-control" id="employee_password" name="password"
-                               ng-model="controller.credentials.password"/>
+                               ng-model="controller.credentials.employee.password"/>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn employee-btn">Log in</button>

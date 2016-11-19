@@ -2,10 +2,6 @@ angular.module('jobzz', ['ngRoute'])
     .config(function ($routeProvider, $httpProvider) {
 
         $routeProvider.when('/', {
-            templateUrl: '/view/home.html',
-            controller: 'home',
-            controllerAs: 'controller'
-        }).when('/login', {
             templateUrl: '/view/login.html',
             controller: 'navigation',
             controllerAs: 'controller'
@@ -13,12 +9,6 @@ angular.module('jobzz', ['ngRoute'])
 
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
-    })
-    .controller('home', function ($http) {
-        var self = this;
-        $http.get('/resource/').then(function (response) {
-            self.greeting = response.data;
-        })
     })
     .controller('navigation', function ($rootScope, $http, $location) {
 
@@ -47,13 +37,25 @@ angular.module('jobzz', ['ngRoute'])
 
         self.credentials = {};
 
-        self.login = function () {
-            authenticate(self.credentials, function () {
+        self.employerLogin = function () {
+            authenticate(self.credentials.employer, function () {
                 if ($rootScope.authenticated) {
                     $location.path("/");
                     self.error = false;
                 } else {
-                    $location.path("/login");
+                    $location.path("/");
+                    self.error = true;
+                }
+            });
+        };
+
+        self.employeeLogin = function () {
+            authenticate(self.credentials.employee, function () {
+                if ($rootScope.authenticated) {
+                    $location.path("/");
+                    self.error = false;
+                } else {
+                    $location.path("/");
                     self.error = true;
                 }
             });
