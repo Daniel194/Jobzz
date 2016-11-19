@@ -9,8 +9,8 @@ src/main/webapp/components/*
 
 *.iml
 
-src/main/webapp/css/all.css
+src/main/webapp/styles/all.css
 
-src/main/webapp/js/all.js
+src/main/webapp/scripts/all.js
 
 src/main/resources/database.properties
