@@ -1,3 +1,37 @@
-<div ng-controller="CreateAccountEmployerCtrl as createAccountEmployer">
-    <span>TODO: Create Account Employer !</span>
+<div ng-controller="CreateAccountEmployerCtrl as account" class="login-container">
+    <div class="employer-login">
+        <div class="text-center employer-login-header">Employer</div>
+        <div class="login-body">
+            <form role="form" ng-submit="account.newAccount()">
+                <div class="form-group">
+                    <label for="mail">Email:</label>
+                    <input type="text" class="form-control" id="mail" name="mail"
+                           ng-model="account.employer.mail"/>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password"
+                           ng-model="account.employer.password"/>
+                </div>
+                <div class="form-group">
+                    <label for="repeat-password">Repeat Password:</label>
+                    <input type="password" class="form-control" id="repeat-password" name="repeat-password"
+                           ng-model="account.employer.repeatPassword"/>
+                </div>
+                <div class="form-group">
+                    <label for="first-name">First Name:</label>
+                    <input type="text" class="form-control" id="first-name" name="first-name"
+                           ng-model="account.employer.firstName"/>
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Last Name:</label>
+                    <input type="text" class="form-control" id="last-name" name="last-name"
+                           ng-model="account.employer.lastName"/>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn employer-btn">Create Account</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

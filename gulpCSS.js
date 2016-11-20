@@ -7,11 +7,11 @@ var config = {
 };
 
 gulp.task('css', function () {
-    return gulp.src('src/main/webapp/css/all.scss')
+    return gulp.src('src/main/webapp/styles/main.scss')
         .pipe(sass({
             includePaths: [config.bootstrapDir + '/assets/stylesheets']
         }))
-        .pipe(gulp.dest(config.publicDir + '/css'));
+        .pipe(gulp.dest(config.publicDir + '/styles'));
 });
 
 gulp.task('fonts', function () {
