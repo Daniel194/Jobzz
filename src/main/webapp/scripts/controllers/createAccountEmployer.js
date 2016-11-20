@@ -24,7 +24,22 @@ angular.module('jobzz')
 
         $scope.newAccount = function () {
             if ($scope.employer.password === $scope.employer.repeatPassword) {
-                console.log($scope.employer);
+
+                var req = {
+                    method: 'POST',
+                    dataType: 'json',
+                    url: '/register/new/employer/account',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    },
+                    data: $scope.employer
+                };
+
+                $http(req).then(function () {
+                    console.log('success');
+                }, function () {
+                    console.log('fail');
+                });
             }
         };
 

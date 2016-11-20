@@ -18,6 +18,10 @@ ng\:form {
   position: absolute;
 }
 
+body {
+  background-color: #EFEFEF !important;
+}
+
 @import "../components/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "../components/bootstrap-sass/assets/stylesheets/bootstrap/theme";
 @import "../components/angular-material/angular-material.scss";

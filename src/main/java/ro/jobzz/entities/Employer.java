@@ -2,6 +2,8 @@ package ro.jobzz.entities;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.sql.Blob;
 import java.sql.Date;
 import java.util.Set;
@@ -14,27 +16,42 @@ public class Employer {
     private Integer employerId;
 
     @Column(unique = true, nullable = false)
+    @Pattern(regexp = "^.+@.+\\..+$")
+    @Size(min = 10, max = 100)
     private String email;
 
-    @Column(unique = true, nullable = false, length = 10)
+    @Column(nullable = false)
+    private String password;
+
+    @Column(unique = true, nullable = false)
+    @Pattern(regexp = "^07[0-9]{8}$")
+    @Size(max = 10)
     private String phoneNumber;
 
     @Column(nullable = false)
     private Date dateOfBirth;
 
     @Column(nullable = false)
+    @Pattern(regexp = "^[a-zA-Z]+$")
+    @Size(min = 3, max = 30)
     private String firstName;
 
     @Column(nullable = false)
+    @Pattern(regexp = "^[a-zA-Z]+$")
+    @Size(min = 3, max = 30)
     private String lastName;
 
-    @Column(nullable = false, length = 16)
+    @Column(nullable = false)
+    @Pattern(regexp = "^[0-9]{16}$")
+    @Size(max = 16)
     private String cardNumber;
 
     @Column(nullable = false)
     private Date expirationDate;
 
-    @Column(nullable = false, length = 3)
+    @Column(nullable = false)
+    @Size(max = 3)
+    @Pattern(regexp = "^[0-9]{3}$")
     private String cvv;
 
     @Column(nullable = false)
@@ -65,6 +82,14 @@ public class Employer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPhoneNumber() {

@@ -7,4 +7,8 @@ import ro.jobzz.entities.Employer;
 
 @Repository
 public interface EmployerRepository extends JpaRepository<Employer, Integer> {
+
+    @SuppressWarnings("unchecked")
+    Employer saveAndFlush(Employer employer);
+
 }
