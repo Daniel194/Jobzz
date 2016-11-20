@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 
 var config = {
-    bootstrapDir: 'src/main/webapp/components/bootstrap-sass/assets/stylesheets/bootstrap',
+    bootstrapDir: 'src/main/webapp/components/bootstrap-sass',
     publicDir: 'src/main/webapp'
 };
 
@@ -15,8 +15,8 @@ gulp.task('css', function () {
 });
 
 gulp.task('fonts', function () {
-    return gulp.src(config.bootstrapDir + '/assets/fonts/**/*')
-        .pipe(gulp.dest(config.publicDir + '/fonts'));
+    return gulp.src(config.bootstrapDir + '/assets/fonts/bootstrap/*')
+        .pipe(gulp.dest(config.publicDir + '/fonts/bootstrap'));
 });
 
 gulp.task('default', ['css', 'fonts']);

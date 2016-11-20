@@ -1,4 +1,4 @@
-angular.module('jobzz', ['ngRoute'])
+angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages'])
     .config(function ($routeProvider, $httpProvider) {
 
         $routeProvider.when('/', {

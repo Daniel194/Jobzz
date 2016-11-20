@@ -1,4 +1,4 @@
-<div ng-controller="CreateAccountEmployerCtrl as account" class="login-container">
+<div ng-controller="CreateAccountEmployerCtrl as account" class="login-container" ng-cloak>
     <div class="employer-login">
         <div class="text-center employer-login-header">Employer</div>
         <div class="login-body">
@@ -27,6 +27,16 @@
                     <label for="last-name">Last Name:</label>
                     <input type="text" class="form-control" id="last-name" name="last-name"
                            ng-model="account.employer.lastName"/>
+                </div>
+                <div class="form-group">
+                    <md-content layout-padding>
+                        <div layout-gt-xs="row">
+                            <div flex-gt-xs>
+                                <h4>Standard date-picker</h4>
+                                <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
+                            </div>
+                        </div>
+                    </md-content>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn employer-btn">Create Account</button>

@@ -25,7 +25,8 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/scripts/controllers/login.js",
                         "/scripts/controllers/createAccountEmployee.js",
                         "/scripts/controllers/createAccountEmployer.js",
-                        "/components/**")
+                        "/components/**",
+                        "/fonts/**")
                 .permitAll().anyRequest()
                 .authenticated().and()
                 .csrf()
