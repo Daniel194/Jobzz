@@ -1,45 +1,147 @@
-<div ng-controller="CreateAccountEmployerCtrl as account" class="login-container" ng-cloak>
+<div ng-controller="CreateAccountEmployerCtrl" class="login-container" ng-cloak>
     <div class="employer-login">
         <div class="text-center employer-login-header">Employer</div>
         <div class="login-body">
-            <form role="form" ng-submit="account.newAccount()">
-                <div class="form-group">
-                    <label for="mail">Email:</label>
-                    <input type="text" class="form-control" id="mail" name="mail"
-                           ng-model="account.employer.mail"/>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" class="form-control" id="password" name="password"
-                           ng-model="account.employer.password"/>
-                </div>
-                <div class="form-group">
-                    <label for="repeat-password">Repeat Password:</label>
-                    <input type="password" class="form-control" id="repeat-password" name="repeat-password"
-                           ng-model="account.employer.repeatPassword"/>
-                </div>
-                <div class="form-group">
-                    <label for="first-name">First Name:</label>
-                    <input type="text" class="form-control" id="first-name" name="first-name"
-                           ng-model="account.employer.firstName"/>
-                </div>
-                <div class="form-group">
-                    <label for="last-name">Last Name:</label>
-                    <input type="text" class="form-control" id="last-name" name="last-name"
-                           ng-model="account.employer.lastName"/>
-                </div>
-                <div class="form-group">
-                    <md-content layout-padding>
-                        <div layout-gt-xs="row">
-                            <div flex-gt-xs>
-                                <h4>Standard date-picker</h4>
-                                <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
+            <form role="form" name="employerForm" ng-submit="newAccount()">
+                <h3>General Information</h3>
+                <div layout-gt-sm="row">
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="email">Email</label>
+                        <input id="email" name="email" ng-model="employer.email" type="email" required minlength="10"
+                               maxlength="100" ng-pattern="/^.+@.+\..+$/">
+                        <div ng-messages="employerForm.email.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                Your email must be between 10 and 100 characters long and look like an email address.
                             </div>
                         </div>
-                    </md-content>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="password">Password</label>
+                        <input id="password" name="password" ng-model="employer.password" type="password" required
+                               minlength="10" maxlength="30">
+                        <div ng-messages="employerForm.password.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                                Your password must be between 10 and 30 characters long.
+                            </div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="repeatPassword">Repeat Password</label>
+                        <input id="repeatPassword" name="repeatPassword" ng-model="employer.repeatPassword"
+                               type="password" required minlength="10" maxlength="30" ng-match="employer.password">
+                        <div ng-messages="employerForm.repeatPassword.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                                Your password must be between 10 and 30 characters long.
+                            </div>
+                            <div ng-message="match">
+                                Passwords have to match !
+                            </div>
+                        </div>
+                    </md-input-container>
+
+                </div>
+                <div layout-gt-sm="row">
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="firstName">First Name</label>
+                        <input id="firstName" required name="firstName" ng-model="employer.firstName" minlength="3"
+                               maxlength="30" ng-pattern="/^[a-zA-Z]+$/">
+                        <div ng-messages="employerForm.firstName.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength','pattern']">
+                                Must contain only letters.
+                            </div>
+                        </div>
+                    </md-input-container>
+
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="lastName">Last Name</label>
+                        <input id="lastName" required name="lastName" ng-model="employer.lastName" minlength="3"
+                               maxlength="30" ng-pattern="/^[a-zA-Z]+$/">
+                        <div ng-messages="employerForm.lastName.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength','pattern']">
+                                Must contain only letters.
+                            </div>
+                        </div>
+                    </md-input-container>
+
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="phoneNumber">Phone Number</label>
+                        <input id="phoneNumber" required name="phoneNumber" ng-model="employer.phoneNumber"
+                               ng-pattern="/^07[0-9]{8}$/" maxlength="10">
+                        <div ng-messages="employerForm.phoneNumber.$error" role="alert">
+                            <div ng-message-exp="['required', 'maxlength', 'pattern']">
+                                Please enter a valid phone number.
+                            </div>
+                        </div>
+                    </md-input-container>
+
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Date of Birth</label>
+                        <md-datepicker required name="dateOfBirth" ng-model="employer.dateOfBirth"
+                                       md-min-date="minDate"
+                                       md-max-date="maxDate"></md-datepicker>
+                        <div class="validation-messages" ng-messages="employerForm.dateOfBirth.$error">
+                            <div ng-message-exp="['required', 'mindate', 'maxdate']">
+                                Please enter a valid date of birth.
+                            </div>
+                        </div>
+                    </md-input-container>
+
+
+                </div>
+                <hr/>
+                <h3>Payment Information</h3>
+                <div layout-gt-sm="row">
+
+
+                    <md-input-container class="md-block" flex-gt-sm="60">
+                        <label for="cardNumber">Card Number</label>
+                        <input id="cardNumber" name="cardNumber" ng-model="employer.cardNumber" required
+                               ng-pattern="/^[0-9]{16}$/"
+                               maxlength="16">
+                        <div ng-messages="employerForm.cardNumber.$error" role="alert">
+                            <div ng-message-exp="['required', 'maxlength', 'pattern']">
+                                Please enter a valid card number.
+                            </div>
+                        </div>
+                    </md-input-container>
+
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Expiration Date</label>
+                        <md-datepicker name="expirationDate" required ng-model="employer.expirationDate"
+                                       md-min-date="minDateExp"
+                                       md-max-date="maxDateExp"></md-datepicker>
+                        <div class="validation-messages" ng-messages="employerForm.expirationDate.$error">
+                            <div ng-message-exp="['required', 'mindate', 'maxdate']">
+                                Please enter a valid expiration date.
+                            </div>
+                        </div>
+                    </md-input-container>
+
+
+                    <md-input-container class="md-block" flex-gt-sm="10">
+                        <label for="cvv">CVV</label>
+                        <input id="cvv" name="cvv" ng-model="employer.cvv" required
+                               ng-pattern="/^[0-9]{3}$/"
+                               maxlength="3">
+                        <div ng-messages="employerForm.cvv.$error" role="alert">
+                            <div ng-message-exp="['required', 'maxlength', 'pattern']">
+                                Please enter a valid CVV.
+                            </div>
+                        </div>
+                    </md-input-container>
+
+
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn employer-btn">Create Account</button>
+                    <md-button type="submit">Create Account</md-button>
                 </div>
             </form>
         </div>

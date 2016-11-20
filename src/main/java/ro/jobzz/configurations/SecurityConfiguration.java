@@ -20,11 +20,8 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/views/login.html",
                         "/views/create-account-employee.html",
                         "/views/create-account-employer.html",
-                        "/styles/main.css",
-                        "/scripts/app.js",
-                        "/scripts/controllers/login.js",
-                        "/scripts/controllers/createAccountEmployee.js",
-                        "/scripts/controllers/createAccountEmployer.js",
+                        "/styles/**",
+                        "/scripts/**",
                         "/components/**",
                         "/fonts/**")
                 .permitAll().anyRequest()
