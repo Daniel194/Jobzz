@@ -10,9 +10,6 @@ $employer-color: #3063A5;
   background-color: $employer-color;
 }
 
-.employer-btn {
-  @extend .btn-primary;
-  background-image: none;
+.md-button.md-primary.md-raised.employer-btn {
   background-color: $employer-color;
-  border-color: $employer-color;
 }

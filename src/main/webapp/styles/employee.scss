@@ -5,14 +5,11 @@ $employee-color: #61B329;
   border-color: $employee-color;
 }
 
-.employee-login-header{
+.employee-login-header {
   @extend .login-header;
   background-color: $employee-color;
 }
 
-.employee-btn {
-  @extend .btn-primary;
-  background-image: none;
+.md-button.md-primary.md-raised.employee-btn {
   background-color: $employee-color;
-  border-color: $employee-color;
 }

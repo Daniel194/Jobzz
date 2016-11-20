@@ -1,13 +1,11 @@
 angular.module('jobzz')
-    .controller('LoginCtrl', ['$rootScope', '$http', '$location', function ($rootScope, $http, $location) {
-
-        var self = this;
+    .controller('LoginCtrl', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
 
         var authenticate = function (credentials, callback) {
 
             var headers = credentials ? {
                 authorization: "Basic "
-                + btoa(credentials.username + ":" + credentials.password)
+                + btoa(credentials.email + ":" + credentials.password)
             } : {};
 
             $http.get('user', {headers: headers}).then(function (response) {
@@ -24,33 +22,34 @@ angular.module('jobzz')
 
         authenticate();
 
-        self.credentials = {};
+        $scope.employee = {};
+        $scope.employer = {};
 
-        self.employerLogin = function () {
-            authenticate(self.credentials.employer, function () {
+        $scope.employerLogin = function () {
+            authenticate($scope.employer, function () {
                 if ($rootScope.authenticated) {
                     $location.path("/");
-                    self.error = false;
+                    $scope.error = false;
                 } else {
                     $location.path("/");
-                    self.error = true;
+                    $scope.error = true;
                 }
             });
         };
 
-        self.employeeLogin = function () {
-            authenticate(self.credentials.employee, function () {
+        $scope.employeeLogin = function () {
+            authenticate($scope.employee, function () {
                 if ($rootScope.authenticated) {
                     $location.path("/");
-                    self.error = false;
+                    $scope.error = false;
                 } else {
                     $location.path("/");
-                    self.error = true;
+                    $scope.error = true;
                 }
             });
         };
 
-        self.logout = function () {
+        $scope.logout = function () {
             $http.post('logout', {}).finally(function () {
                 $rootScope.authenticated = false;
                 $location.path("/");

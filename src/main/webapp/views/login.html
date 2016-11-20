@@ -1,27 +1,29 @@
-<div ng-controller="LoginCtrl as login">
+<div ng-controller="LoginCtrl">
     <div class="row">
         <div class="col-sm-6 login-container">
             <div class="employer-login">
                 <div class="text-center employer-login-header">Employer</div>
                 <div class="login-body">
-                    <form role="form" ng-submit="login.employerLogin()">
-                        <div class="form-group">
-                            <label for="employer_username">Username:</label>
-                            <input type="text" class="form-control" id="employer_username" name="username"
-                                   ng-model="login.credentials.employer.username"/>
+                    <form role="form" ng-submit="employerLogin()">
+                        <div class="login-input">
+                            <md-input-container>
+                                <label for="employerEmail">Email</label>
+                                <input id="employerEmail" ng-model="employer.email" type="email" required>
+                            </md-input-container>
                         </div>
-                        <div class="form-group">
-                            <label for="employer_password">Password:</label>
-                            <input type="password" class="form-control" id="employer_password" name="password"
-                                   ng-model="login.credentials.employer.password"/>
+                        <div class="login-input">
+                            <md-input-container>
+                                <label for="employerPassword">Password</label>
+                                <input id="employerPassword" ng-model="employer.password" type="password" required>
+                            </md-input-container>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn employer-btn">Log in</button>
+                            <md-button type="submit" class="md-raised md-primary employer-btn">Log in</md-button>
                         </div>
                     </form>
                 </div>
                 <div class="text-center login-footer">
-                    <a href="#/create-account-employer">Create Account</a>
+                    <md-button ng-href="#/create-account-employer">Create Account</md-button>
                 </div>
             </div>
         </div>
@@ -29,24 +31,26 @@
             <div class="employee-login">
                 <div class="text-center employee-login-header">Employee</div>
                 <div class="login-body">
-                    <form role="form" ng-submit="login.employeeLogin()">
-                        <div class="form-group">
-                            <label for="employee_username">Username:</label>
-                            <input type="text" class="form-control" id="employee_username" name="username"
-                                   ng-model="login.credentials.employee.username"/>
+                    <form role="form" ng-submit="employeeLogin()">
+                        <div class="login-input">
+                            <md-input-container>
+                                <label for="employeeEmail">Email</label>
+                                <input id="employeeEmail" ng-model="employee.email" type="email" required>
+                            </md-input-container>
                         </div>
-                        <div class="form-group">
-                            <label for="employee_password">Password:</label>
-                            <input type="password" class="form-control" id="employee_password" name="password"
-                                   ng-model="login.credentials.employee.password"/>
+                        <div class="login-input">
+                            <md-input-container>
+                                <label for="employeePassword">Password</label>
+                                <input id="employeePassword" ng-model="employee.password" type="password" required>
+                            </md-input-container>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn employee-btn">Log in</button>
+                            <md-button type="submit" class="md-raised md-primary employee-btn">Log in</md-button>
                         </div>
                     </form>
                 </div>
                 <div class="text-center login-footer">
-                    <a href="#/create-account-employee">Create Account</a>
+                    <md-button ng-href="#/create-account-employee">Create Account</md-button>
                 </div>
             </div>
         </div>
