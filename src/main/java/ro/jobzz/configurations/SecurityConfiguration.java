@@ -21,6 +21,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/",
                         "/jobs",
                         "/register/new/employer/account",
+                        "/register/new/employee/account",
                         "/index.html",
                         "/views/login.html",
                         "/views/create-account-employee.html",

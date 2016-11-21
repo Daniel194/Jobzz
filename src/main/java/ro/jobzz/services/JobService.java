@@ -24,4 +24,8 @@ public class JobService {
         return repository.findAll();
     }
 
+    public Job findById(Integer id) {
+        return repository.findByJobId(id);
+    }
+
 }

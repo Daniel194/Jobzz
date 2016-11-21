@@ -11,4 +11,6 @@ public interface JobRepository extends JpaRepository<Job, Integer> {
 
     List<Job> findAll();
 
+    Job findByJobId(Integer jobId);
+
 }
