@@ -19,6 +19,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic().and()
                 .authorizeRequests()
                 .antMatchers("/",
+                        "/jobs",
                         "/register/new/employer/account",
                         "/index.html",
                         "/views/login.html",
