@@ -8,12 +8,12 @@ angular.module('jobzz')
                 + btoa(credentials.email + ":" + credentials.password)
             } : {};
 
-            $http.get('user', {headers: headers}).then(function (response) {
+            $http.get('/login/employer', {headers: headers}).then(function (response) {
 
                 $rootScope.authenticated = response.data.name ? true : false;
 
                 callback && callback();
-            }, function () {
+            }, function (response) {
                 $rootScope.authenticated = false;
                 callback && callback();
             });
@@ -24,30 +24,31 @@ angular.module('jobzz')
 
         $scope.employee = {};
         $scope.employer = {};
+        $scope.login = {};
 
         $scope.employerLogin = function () {
             authenticate($scope.employer, function () {
                 if ($rootScope.authenticated) {
                     $location.path("/");
-                    $scope.error = false;
+                    $scope.login.error = false;
                 } else {
                     $location.path("/");
-                    $scope.error = true;
+                    $scope.login.error = true;
                 }
             });
         };
 
-        $scope.employeeLogin = function () {
-            authenticate($scope.employee, function () {
-                if ($rootScope.authenticated) {
-                    $location.path("/");
-                    $scope.error = false;
-                } else {
-                    $location.path("/");
-                    $scope.error = true;
-                }
-            });
-        };
+        // $scope.employeeLogin = function () {
+        //     authenticate($scope.employee, function () {
+        //         if ($rootScope.authenticated) {
+        //             $location.path("/");
+        //             $scope.error = false;
+        //         } else {
+        //             $location.path("/");
+        //             $scope.error = true;
+        //         }
+        //     });
+        // };
 
         $scope.logout = function () {
             $http.post('logout', {}).finally(function () {

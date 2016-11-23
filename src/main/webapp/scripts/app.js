@@ -6,15 +6,15 @@ angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages'])
             controller: 'LoginCtrl',
             controllerAs: 'LoginCtrl'
         })
-            .when('/create-account-employee', {
-                templateUrl: '/views/create-account-employee.html',
-                controller: 'CreateAccountEmployeeCtrl',
-                controllerAs: 'CreateAccountEmployeeCtrl'
+            .when('/register/employee', {
+                templateUrl: '/views/register/employee.html',
+                controller: 'RegisterEmployeeCtrl',
+                controllerAs: 'RegisterEmployeeCtrl'
             })
-            .when('/create-account-employer', {
-                templateUrl: '/views/create-account-employer.html',
-                controller: 'CreateAccountEmployerCtrl',
-                controllerAs: 'CreateAccountEmployerCtrl'
+            .when('/register/employer', {
+                templateUrl: '/views/register/employer.html',
+                controller: 'RegisterEmployerCtrl',
+                controllerAs: 'RegisterEmployerCtrl'
             })
             .otherwise('/');
 

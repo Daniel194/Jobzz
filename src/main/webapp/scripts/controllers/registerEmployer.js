@@ -1,5 +1,5 @@
 angular.module('jobzz')
-    .controller('CreateAccountEmployeeCtrl', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
+    .controller('RegisterEmployerCtrl', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
         $scope.currentDate = new Date();
 
         $scope.minDate = new Date(
@@ -22,37 +22,17 @@ angular.module('jobzz')
             $scope.currentDate.getMonth(),
             $scope.currentDate.getDate());
 
-        var getJobs = function () {
-            var req = {
-                method: 'GET',
-                dataType: 'json',
-                url: '/jobs',
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
-                }
-            };
-
-            $http(req).then(function (response) {
-                $scope.jobs = response.data.jobs;
-            }, function () {
-                console.log('fail');
-            });
-
-        };
-
-        getJobs();
-
         $scope.newAccount = function () {
-            if ($scope.employee.password === $scope.employee.repeatPassword) {
+            if ($scope.employer.password === $scope.employer.repeatPassword) {
 
                 var req = {
                     method: 'POST',
                     dataType: 'json',
-                    url: '/register/new/employee/account',
+                    url: '/register/employer',
                     headers: {
                         'Content-Type': 'application/json; charset=utf-8'
                     },
-                    data: $scope.employee
+                    data: $scope.employer
                 };
 
                 $http(req).then(function () {
@@ -60,9 +40,7 @@ angular.module('jobzz')
                 }, function () {
                     console.log('fail');
                 });
-
             }
         };
 
     }]);
-
