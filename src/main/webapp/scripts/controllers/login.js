@@ -50,7 +50,7 @@ angular.module('jobzz')
         $scope.employerLogin = function () {
             authenticateEmployer($scope.employer, function () {
                 if ($rootScope.authenticated.employer) {
-                    $location.path("/");
+                    $location.path("/employer/home");
                     $scope.login.error = false;
                 } else {
                     $location.path("/");
@@ -62,26 +62,12 @@ angular.module('jobzz')
         $scope.employeeLogin = function () {
             authenticateEmployee($scope.employee, function () {
                 if ($rootScope.authenticated.employee) {
-                    $location.path("/");
+                    $location.path("/employee/home");
                     $scope.login.error = false;
                 } else {
                     $location.path("/");
                     $scope.login.error = true;
                 }
-            });
-        };
-
-        $scope.logoutEmployer = function () {
-            $http.post('/employer/logout', {}).finally(function () {
-                $rootScope.authenticated.employer = false;
-                $location.path("/");
-            });
-        };
-
-        $scope.logoutEmployee = function () {
-            $http.post('/employee/logout', {}).finally(function () {
-                $rootScope.authenticated.employee = false;
-                $location.path("/");
             });
         };
 

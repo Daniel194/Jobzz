@@ -16,6 +16,16 @@ angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages'])
                 controller: 'RegisterEmployerCtrl',
                 controllerAs: 'RegisterEmployerCtrl'
             })
+            .when('/employer/home', {
+                templateUrl: '/views/employer/home.html',
+                controller: 'EmployerCtrl',
+                controllerAs: 'EmployerCtrl'
+            })
+            .when('/employee/home', {
+                templateUrl: '/views/employee/home.html',
+                controller: 'EmployeeCtrl',
+                controllerAs: 'EmployeeCtrl'
+            })
             .otherwise('/');
 
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
