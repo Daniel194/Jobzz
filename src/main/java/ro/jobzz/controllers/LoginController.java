@@ -6,12 +6,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/login")
 public class LoginController {
 
-    @RequestMapping("/employer")
+    @RequestMapping("/employer/login")
     public Principal employer(Principal employer) {
         return employer;
+    }
+
+    @RequestMapping("/employee/login")
+    public Principal employee(Principal employee) {
+        return employee;
     }
 
 }

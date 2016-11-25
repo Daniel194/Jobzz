@@ -60,7 +60,12 @@
     </div>
     <div class="container">
         <ul class="nav nav-pills" role="tablist">
-            <li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
+            <li ng-show="authenticated.employer"><a href="" ng-click="logoutEmployer()">Logout</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <ul class="nav nav-pills" role="tablist">
+            <li ng-show="authenticated.employee"><a href="" ng-click="logoutEmployee()">Logout</a></li>
         </ul>
     </div>
 </div>

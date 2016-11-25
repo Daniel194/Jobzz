@@ -1,6 +1,5 @@
 package ro.jobzz.services;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,8 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import ro.jobzz.entities.Employer;
-import ro.jobzz.repositories.EmployerRepository;
+import ro.jobzz.entities.Employee;
+import ro.jobzz.repositories.EmployeeRepository;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,34 +19,34 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class EmployerDetailsService implements UserDetailsService {
+public class EmployeeDetailsService implements UserDetailsService {
 
-    private EmployerRepository repository;
+    private EmployeeRepository repository;
 
     @Autowired
-    public EmployerDetailsService(EmployerRepository repository) {
-        Assert.notNull(repository, "Employer Repository must be not null !");
+    public EmployeeDetailsService(EmployeeRepository repository) {
+        Assert.notNull(repository, "Employee Repository must be not null !");
 
         this.repository = repository;
     }
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Employer employer = repository.findByEmail(email);
+        Employee employee = repository.findByEmail(email);
 
         List<GrantedAuthority> authorities = buildUserAuthority();
 
-        return buildUserForAuthentication(employer, authorities);
+        return buildUserForAuthentication(employee, authorities);
     }
 
-    private User buildUserForAuthentication(Employer employer, List<GrantedAuthority> authorities) {
+    private User buildUserForAuthentication(Employee employer, List<GrantedAuthority> authorities) {
         return new User(employer.getEmail(), employer.getPassword(), true, true, true, true, authorities);
     }
 
     private List<GrantedAuthority> buildUserAuthority() {
         Set<GrantedAuthority> setAuths = new HashSet<>();
-        setAuths.add(new SimpleGrantedAuthority("EMPLOYER"));
+        setAuths.add(new SimpleGrantedAuthority("EMPLOYEE"));
 
         return new ArrayList<>(setAuths);
     }

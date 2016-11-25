@@ -11,4 +11,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @SuppressWarnings("unchecked")
     Employee saveAndFlush(Employee employee);
 
+    Employee findByEmail(String email);
+
 }

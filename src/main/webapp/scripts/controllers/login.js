@@ -1,34 +1,55 @@
 angular.module('jobzz')
     .controller('LoginCtrl', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
 
-        var authenticate = function (credentials, callback) {
+        var authenticateEmployer = function (credentials, callback) {
 
             var headers = credentials ? {
                 authorization: "Basic "
                 + btoa(credentials.email + ":" + credentials.password)
             } : {};
 
-            $http.get('/login/employer', {headers: headers}).then(function (response) {
+            $http.get('/employer/login', {headers: headers}).then(function (response) {
 
-                $rootScope.authenticated = response.data.name ? true : false;
+                $rootScope.authenticated.employer = !!response.data.name;
 
                 callback && callback();
-            }, function (response) {
-                $rootScope.authenticated = false;
+            }, function () {
+                $rootScope.authenticated.employer = false;
                 callback && callback();
             });
 
         };
 
-        authenticate();
+        var authenticateEmployee = function (credentials, callback) {
+
+            var headers = credentials ? {
+                authorization: "Basic "
+                + btoa(credentials.email + ":" + credentials.password)
+            } : {};
+
+            $http.get('/employee/login', {headers: headers}).then(function (response) {
+
+                $rootScope.authenticated.employee = !!response.data.name;
+
+                callback && callback();
+            }, function () {
+                $rootScope.authenticated.employee = false;
+                callback && callback();
+            });
+
+        };
+
+        authenticateEmployer();
+        authenticateEmployee();
 
         $scope.employee = {};
         $scope.employer = {};
         $scope.login = {};
+        $rootScope.authenticated = {};
 
         $scope.employerLogin = function () {
-            authenticate($scope.employer, function () {
-                if ($rootScope.authenticated) {
+            authenticateEmployer($scope.employer, function () {
+                if ($rootScope.authenticated.employer) {
                     $location.path("/");
                     $scope.login.error = false;
                 } else {
@@ -38,22 +59,30 @@ angular.module('jobzz')
             });
         };
 
-        // $scope.employeeLogin = function () {
-        //     authenticate($scope.employee, function () {
-        //         if ($rootScope.authenticated) {
-        //             $location.path("/");
-        //             $scope.error = false;
-        //         } else {
-        //             $location.path("/");
-        //             $scope.error = true;
-        //         }
-        //     });
-        // };
+        $scope.employeeLogin = function () {
+            authenticateEmployee($scope.employee, function () {
+                if ($rootScope.authenticated.employee) {
+                    $location.path("/");
+                    $scope.login.error = false;
+                } else {
+                    $location.path("/");
+                    $scope.login.error = true;
+                }
+            });
+        };
 
-        $scope.logout = function () {
-            $http.post('logout', {}).finally(function () {
-                $rootScope.authenticated = false;
+        $scope.logoutEmployer = function () {
+            $http.post('/employer/logout', {}).finally(function () {
+                $rootScope.authenticated.employer = false;
                 $location.path("/");
             });
-        }
+        };
+
+        $scope.logoutEmployee = function () {
+            $http.post('/employee/logout', {}).finally(function () {
+                $rootScope.authenticated.employee = false;
+                $location.path("/");
+            });
+        };
+
     }]);
