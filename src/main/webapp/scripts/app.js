@@ -1,4 +1,4 @@
-angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages', 'http-auth-interceptor'])
+angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages', 'http-auth-interceptor', 'LocalStorageModule'])
     .config(function ($routeProvider, $httpProvider, USER_ROLES) {
 
         $routeProvider
@@ -76,7 +76,7 @@ angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages', 'ht
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
     })
-    .run(function ($rootScope, $location, $http, EmployerSession, EmployeeSession, EmployerAuthSharedService, EmployeeAuthSharedService, $q, $timeout) {
+    .run(function ($rootScope, $location, $http, EmployerSession, EmployeeSession, EmployerAuthSharedService, EmployeeAuthSharedService, $q, $timeout, localStorageService) {
 
 
         $rootScope.$on('event:auth-forbidden', function (rejection) {
@@ -87,6 +87,8 @@ angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages', 'ht
 
         // Call when the the client is confirmed
         $rootScope.$on('event:auth-loginConfirmed', function (event, data) {
+            $rootScope.isEmployee = localStorageService.get("isEmployee");
+            $rootScope.isEmployer = localStorageService.get("isEmployer");
             $rootScope.loadingAccount = false;
             var home = $rootScope.isEmployee ? "/employee/home" : "/employer/home";
             var nextLocation = ($rootScope.requestedUrl ? $rootScope.requestedUrl : home);
@@ -97,7 +99,7 @@ angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages', 'ht
                 if ($rootScope.isEmployee) {
                     EmployeeSession.create(data);
                     $rootScope.account = EmployeeAuthSharedService;
-                } else {
+                } else if ($rootScope.isEmployer) {
                     EmployerSession.create(data);
                     $rootScope.account = EmployerAuthSharedService;
                 }
@@ -115,11 +117,8 @@ angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages', 'ht
                 $location.path('/loading');
             } else {
 
-                if ($rootScope.isEmployee) {
-                    EmployeeSession.invalidate();
-                } else {
-                    EmployerSession.invalidate();
-                }
+                EmployeeSession.invalidate();
+                EmployerSession.invalidate();
 
                 $rootScope.authenticated = false;
                 $rootScope.loadingAccount = false;
@@ -144,10 +143,13 @@ angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages', 'ht
             $location.path('/login').replace();
         });
 
+        $rootScope.isEmployee = localStorageService.get("isEmployee");
+        $rootScope.isEmployer = localStorageService.get("isEmployer");
+
         // Get already authenticated user account
         if ($rootScope.isEmployee) {
             EmployeeAuthSharedService.getAccount();
-        } else {
+        } else if ($rootScope.isEmployer) {
             EmployerAuthSharedService.getAccount();
         }
     });

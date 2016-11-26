@@ -1,4 +1,4 @@
-angular.module('jobzz').service('EmployerAuthSharedService', function ($rootScope, $http, authService, EmployerSession) {
+angular.module('jobzz').service('EmployerAuthSharedService', function ($rootScope, $http, authService, EmployerSession, localStorageService) {
     return {
         login: function (email, password) {
 
@@ -11,8 +11,9 @@ angular.module('jobzz').service('EmployerAuthSharedService', function ($rootScop
                 password: password
             }), config)
                 .success(function (data, status, headers, config) {
-                    $rootScope.isEmployer = true;
-                    $rootScope.isEmployee = false;
+                    localStorageService.set('isEmployer', true);
+                    localStorageService.set('isEmployee', false);
+
                     authService.loginConfirmed(data);
                 }).error(function (data, status, headers, config) {
                 $rootScope.authenticationError = true;
@@ -51,8 +52,9 @@ angular.module('jobzz').service('EmployerAuthSharedService', function ($rootScop
         logout: function () {
             $rootScope.authenticationError = false;
             $rootScope.authenticated = false;
-            $rootScope.isEmployer = false;
             $rootScope.account = null;
+            localStorageService.remove('isEmployer');
+            localStorageService.remove('isEmployee');
             EmployerSession.invalidate();
             authService.loginCancelled();
         }
@@ -60,7 +62,7 @@ angular.module('jobzz').service('EmployerAuthSharedService', function ($rootScop
 });
 
 
-angular.module('jobzz').service('EmployeeAuthSharedService', function ($rootScope, $http, authService, EmployeeSession) {
+angular.module('jobzz').service('EmployeeAuthSharedService', function ($rootScope, $http, authService, EmployeeSession, localStorageService) {
     return {
         login: function (email, password) {
 
@@ -73,8 +75,9 @@ angular.module('jobzz').service('EmployeeAuthSharedService', function ($rootScop
                 password: password
             }), config)
                 .success(function (data, status, headers, config) {
-                    $rootScope.isEmployer = false;
-                    $rootScope.isEmployee = true;
+                    localStorageService.set('isEmployer', false);
+                    localStorageService.set('isEmployee', true);
+
                     authService.loginConfirmed(data);
                 }).error(function (data, status, headers, config) {
                 $rootScope.authenticationError = true;
@@ -111,7 +114,8 @@ angular.module('jobzz').service('EmployeeAuthSharedService', function ($rootScop
         logout: function () {
             $rootScope.authenticationError = false;
             $rootScope.authenticated = false;
-            $rootScope.isEmployee = false;
+            localStorageService.remove('isEmployer');
+            localStorageService.remove('isEmployee');
             $rootScope.account = null;
             EmployeeSession.invalidate();
             authService.loginCancelled();

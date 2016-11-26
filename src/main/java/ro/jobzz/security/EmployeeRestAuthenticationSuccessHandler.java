@@ -33,6 +33,9 @@ public class EmployeeRestAuthenticationSuccessHandler extends SimpleUrlAuthentic
         employee.setExpirationDate(null);
         employee.setDateOfBirth(null);
         employee.setReputation(null);
+        employee.setEmployeePostings(null);
+        employee.setReviewEmployee(null);
+        employee.setJob(null);
 
         SecurityUtils.sendResponse(response, HttpServletResponse.SC_OK, employee);
     }
