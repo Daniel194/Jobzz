@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import ro.jobzz.security.*;
 import ro.jobzz.services.EmployeeDetailsService;
 import ro.jobzz.services.EmployerDetailsService;
@@ -63,7 +63,7 @@ class SecurityConfiguration {
                     .headers().disable()
                     .csrf().disable()
                     .authorizeRequests()
-                    .antMatchers("/employer/**", "/views/employer/**").hasRole("EMPLOYER")
+                    .antMatchers("/employer/**", "/views/employer/**").hasAnyAuthority("EMPLOYER")
                     .anyRequest().authenticated()
                     .and()
                     .exceptionHandling()
@@ -129,7 +129,7 @@ class SecurityConfiguration {
                     .headers().disable()
                     .csrf().disable()
                     .authorizeRequests()
-                    .antMatchers("/employee/**", "/views/employee/**").hasRole("EMPLOYEE")
+                    .antMatchers("/employee/**", "/views/employee/**").hasAnyAuthority("EMPLOYEE")
                     .anyRequest().authenticated()
                     .and()
                     .exceptionHandling()

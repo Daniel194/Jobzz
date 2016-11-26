@@ -16,7 +16,7 @@ public class EmployerController {
     private EmployerService employerService;
 
     @Autowired
-    public EmployerController(EmployerService employeeService) {
+    public EmployerController(EmployerService employerService) {
         this.employerService = employerService;
     }
 
@@ -24,6 +24,7 @@ public class EmployerController {
     @RequestMapping(value = "/account", method = RequestMethod.GET)
     @ResponseBody
     public Employer getEmployeeAccount() {
+
 
         Employer employer = employerService.findByEmail(SecurityUtils.getCurrentLogin());
 

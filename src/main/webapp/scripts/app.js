@@ -2,6 +2,9 @@ angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages', 'ht
     .config(function ($routeProvider, $httpProvider, USER_ROLES) {
 
         $routeProvider
+            .when('/', {
+                redirectTo: '/login'
+            })
             .when('/login', {
                 templateUrl: '/views/login.html',
                 controller: 'LoginCtrl',
@@ -78,7 +81,7 @@ angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages', 'ht
 
         $rootScope.$on('event:auth-forbidden', function (rejection) {
             $rootScope.$evalAsync(function () {
-                $location.path('/views/403').replace();
+                $location.path('/error/403').replace();
             });
         });
 
@@ -130,7 +133,7 @@ angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages', 'ht
             } else if (next.access && next.access.loginRequired && !$rootScope.authenticated) {
                 event.preventDefault();
                 $rootScope.$broadcast("event:auth-loginRequired", {});
-            } else if (next.access && (!EmployerAuthSharedService.isAuthorized(next.access.authorizedRoles) || !EmployeeAuthSharedService.isAuthorized(next.access.authorizedRoles))) {
+            } else if (next.access && (!EmployerAuthSharedService.isAuthorized(next.access.authorizedRoles) && !EmployeeAuthSharedService.isAuthorized(next.access.authorizedRoles))) {
                 event.preventDefault();
                 $rootScope.$broadcast("event:auth-forbidden", {});
             }
