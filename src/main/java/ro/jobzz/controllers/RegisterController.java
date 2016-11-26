@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ro.jobzz.entities.Employer;
 import ro.jobzz.entities.Job;
-import ro.jobzz.requests.entities.EmployeeRequest;
+import ro.jobzz.models.EmployeeRequest;
 import ro.jobzz.services.EmployeeService;
 import ro.jobzz.services.EmployerService;
 import ro.jobzz.services.JobService;

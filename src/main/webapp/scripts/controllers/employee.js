@@ -1,10 +1,9 @@
 angular.module('jobzz')
-    .controller('EmployeeCtrl', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
+    .controller('EmployeeCtrl', ['$scope', '$rootScope', '$http', 'EmployeeAuthSharedService', function ($scope, $rootScope, $http, EmployeeAuthSharedService) {
 
         $scope.logoutEmployee = function () {
             $http.post('/employee/logout', {}).finally(function () {
-                $rootScope.authenticated.employee = false;
-                $location.path("/");
+                EmployeeAuthSharedService.logout();
             });
         };
 

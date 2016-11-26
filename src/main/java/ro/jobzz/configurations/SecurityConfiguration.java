@@ -11,7 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import ro.jobzz.security.*;
 import ro.jobzz.services.EmployeeDetailsService;
 import ro.jobzz.services.EmployerDetailsService;
 
@@ -25,11 +27,19 @@ class SecurityConfiguration {
 
         private EmployerDetailsService employerDetailsService;
         private PasswordEncoder passwordEncoder;
+        private RestUnauthorizedEntryPoint restAuthenticationEntryPoint;
+        private RestAccessDeniedHandler restAccessDeniedHandler;
+        private RestAuthenticationFailureHandler restAuthenticationFailureHandler;
+        private EmployerRestAuthenticationSuccessHandler restAuthenticationSuccessHandler;
 
         @Autowired
-        public EmployerSecurityConfiguration(EmployerDetailsService employerDetailsService, PasswordEncoder passwordEncoder) {
+        public EmployerSecurityConfiguration(EmployerDetailsService employerDetailsService, PasswordEncoder passwordEncoder, RestUnauthorizedEntryPoint restAuthenticationEntryPoint, RestAccessDeniedHandler restAccessDeniedHandler, RestAuthenticationFailureHandler restAuthenticationFailureHandler, EmployerRestAuthenticationSuccessHandler restAuthenticationSuccessHandler) {
             this.employerDetailsService = employerDetailsService;
             this.passwordEncoder = passwordEncoder;
+            this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
+            this.restAccessDeniedHandler = restAccessDeniedHandler;
+            this.restAuthenticationFailureHandler = restAuthenticationFailureHandler;
+            this.restAuthenticationSuccessHandler = restAuthenticationSuccessHandler;
         }
 
         @Override
@@ -37,7 +47,7 @@ class SecurityConfiguration {
             web
                     .ignoring()
                     .antMatchers("/", "/index.html", "/views/login.html", "/views/register/**", "/components/**", "/fonts/**",
-                            "/scripts/**", "/styles/**", "/register/**");
+                            "/scripts/**", "/styles/**", "/register/**", "/error/**", "/views/loading.html", "/views/error.html");
         }
 
         @Override
@@ -50,21 +60,29 @@ class SecurityConfiguration {
 
             http
                     .antMatcher("/employer/**")
+                    .headers().disable()
+                    .csrf().disable()
                     .authorizeRequests()
-                    .antMatchers("/employer/**", "/view/employer/**").hasRole("EMPLOYER")
+                    .antMatchers("/employer/**", "/views/employer/**").hasRole("EMPLOYER")
+                    .anyRequest().authenticated()
+                    .and()
+                    .exceptionHandling()
+                    .authenticationEntryPoint(restAuthenticationEntryPoint)
+                    .accessDeniedHandler(restAccessDeniedHandler)
                     .and()
                     .formLogin()
-                    .loginPage("/employer/login").permitAll().failureUrl("/employer/login?error")
+                    .loginProcessingUrl("/employer/login")
+                    .successHandler(restAuthenticationSuccessHandler)
+                    .failureHandler(restAuthenticationFailureHandler)
                     .usernameParameter("email")
                     .passwordParameter("password")
+                    .permitAll()
                     .and()
-                    .logout().logoutUrl("/employer/logout").permitAll().logoutSuccessUrl("/employer/login?logout")
-                    .and()
-                    .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                    .and()
-                    .exceptionHandling().accessDeniedPage("/403")
-                    .and()
-                    .httpBasic();
+                    .logout()
+                    .logoutUrl("/employer/logout")
+                    .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
+                    .deleteCookies("JSESSIONID")
+                    .permitAll();
 
         }
     }
@@ -75,11 +93,19 @@ class SecurityConfiguration {
 
         private EmployeeDetailsService employeeDetailsService;
         private PasswordEncoder passwordEncoder;
+        private RestUnauthorizedEntryPoint restAuthenticationEntryPoint;
+        private RestAccessDeniedHandler restAccessDeniedHandler;
+        private RestAuthenticationFailureHandler restAuthenticationFailureHandler;
+        private EmployeeRestAuthenticationSuccessHandler restAuthenticationSuccessHandler;
 
         @Autowired
-        public EmployeeSecurityConfiguration(EmployeeDetailsService employeeDetailsService, PasswordEncoder passwordEncoder) {
+        public EmployeeSecurityConfiguration(EmployeeDetailsService employeeDetailsService, PasswordEncoder passwordEncoder, RestUnauthorizedEntryPoint restAuthenticationEntryPoint, RestAccessDeniedHandler restAccessDeniedHandler, RestAuthenticationFailureHandler restAuthenticationFailureHandler, EmployeeRestAuthenticationSuccessHandler restAuthenticationSuccessHandler) {
             this.employeeDetailsService = employeeDetailsService;
             this.passwordEncoder = passwordEncoder;
+            this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
+            this.restAccessDeniedHandler = restAccessDeniedHandler;
+            this.restAuthenticationFailureHandler = restAuthenticationFailureHandler;
+            this.restAuthenticationSuccessHandler = restAuthenticationSuccessHandler;
         }
 
         @Override
@@ -92,7 +118,7 @@ class SecurityConfiguration {
             web
                     .ignoring()
                     .antMatchers("/", "/index.html", "/views/login.html", "/views/register/**", "/components/**", "/fonts/**",
-                            "/scripts/**", "/styles/**", "/register/**");
+                            "/scripts/**", "/styles/**", "/register/**", "/error/**", "/views/loading.html", "/views/error.html");
         }
 
         @Override
@@ -100,21 +126,29 @@ class SecurityConfiguration {
 
             http
                     .antMatcher("/employee/**")
+                    .headers().disable()
+                    .csrf().disable()
                     .authorizeRequests()
-                    .antMatchers("/employee/**", "/view/employee/**").hasRole("EMPLOYEE")
+                    .antMatchers("/employee/**", "/views/employee/**").hasRole("EMPLOYEE")
+                    .anyRequest().authenticated()
+                    .and()
+                    .exceptionHandling()
+                    .authenticationEntryPoint(restAuthenticationEntryPoint)
+                    .accessDeniedHandler(restAccessDeniedHandler)
                     .and()
                     .formLogin()
-                    .loginPage("/employee/login").permitAll().failureUrl("/employee/login?error")
+                    .loginProcessingUrl("/employee/login")
+                    .successHandler(restAuthenticationSuccessHandler)
+                    .failureHandler(restAuthenticationFailureHandler)
                     .usernameParameter("email")
                     .passwordParameter("password")
+                    .permitAll()
                     .and()
-                    .logout().logoutUrl("/employee/logout").permitAll().logoutSuccessUrl("/employee/login?logout")
-                    .and()
-                    .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                    .and()
-                    .exceptionHandling().accessDeniedPage("/403")
-                    .and()
-                    .httpBasic();
+                    .logout()
+                    .logoutUrl("/employee/logout")
+                    .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
+                    .deleteCookies("JSESSIONID")
+                    .permitAll();
 
         }
     }

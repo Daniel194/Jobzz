@@ -9,6 +9,9 @@
                             <md-input-container>
                                 <label for="employerEmail">Email</label>
                                 <input id="employerEmail" ng-model="employer.email" type="email" required>
+                                <span ng-show="authenticationError" class="help-block">
+                                    Please check your credentials and try again.
+                                </span>
                             </md-input-container>
                         </div>
                         <div class="login-input">
@@ -36,6 +39,9 @@
                             <md-input-container>
                                 <label for="employeeEmail">Email</label>
                                 <input id="employeeEmail" ng-model="employee.email" type="email" required>
+                                <span ng-show="authenticationError" class="help-block">
+                                    Please check your credentials and try again.
+                                </span>
                             </md-input-container>
                         </div>
                         <div class="login-input">
@@ -54,8 +60,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="alert alert-danger" ng-show="login.error">
-        There was a problem logging in. Please try again.
     </div>
 </div>

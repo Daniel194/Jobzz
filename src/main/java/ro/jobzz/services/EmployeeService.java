@@ -8,29 +8,30 @@ import org.springframework.util.Assert;
 import ro.jobzz.entities.Employee;
 import ro.jobzz.entities.Job;
 import ro.jobzz.repositories.EmployeeRepository;
-import ro.jobzz.requests.entities.EmployeeRequest;
+import ro.jobzz.models.EmployeeRequest;
+import ro.jobzz.repositories.JobRepository;
 
 @Service
 public class EmployeeService {
 
     private EmployeeRepository repository;
     private PasswordEncoder passwordEncoder;
-    private JobService jobService;
+    private JobRepository jobRepository;
 
     @Autowired
-    public EmployeeService(EmployeeRepository repository, PasswordEncoder passwordEncoder, JobService jobService) {
+    public EmployeeService(EmployeeRepository repository, PasswordEncoder passwordEncoder, JobRepository jobRepository) {
         Assert.notNull(repository, "Employee Repository must not be null !");
         Assert.notNull(repository, "Password Encoder must not be null !");
         Assert.notNull(repository, "Job Repository must not be null !");
 
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
-        this.jobService = jobService;
+        this.jobRepository = jobRepository;
     }
 
     public boolean registerNewEmployeeAccount(EmployeeRequest employeeRequest) {
         Employee employee = new Employee();
-        Job job = jobService.findById(employeeRequest.getJobId());
+        Job job = jobRepository.findByJobId(employeeRequest.getJobId());
 
         if (job == null) {
             return false;
@@ -56,6 +57,10 @@ public class EmployeeService {
         }
 
         return true;
+    }
+
+    public Employee findByEmail(String email){
+        return repository.findByEmail(email);
     }
 
 }

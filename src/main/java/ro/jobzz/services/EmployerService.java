@@ -36,5 +36,8 @@ public class EmployerService {
         return true;
     }
 
+    public Employer findByEmail(String email){
+        return repository.findByEmail(email);
+    }
 
 }

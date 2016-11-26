@@ -1,4 +1,4 @@
-package ro.jobzz.requests.entities;
+package ro.jobzz.models;
 
 
 import java.sql.Date;
