@@ -35,10 +35,19 @@ angular.module('jobzz')
                     data: $scope.employer
                 };
 
-                $http(req).then(function () {
-                    console.log('success');
-                }, function () {
-                    console.log('fail');
+                $http(req).then(function (response) {
+
+                    if (response.data.isCreated) {
+                        $rootScope.isCreated = true;
+                        $location.path('/login').replace();
+                    } else {
+                        $scope.error = true;
+                        $scope.errorMessage = $scope.employer.email + " already exist !";
+                    }
+
+                }, function (response) {
+                    $scope.error = true;
+                    $scope.errorMessage = "A problem has happened during recording. Please try again.";
                 });
             }
         };
