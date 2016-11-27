@@ -1,0 +1,39 @@
+<div ng-controller="EmployerCtrl" ng-cloak>
+    <md-content>
+        <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links"
+                    class="nav-bar-employer">
+            <span class="logo">Jobzz</span>
+            <span flex></span>
+            <md-nav-item md-nav-click="goto('page1')" name="home">
+                <div class="nav-item">
+                    <md-icon md-svg-icon="image/home.svg"></md-icon>
+                    <span class="nav-caption">Home</span>
+                </div>
+            </md-nav-item>
+            <md-nav-item md-nav-click="goto('page1')" name="newpost">
+                <div class="nav-item">
+                    <md-icon md-svg-icon="image/plus.svg"></md-icon>
+                    <span class="nav-caption">New Post</span>
+                </div>
+            </md-nav-item>
+            <md-nav-item md-nav-click="goto('page1')" name="profile">
+                <div class="nav-item">
+                    <md-icon md-svg-icon="image/user.svg"></md-icon>
+                    <span class="nav-caption">My Profile</span>
+                </div>
+            </md-nav-item>
+            <md-nav-item md-nav-click="goto('page2')" name="settings">
+                <div class="nav-item">
+                    <md-icon md-svg-icon="image/wrench.svg"></md-icon>
+                    <span class="nav-caption">Settings</span>
+                </div>
+            </md-nav-item>
+            <md-nav-item md-nav-click="logoutEmployer()" name="logout">
+                <div class="nav-item">
+                    <md-icon md-svg-icon="image/switch.svg"></md-icon>
+                    <span class="nav-caption">Logout</span>
+                </div>
+            </md-nav-item>
+        </md-nav-bar>
+    </md-content>
+</div>

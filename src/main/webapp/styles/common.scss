@@ -38,3 +38,29 @@
 .login-alert {
   color: red;
 }
+
+.logo {
+  font-size: 33px;
+  margin-left: 30px;
+  margin-top: 5px;
+  color: white;
+}
+
+div.nav-item {
+  vertical-align: top;
+  display: inline-block;
+  text-align: center;
+  color: white !important;
+}
+
+div.nav-item md-icon {
+  color: white !important;
+}
+
+span.nav-caption {
+  display: block;
+}
+
+.md-nav-bar {
+  height: 60px !important;
+}

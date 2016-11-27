@@ -18,13 +18,13 @@ ng\:form {
   position: absolute;
 }
 
-body {
+html, body {
   background-color: #EFEFEF !important;
 }
 
 @import "../components/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "../components/bootstrap-sass/assets/stylesheets/bootstrap/theme";
 @import "../components/angular-material/angular-material.scss";
-@import "login";
+@import "common";
 @import "employee";
 @import "employer";
