@@ -1,5 +1,7 @@
 angular.module('jobzz')
     .controller('RegisterEmployeeCtrl', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
+        $scope.error = false;
+        $scope.errorMessage = "";
         $scope.currentDate = new Date();
 
         $scope.minDate = new Date(
@@ -55,10 +57,19 @@ angular.module('jobzz')
                     data: $scope.employee
                 };
 
-                $http(req).then(function () {
-                    console.log('success');
-                }, function () {
-                    console.log('fail');
+                $http(req).then(function (response) {
+
+                    if (response.data.isCreated) {
+                        $rootScope.isCreated = true;
+                        $location.path('/login').replace();
+                    } else {
+                        $scope.error = true;
+                        $scope.errorMessage = $scope.employee.email + " already exist !";
+                    }
+
+                }, function (response) {
+                    $scope.error = true;
+                    $scope.errorMessage = "A problem has happened during recording. Please try again.";
                 });
 
             }
