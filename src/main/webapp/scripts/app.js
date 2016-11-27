@@ -1,4 +1,4 @@
-angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages', 'http-auth-interceptor', 'LocalStorageModule'])
+angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages', 'http-auth-interceptor', 'LocalStorageModule', 'ngMap'])
     .config(function ($routeProvider, $httpProvider, USER_ROLES) {
 
         $routeProvider
