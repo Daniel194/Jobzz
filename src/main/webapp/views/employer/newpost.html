@@ -60,7 +60,25 @@
                 </div>
 
                 <div layout="row">
-                    <ng-map center="44.4266978, 26.1024562" zoom="14" class="new-post-map" ng-model="post.position">
+                    <md-input-container class="md-block new-post-label">
+                        <label>Your Job</label>
+                        <md-select name="jobId" ng-model="post.jobId" required>
+                            <md-option ng-repeat=" job in jobs" value="{{job.jobId}}">
+                                {{job.description}}
+                            </md-option>
+                        </md-select>
+                        <div class="validation-messages" ng-messages="postForm.jobId.$error">
+                            <div ng-message-exp="['required']">
+                                Please select a job.
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div layout="row">
+                    <ng-map center="44.4266978, 26.1024562" zoom="14" on-click="getPos($event)" class="new-post-map">
+                        <marker position="{{latlng}}" title="Hello World!" on-dragend="getPos($event)"
+                                animation="Animation.BOUNCE" animation="DROP" draggable="true"></marker>
                     </ng-map>
                 </div>
 
