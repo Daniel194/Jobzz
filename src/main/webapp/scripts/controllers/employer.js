@@ -35,7 +35,7 @@ angular.module('jobzz')
     .controller('HomeEmployerCtrl', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
 
 
-        var getPosts = function () {
+        $rootScope.getPosts = function () {
             var req = {
                 method: 'GET',
                 dataType: 'json',
@@ -52,7 +52,7 @@ angular.module('jobzz')
             });
         };
 
-        getPosts();
+        $rootScope.getPosts();
 
     }])
     .controller('ProfileEmployerCtrl', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
@@ -117,24 +117,28 @@ angular.module('jobzz')
 
         $scope.newPost = function () {
 
-            var req = {
-                method: 'POST',
-                dataType: 'json',
-                url: '/employer/new/post',
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
-                },
-                data: $scope.post
-            };
+            if ($scope.post.startDate <= $scope.post.endDate) {
 
-            $http(req).then(function (response) {
+                var req = {
+                    method: 'POST',
+                    dataType: 'json',
+                    url: '/employer/new/post',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    },
+                    data: $scope.post
+                };
 
-                if (response.data.isCreated) {
-                    $scope.closeDialog();
-                }
+                $http(req).then(function (response) {
 
-            }, function (response) {
-                console.log('Fail to create new post');
-            });
+                    if (response.data.isCreated) {
+                        $rootScope.getPosts();
+                        $scope.closeDialog();
+                    }
+
+                }, function (response) {
+                    console.log('Fail to create new post');
+                });
+            }
         }
     }]);

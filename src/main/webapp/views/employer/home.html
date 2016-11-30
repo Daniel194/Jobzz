@@ -1,21 +1,20 @@
-<div ng-controller="HomeEmployerCtrl" ng-cloak>
+<div ng-controller="HomeEmployerCtrl" flex ng-cloak>
 
-    <md-content class="md-padding body-background" layout-xs="column" layout="row">
-
-        <div flex-xs flex-gt-xs="25" layout="column" ng-repeat="post in posts">
-            <md-card md-theme-watch>
+    <div class="row">
+        <div ng-repeat="post in posts" class="col-md-3">
+            <md-card md-theme-watch ng-class="'post' + post.status">
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline post0">{{post.name}}</span>
-                        <span class="md-subhead">{{post.description}}</span>
+                        <span class="md-headline"><b>{{post.name}}</b></span>
+                        <span class="md-subhead"><b>Description : </b>{{post.description}}</span>
                         <hr/>
-                        <span class="md-subhead">From {{post.startDate}} to {{post.endDate}}</span>
-                        <span class="md-subhead">Applications : </span>
+                        <span class="md-subhead"><b>From </b> {{post.startDate}} <b>to</b> {{post.endDate}}</span>
+                        <span class="md-subhead"><b>Applications : </b> {{post.employeePostings.length}}</span>
                     </md-card-title-text>
                 </md-card-title>
             </md-card>
         </div>
+    </div>
 
-    </md-content>
 
 </div>

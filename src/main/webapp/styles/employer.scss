@@ -1,7 +1,7 @@
 $employer-color: #3063A5;
-$employer-post0: #FFCC00;
-$employer-post1: #99FF00;
-$employer-post2: #CC0000;
+$employer-post0: #ffff8d;
+$employer-post1: #b9f6ca;
+$employer-post2: #ff8a80;
 
 .employer-login {
   @extend .login;
@@ -45,19 +45,17 @@ $employer-post2: #CC0000;
   width: 100%;
 }
 
-.post0, .post1, .post2 {
-  text-align: center;
-}
-
 .post0 {
   background-color: $employer-post0;
+  height: 300px;
 }
 
 .post1 {
   background-color: $employer-post1;
+  height: 300px;
 }
 
 .post2 {
   background-color: $employer-post2;
-  color: white;
+  height: 300px;
 }
