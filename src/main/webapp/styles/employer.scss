@@ -1,4 +1,7 @@
 $employer-color: #3063A5;
+$employer-post0: #FFCC00;
+$employer-post1: #99FF00;
+$employer-post2: #CC0000;
 
 .employer-login {
   @extend .login;
@@ -40,4 +43,21 @@ $employer-color: #3063A5;
 .new-post-map {
   height: 300px;
   width: 100%;
+}
+
+.post0, .post1, .post2 {
+  text-align: center;
+}
+
+.post0 {
+  background-color: $employer-post0;
+}
+
+.post1 {
+  background-color: $employer-post1;
+}
+
+.post2 {
+  background-color: $employer-post2;
+  color: white;
 }
