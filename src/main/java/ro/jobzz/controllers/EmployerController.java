@@ -9,6 +9,7 @@ import ro.jobzz.services.EmployerPostingService;
 import ro.jobzz.services.EmployerService;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -58,6 +59,16 @@ public class EmployerController {
         model.put("isCreated", isCreated);
 
         return model;
+    }
+
+    @RequestMapping(value = "/all/posts", method = RequestMethod.GET)
+    @ResponseBody
+    public List<EmployerPosting> getAllPosts() {
+        List<EmployerPosting> postings = employerPostingService.findAllEmployerPosts();
+
+        postings.forEach(posting -> posting.setEmployer(null));
+
+        return postings;
     }
 
 }

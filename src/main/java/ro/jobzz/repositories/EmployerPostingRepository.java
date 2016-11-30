@@ -1,13 +1,21 @@
 package ro.jobzz.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ro.jobzz.entities.EmployerPosting;
+
+import java.util.List;
 
 @Repository
 public interface EmployerPostingRepository extends JpaRepository<EmployerPosting, Integer> {
 
     @SuppressWarnings("unchecked")
     EmployerPosting saveAndFlush(EmployerPosting posting);
+
+    @Query("SELECT p from EmployerPosting p WHERE p.employer.email = ?1")
+    List<EmployerPosting> findAllEmployerPosts(String email);
+
+    void delete(EmployerPosting posting);
 
 }

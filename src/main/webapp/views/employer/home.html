@@ -1,87 +1,21 @@
 <div ng-controller="HomeEmployerCtrl" ng-cloak>
 
-    <md-content class="md-padding" layout-xs="column" layout="row">
-        <div flex-xs flex-gt-xs="25" layout="column">
-            <md-card md-theme-watch>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline post0">Name</span>
-                        <span class="md-subhead">Description</span>
-                        <hr/>
-                        <span class="md-subhead">From StartDate to EndDate</span>
-                        <span class="md-subhead">Applications : </span>
-                    </md-card-title-text>
-                </md-card-title>
-            </md-card>
-        </div>
-        <div flex-xs flex-gt-xs="25" layout="column">
-            <md-card md-theme-watch>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline post0">Name</span>
-                        <span class="md-subhead">Description</span>
-                        <hr/>
-                        <span class="md-subhead">From StartDate to EndDate</span>
-                        <span class="md-subhead">Applications : </span>
-                    </md-card-title-text>
-                </md-card-title>
-            </md-card>
-        </div>
-        <div flex-xs flex-gt-xs="25" layout="column">
-            <md-card md-theme-watch>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline post1">Name</span>
-                        <span class="md-subhead">Description</span>
-                        <hr/>
-                        <span class="md-subhead">From StartDate to EndDate</span>
-                        <span class="md-subhead">Applications : </span>
-                    </md-card-title-text>
-                </md-card-title>
-            </md-card>
-        </div>
-        <div flex-xs flex-gt-xs="25" layout="column">
-            <md-card md-theme-watch>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline post1">Name</span>
-                        <span class="md-subhead">Description</span>
-                        <hr/>
-                        <span class="md-subhead">From StartDate to EndDate</span>
-                        <span class="md-subhead">Applications : </span>
-                    </md-card-title-text>
-                </md-card-title>
-            </md-card>
-        </div>
-    </md-content>
+    <md-content class="md-padding body-background" layout-xs="column" layout="row">
 
-    <md-content class="md-padding" layout-xs="column" layout="row">
-        <div flex-xs flex-gt-xs="25" layout="column">
+        <div flex-xs flex-gt-xs="25" layout="column" ng-repeat="post in posts">
             <md-card md-theme-watch>
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline post1">Name</span>
-                        <span class="md-subhead">Description</span>
+                        <span class="md-headline post0">{{post.name}}</span>
+                        <span class="md-subhead">{{post.description}}</span>
                         <hr/>
-                        <span class="md-subhead">From StartDate to EndDate</span>
+                        <span class="md-subhead">From {{post.startDate}} to {{post.endDate}}</span>
                         <span class="md-subhead">Applications : </span>
                     </md-card-title-text>
                 </md-card-title>
             </md-card>
         </div>
-        <div flex-xs flex-gt-xs="25" layout="column">
-            <md-card md-theme-watch>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline post2">Name</span>
-                        <span class="md-subhead">Description</span>
-                        <hr/>
-                        <span class="md-subhead">From StartDate to EndDate</span>
-                        <span class="md-subhead">Applications : </span>
-                    </md-card-title-text>
-                </md-card-title>
-            </md-card>
-        </div>
+
     </md-content>
 
 </div>

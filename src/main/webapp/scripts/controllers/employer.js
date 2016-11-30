@@ -35,6 +35,25 @@ angular.module('jobzz')
     .controller('HomeEmployerCtrl', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
 
 
+        var getPosts = function () {
+            var req = {
+                method: 'GET',
+                dataType: 'json',
+                url: '/employer/all/posts',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                }
+            };
+
+            $http(req).then(function (response) {
+                $rootScope.posts = response.data;
+            }, function () {
+                console.log('Fail to load posts');
+            });
+        };
+
+        getPosts();
+
     }])
     .controller('ProfileEmployerCtrl', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
 
