@@ -9,6 +9,7 @@
 <body ng-app="jobzz" ng-cloak class="ng-cloak">
 
 <div ng-if="authenticated && isEmployer" ng-include="'/views/employer/navabar.html'"></div>
+<div ng-if="authenticated && isEmployee" ng-include="'/views/employee/navbar.html'"></div>
 
 <div ng-view></div>
 

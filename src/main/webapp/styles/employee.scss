@@ -13,3 +13,7 @@ $employee-color: #61B329;
 .md-button.md-primary.md-raised.employee-btn {
   background-color: $employee-color;
 }
+
+.nav-bar-employee > .md-nav-bar {
+  background-color: $employee-color !important;
+}

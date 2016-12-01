@@ -61,8 +61,35 @@ angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages', 'ht
             })
             .when('/employee/home', {
                 templateUrl: '/views/employee/home.html',
-                controller: 'EmployeeCtrl',
-                controllerAs: 'EmployeeCtrl',
+                controller: 'HomeEmployeeCtrl',
+                controllerAs: 'HomeEmployeeCtrl',
+                access: {
+                    loginRequired: true,
+                    authorizedRoles: [USER_ROLES.employee]
+                }
+            })
+            .when('/employee/profile', {
+                templateUrl: '/views/employee/profile.html',
+                controller: 'ProfileEmployeeCtrl',
+                controllerAs: 'ProfileEmployeeCtrl',
+                access: {
+                    loginRequired: true,
+                    authorizedRoles: [USER_ROLES.employee]
+                }
+            })
+            .when('/employee/settings', {
+                templateUrl: '/views/employee/settings.html',
+                controller: 'SettingsEmployeeCtrl',
+                controllerAs: 'SettingsEmployeeCtrl',
+                access: {
+                    loginRequired: true,
+                    authorizedRoles: [USER_ROLES.employee]
+                }
+            })
+            .when('/employee/find/job', {
+                templateUrl: '/views/employee/findJob.html',
+                controller: 'FindJobEmployeeCtrl',
+                controllerAs: 'FindJobEmployeeCtrl',
                 access: {
                     loginRequired: true,
                     authorizedRoles: [USER_ROLES.employee]
