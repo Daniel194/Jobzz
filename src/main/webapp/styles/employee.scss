@@ -1,4 +1,7 @@
 $employee-color: #61B329;
+$employee-yellow: #ffff8d;
+$employee-green: #b9f6ca;
+$employee-red: #ff8a80;
 
 .employee-login {
   @extend .login;
@@ -41,4 +44,20 @@ div.col h3 {
 
 div.border-right {
   border-right: 1px #575757 solid;
+}
+
+.job0, .job5 {
+  background-color: $employee-yellow;
+}
+
+.job1, .job3, .job6 {
+  background-color: $employee-green;
+}
+
+.job2, .job4 {
+  background-color: $employee-red;
+}
+
+.job0, .job1, .job2, .job3, .job4, .job5, .job6 {
+  height: 300px;
 }
