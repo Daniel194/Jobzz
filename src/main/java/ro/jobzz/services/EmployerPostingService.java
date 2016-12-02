@@ -3,8 +3,10 @@ package ro.jobzz.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import ro.jobzz.entities.Employee;
 import ro.jobzz.entities.Employer;
 import ro.jobzz.entities.EmployerPosting;
+import ro.jobzz.repositories.EmployeeRepository;
 import ro.jobzz.repositories.EmployerPostingRepository;
 import ro.jobzz.repositories.EmployerRepository;
 import ro.jobzz.security.SecurityUtils;
@@ -18,13 +20,15 @@ public class EmployerPostingService {
 
     private EmployerPostingRepository postingRepository;
     private EmployerRepository employerRepository;
+    private EmployeeRepository employeeRepository;
 
     @Autowired
-    public EmployerPostingService(EmployerPostingRepository postingRepository, EmployerRepository employerRepository) {
+    public EmployerPostingService(EmployerPostingRepository postingRepository, EmployerRepository employerRepository, EmployeeRepository employeeRepository) {
         Assert.notNull(postingRepository, "Employer Posting Repository must not be null !");
 
         this.postingRepository = postingRepository;
         this.employerRepository = employerRepository;
+        this.employeeRepository = employeeRepository;
     }
 
     public boolean createNewPost(EmployerPosting posting) {
@@ -82,6 +86,16 @@ public class EmployerPostingService {
         });
 
         return postings;
+    }
+
+    public List<EmployerPosting> findAllAvailablePostsForEmployee() {
+        Employee employee = employeeRepository.findByEmail(SecurityUtils.getCurrentLogin());
+
+        if (employee == null) {
+            return null;
+        }
+
+        return postingRepository.findAllAvailablePosts(employee.getJob().getJobId());
     }
 
 }

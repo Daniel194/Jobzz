@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import ro.jobzz.entities.Employee;
 import ro.jobzz.entities.EmployeePosting;
+import ro.jobzz.entities.EmployerPosting;
 import ro.jobzz.security.SecurityUtils;
 import ro.jobzz.services.EmployeePostingService;
 import ro.jobzz.services.EmployeeService;
+import ro.jobzz.services.EmployerPostingService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,11 +24,13 @@ public class EmployeeController {
 
     private EmployeeService employeeService;
     private EmployeePostingService postingService;
+    private EmployerPostingService employerPostingService;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService, EmployeePostingService postingService) {
+    public EmployeeController(EmployeeService employeeService, EmployeePostingService postingService, EmployerPostingService employerPostingService) {
         this.employeeService = employeeService;
         this.postingService = postingService;
+        this.employerPostingService = employerPostingService;
     }
 
 
@@ -83,6 +87,16 @@ public class EmployeeController {
         response.put("jobsDone", jobsDone);
 
         return response;
+    }
+
+    @RequestMapping(value = "/all/available/jobs", method = RequestMethod.GET)
+    @ResponseBody
+    public List<EmployerPosting> getAllAvailableJobs() {
+        List<EmployerPosting> posts = employerPostingService.findAllAvailablePostsForEmployee();
+
+        posts.forEach(posting -> posting.setEmployer(null));
+
+        return posts;
     }
 
 }

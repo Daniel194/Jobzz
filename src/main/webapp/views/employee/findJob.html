@@ -1,3 +1,19 @@
-<div ng-controller="FindJobEmployeeCtrl">
-    <h3>EMPLOYEE - PROFILE - TODO</h3>
+<div ng-controller="FindJobEmployeeCtrl" class="findJob">
+
+    <div class="row">
+        <div ng-repeat="job in jobs" class="col-md-3">
+            <md-card md-theme-watch ng-class="'post' + job.status">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline"><b>{{job.name}}</b></span>
+                        <span class="md-subhead"><b>Description : </b>{{job.description}}</span>
+                        <hr/>
+                        <span class="md-subhead"><b>From </b> {{job.startDate}} <b>to</b> {{job.endDate}}</span>
+                        <span class="md-subhead"><b>Applications : </b> {{job.employeePostings.length}}</span>
+                    </md-card-title-text>
+                </md-card-title>
+            </md-card>
+        </div>
+    </div>
+
 </div>

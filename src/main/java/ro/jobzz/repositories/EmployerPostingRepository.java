@@ -18,4 +18,7 @@ public interface EmployerPostingRepository extends JpaRepository<EmployerPosting
 
     void delete(EmployerPosting posting);
 
+    @Query("SELECT p from EmployerPosting p WHERE p.jobId = ?1 AND p.startDate > current_date")
+    List<EmployerPosting> findAllAvailablePosts(Integer jobId);
+
 }
