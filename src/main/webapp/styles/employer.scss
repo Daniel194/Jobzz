@@ -75,6 +75,32 @@ div.home-employer {
   height: 100%;
 }
 
-.map-margin{
+.map-margin {
   margin-top: 8px;
+}
+
+.applications {
+  padding-left: 8px;
+}
+
+.applications md-toolbar {
+  background-color: $employer-color !important;
+  color: white;
+}
+
+.applications md-toolbar {
+  margin-top: 30px;
+}
+
+.md-list-item-padding {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.approve-button:hover > md-icon {
+  color: green;
+}
+
+.delete-button:hover > md-icon {
+  color: red;
 }
