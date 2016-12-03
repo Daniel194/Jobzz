@@ -1,6 +1,26 @@
 <div ng-controller="PostDetailsEmployerCtrl" flex ng-cloak class="home-employer">
 
-    {{post.name}}
-    {{post.description}}
+    <div class="row">
+        <div class="col-md-8 post-details">
+            <md-card md-theme-watch class="post-details-card">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline"><b>{{post.name}}</b></span>
+                        <span class="md-subhead"><b>Description : </b>{{post.description}}</span>
+                        <span class="md-subhead"><b>From </b> {{post.startDate}} <b>to</b> {{post.endDate}}</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button class="md-primary">Change</md-button>
+                    <md-button class="md-warn">Delete</md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+        <div class="col-md-4">
+            <ng-map center="{{latlng}}" zoom="14" class="map-margin">
+                <marker position="{{latlng}}" animation="Animation.BOUNCE" animation="DROP"></marker>
+            </ng-map>
+        </div>
+    </div>
 
 </div>
