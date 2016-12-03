@@ -43,6 +43,22 @@ angular.module('jobzz')
 
     }])
     .controller('FindJobEmployeeCtrl', ['$scope', '$rootScope', '$http', 'EmployeeAuthSharedService', function ($scope, $rootScope, $http, EmployeeAuthSharedService) {
+        var currentDate = new Date();
+        $scope.job = {};
+
+        $scope.job.startDate = $scope.minDate;
+        $scope.job.endDate = $scope.maxDate;
+
+        $scope.minDate = new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth(),
+            currentDate.getDate());
+
+        $scope.maxDate = new Date(
+            currentDate.getFullYear() + 10,
+            currentDate.getMonth(),
+            currentDate.getDate());
+
 
         var getJobs = function () {
             var req = {

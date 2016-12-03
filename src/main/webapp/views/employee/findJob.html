@@ -1,5 +1,44 @@
 <div ng-controller="FindJobEmployeeCtrl" class="findJob">
 
+    <md-card class="md-padding max-width">
+        <form role="form" name="findJobForm" ng-submit="findJob()">
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm="50">
+                    <label for="name">Name</label>
+                    <input id="name" name="name" ng-model="job.name" maxlength="50">
+                    <div ng-messages="findJobForm.name.$error" role="alert">
+                        <div ng-message-exp="['maxlength']">
+                            Max length is 50.
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="20">
+                    <label>Start date</label>
+                    <md-datepicker required name="startDate" ng-model="job.startDate"
+                                   md-min-date="minDate"
+                                   md-max-date="maxDate"></md-datepicker>
+                    <div class="validation-messages" ng-messages="findJobForm.startDate.$error">
+                        <div ng-message-exp="['required', 'mindate', 'maxdate']">
+                            Please enter a valid date.
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="20">
+                    <label>End date</label>
+                    <md-datepicker required name="endDate" ng-model="job.endDate"
+                                   md-min-date="minDate"
+                                   md-max-date="maxDate"></md-datepicker>
+                    <div class="validation-messages" ng-messages="findJobForm.endDate.$error">
+                        <div ng-message-exp="['required', 'mindate', 'maxdate']">
+                            Please enter a valid date.
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-button type="submit" flex class="md-primary" flex-gt-sm="10"> Search</md-button>
+            </div>
+        </form>
+    </md-card>
+
     <div class="row">
         <div ng-repeat="job in jobs" class="col-md-3">
             <md-card md-theme-watch ng-class="'post' + job.status">
@@ -9,7 +48,6 @@
                         <span class="md-subhead"><b>Description : </b>{{job.description}}</span>
                         <hr/>
                         <span class="md-subhead"><b>From </b> {{job.startDate}} <b>to</b> {{job.endDate}}</span>
-                        <span class="md-subhead"><b>Applications : </b> {{job.employeePostings.length}}</span>
                     </md-card-title-text>
                 </md-card-title>
             </md-card>
