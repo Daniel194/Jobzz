@@ -46,9 +46,6 @@ angular.module('jobzz')
         var currentDate = new Date();
         $scope.job = {};
 
-        $scope.job.startDate = $scope.minDate;
-        $scope.job.endDate = $scope.maxDate;
-
         $scope.minDate = new Date(
             currentDate.getFullYear(),
             currentDate.getMonth(),
@@ -59,6 +56,8 @@ angular.module('jobzz')
             currentDate.getMonth(),
             currentDate.getDate());
 
+        $scope.job.startDate = $scope.minDate;
+        $scope.job.endDate = $scope.maxDate;
 
         var getJobs = function () {
             var req = {
@@ -71,14 +70,37 @@ angular.module('jobzz')
             };
 
             $http(req).then(function (response) {
+
                 $scope.jobs = response.data;
+
             }, function () {
-                console.log('fail');
+                console.log('Fail to load the Jobs');
             });
 
         };
 
         getJobs();
 
+        $scope.findJob = function () {
+
+            var req = {
+                method: 'POST',
+                dataType: 'json',
+                url: '/employee/find/available/jobs',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                data: $scope.job
+            };
+
+            $http(req).then(function (response) {
+
+                $scope.jobs = response.data;
+
+            }, function (response) {
+                console.log('Fail to find Jobs');
+            });
+
+        };
 
     }]);

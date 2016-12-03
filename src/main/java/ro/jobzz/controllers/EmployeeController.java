@@ -1,13 +1,11 @@
 package ro.jobzz.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ro.jobzz.entities.Employee;
 import ro.jobzz.entities.EmployeePosting;
 import ro.jobzz.entities.EmployerPosting;
+import ro.jobzz.models.FindJobRequest;
 import ro.jobzz.security.SecurityUtils;
 import ro.jobzz.services.EmployeePostingService;
 import ro.jobzz.services.EmployeeService;
@@ -93,6 +91,20 @@ public class EmployeeController {
     @ResponseBody
     public List<EmployerPosting> getAllAvailableJobs() {
         List<EmployerPosting> posts = employerPostingService.findAllAvailablePostsForEmployee();
+
+        posts.forEach(posting -> posting.setEmployer(null));
+
+        return posts;
+    }
+
+    @RequestMapping(value = "/find/available/jobs", method = RequestMethod.POST)
+    @ResponseBody
+    public List<EmployerPosting> getAllAvailableJobs(@RequestBody FindJobRequest job) {
+        if (job.getName() == null) {
+            job.setName("");
+        }
+
+        List<EmployerPosting> posts = employerPostingService.findAllAvailablePostsForEmployee(job.getName(), job.getStartDate(), job.getEndDate());
 
         posts.forEach(posting -> posting.setEmployer(null));
 

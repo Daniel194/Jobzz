@@ -98,4 +98,14 @@ public class EmployerPostingService {
         return postingRepository.findAllAvailablePosts(employee.getJob().getJobId());
     }
 
+    public List<EmployerPosting> findAllAvailablePostsForEmployee(String name, Date startDate, Date endDate) {
+        Employee employee = employeeRepository.findByEmail(SecurityUtils.getCurrentLogin());
+
+        if (employee == null) {
+            return null;
+        }
+
+        return postingRepository.findAllAvailablePosts(employee.getJob().getJobId(), name, startDate, endDate);
+    }
+
 }

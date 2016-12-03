@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ro.jobzz.entities.EmployerPosting;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -20,5 +21,8 @@ public interface EmployerPostingRepository extends JpaRepository<EmployerPosting
 
     @Query("SELECT p from EmployerPosting p WHERE p.jobId = ?1 AND p.startDate > current_date")
     List<EmployerPosting> findAllAvailablePosts(Integer jobId);
+
+    @Query("SELECT p from EmployerPosting p WHERE p.jobId = ?1 AND p.name LIKE CONCAT('%', ?2, '%') AND p.startDate >= ?3 AND p.endDate <= ?4 ")
+    List<EmployerPosting> findAllAvailablePosts(Integer jobId, String name, Date startDate, Date endDate);
 
 }
