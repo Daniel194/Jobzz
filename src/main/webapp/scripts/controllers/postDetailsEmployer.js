@@ -63,7 +63,27 @@ angular.module('jobzz')
 
 
         $scope.delete = function () {
-            //TODO
+            var position = $mdPanel.newPanelPosition()
+                .absolute()
+                .center();
+
+            var config = {
+                attachTo: angular.element(document.body),
+                controller: 'DeletePostEmployerCtrl',
+                controllerAs: 'DeletePostEmployerCtrl',
+                templateUrl: '/views/employer/deletePost.html',
+                hasBackdrop: true,
+                panelClass: 'delete-post',
+                position: position,
+                clickOutsideToClose: true,
+                escapeToClose: true,
+                disableParentScroll: true,
+                trapFocus: true
+            };
+
+            $mdPanel.open(config).then(function (result) {
+                $rootScope.panelRef = result;
+            });
         };
 
     }]);
