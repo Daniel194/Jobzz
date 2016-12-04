@@ -1,0 +1,81 @@
+<div ng-controller="ChangePostEmployerCtrl">
+    <div role="dialog" layout="column" layout-align="center center">
+        <md-toolbar>
+            <div class="md-toolbar-tools change-post-toolbar">
+                <h3>Change Post</h3>
+            </div>
+        </md-toolbar>
+
+        <div class="change-post-container">
+            <form role="form" name="postForm" ng-submit="changePost()">
+
+                <div layout="row">
+                    <md-input-container class="md-block change-post-label">
+                        <label for="name">Name</label>
+                        <input id="name" required name="name" ng-model="post.name" minlength="10" maxlength="50">
+                        <div ng-messages="postForm.name.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                                This fields is required !
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div layout="row">
+                    <md-input-container class="md-block change-post-label">
+                        <label for="description">Description</label>
+                        <input id="description" required name="description" ng-model="post.description" minlength="10"
+                               maxlength="100">
+                        <div ng-messages="postForm.description.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                                This fields is required !
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div layout="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Start date</label>
+                        <md-datepicker required name="startDate" ng-model="post.startDate"
+                                       md-min-date="minDate"
+                                       md-max-date="maxDate"></md-datepicker>
+                        <div class="validation-messages" ng-messages="postForm.startDate.$error">
+                            <div ng-message-exp="['required', 'mindate', 'maxdate']">
+                                Please enter a valid date.
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>End date</label>
+                        <md-datepicker required name="endDate" ng-model="post.endDate"
+                                       md-min-date="minDate"
+                                       md-max-date="maxDate"></md-datepicker>
+                        <div class="validation-messages" ng-messages="postForm.endDate.$error">
+                            <div ng-message-exp="['required', 'mindate', 'maxdate']">
+                                Please enter a valid date.
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div layout="row">
+                    <ng-map center="{{latlng}}" zoom="14" on-click="getPos($event)" class="change-post-map">
+                        <marker position="{{latlng}}" title="Hello World!" on-dragend="getPos($event)"
+                                animation="Animation.BOUNCE" animation="DROP" draggable="true"></marker>
+                    </ng-map>
+                </div>
+
+                <div layout="row" class="dialog-button">
+                    <md-button flex class="md-primary" ng-click="closeDialog()" flex-gt-sm>
+                        Close
+                    </md-button>
+                    <md-button type="submit" flex class="md-primary" flex-gt-sm>
+                        Change
+                    </md-button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

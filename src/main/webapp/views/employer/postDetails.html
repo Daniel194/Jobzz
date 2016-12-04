@@ -10,10 +10,12 @@
                         <span class="md-subhead"><b>From </b> {{post.startDate}} <b>to</b> {{post.endDate}}</span>
                     </md-card-title-text>
                 </md-card-title>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button class="md-primary">Change</md-button>
-                    <md-button class="md-warn">Delete</md-button>
-                </md-card-actions>
+                <div ng-if="post.status == 0">
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ng-click="change()">Change</md-button>
+                        <md-button class="md-warn" ng-click="delete()">Delete</md-button>
+                    </md-card-actions>
+                </div>
             </md-card>
         </div>
         <div class="col-md-4">
@@ -41,12 +43,14 @@
                         <h4><b>Date : </b> {{employeePost.date}}</h4>
                         <p><b>Comment : </b> {{employeePost.comment}}</p>
                     </div>
-                    <md-button class="md-icon-button md-secondary approve-button" aria-label="Approve">
-                        <md-icon md-svg-icon="image/checkmark.svg"></md-icon>
-                    </md-button>
-                    <md-button class="md-icon-button md-secondary delete-button" aria-label="Delete">
-                        <md-icon md-svg-icon="image/cross.svg"></md-icon>
-                    </md-button>
+                    <div ng-if="post.status == 0">
+                        <md-button class="md-icon-button md-secondary approve-button" aria-label="Approve">
+                            <md-icon md-svg-icon="image/checkmark.svg"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button md-secondary delete-button" aria-label="Delete">
+                            <md-icon md-svg-icon="image/cross.svg"></md-icon>
+                        </md-button>
+                    </div>
                     <md-divider></md-divider>
                 </md-list-item>
             </md-list>

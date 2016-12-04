@@ -11,7 +11,7 @@ angular.module('jobzz')
                 attachTo: angular.element(document.body),
                 controller: 'NewPostEmployerCtrl',
                 controllerAs: 'NewPostEmployerCtrl',
-                templateUrl: '/views/employer/newpost.html',
+                templateUrl: '/views/employer/newPost.html',
                 hasBackdrop: true,
                 panelClass: 'new-post',
                 position: position,

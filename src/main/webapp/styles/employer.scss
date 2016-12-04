@@ -18,11 +18,13 @@ $employer-post2: #ff8a80;
 }
 
 .nav-bar-employer > .md-nav-bar,
-.new-post-toolbar {
+.new-post-toolbar,
+.change-post-toolbar {
   background-color: $employer-color !important;
 }
 
-.new-post {
+.new-post,
+.change-post {
   background: white;
   border-radius: 4px;
   box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2),
@@ -31,16 +33,19 @@ $employer-post2: #ff8a80;
   width: 500px;
 }
 
-.new-post-container {
+.new-post-container,
+.change-post-container {
   width: 100%;
   padding: 15px;
 }
 
-.new-post-label {
+.new-post-label,
+.change-post-label {
   width: 100%;
 }
 
-.new-post-map {
+.new-post-map,
+.change-post-map {
   height: 300px;
   width: 100%;
 }

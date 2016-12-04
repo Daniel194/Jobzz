@@ -1,5 +1,5 @@
 angular.module('jobzz')
-    .controller('PostDetailsEmployerCtrl', ['$scope', '$rootScope', '$http', 'postService', function ($scope, $rootScope, $http, postService) {
+    .controller('PostDetailsEmployerCtrl', ['$scope', '$rootScope', '$http', '$mdPanel', 'postService', function ($scope, $rootScope, $http, $mdPanel, postService) {
         $scope.post = postService.getPost();
         $scope.latlng = [$scope.post.latitude, $scope.post.longitude];
 
@@ -34,6 +34,34 @@ angular.module('jobzz')
                 lastName: 'Voicu',
                 reputation: 10
             }
-        }]
+        }];
+
+
+        $scope.change = function () {
+            var position = $mdPanel.newPanelPosition()
+                .absolute()
+                .center();
+
+            var config = {
+                attachTo: angular.element(document.body),
+                controller: 'ChangePostEmployerCtrl',
+                controllerAs: 'ChangePostEmployerCtrl',
+                templateUrl: '/views/employer/changePost.html',
+                hasBackdrop: true,
+                panelClass: 'change-post',
+                position: position,
+                clickOutsideToClose: true,
+                escapeToClose: true
+            };
+
+            $mdPanel.open(config).then(function (result) {
+                $rootScope.panelRef = result;
+            });
+        };
+
+
+        $scope.delete = function () {
+            //TODO
+        };
 
     }]);
