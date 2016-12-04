@@ -37,6 +37,13 @@ angular.module('jobzz')
         $scope.post.startDate = new Date($scope.post.startDate);
         $scope.latlng = [$scope.post.latitude, $scope.post.longitude];
 
+        $scope.$on('mapInitialized', function (event, map) {
+            window.setTimeout(function () {
+                window.google.maps.event.trigger(map, 'resize');
+                map.setCenter(new google.maps.LatLng($scope.post.latitude, $scope.post.longitude));
+            }, 100)
+        });
+
         $scope.getPos = function (event) {
             $scope.post.latitude = event.latLng.lat();
             $scope.post.longitude = event.latLng.lng();

@@ -37,6 +37,13 @@ angular.module('jobzz')
         }];
 
 
+        $scope.$on('mapInitialized', function (event, map) {
+            window.setTimeout(function () {
+                window.google.maps.event.trigger(map, 'resize');
+                map.setCenter(new google.maps.LatLng($scope.post.latitude, $scope.post.longitude));
+            }, 100)
+        });
+
         $scope.change = function () {
             var position = $mdPanel.newPanelPosition()
                 .absolute()
