@@ -1,5 +1,5 @@
 angular.module('jobzz')
-    .controller('ChangePostEmployerCtrl', ['$scope', '$rootScope', '$http', 'postService', function ($scope, $rootScope, $http, postService) {
+    .controller('ChangePostEmployerCtrl', ['$scope', '$rootScope', '$http', 'postService', 'dateToStringService', function ($scope, $rootScope, $http, postService, dateToStringService) {
         $scope.currentDate = new Date();
 
         $scope.minDate = new Date(
@@ -56,26 +56,34 @@ angular.module('jobzz')
 
             if ($scope.post.startDate <= $scope.post.endDate) {
 
-                // var req = {
-                //     method: 'POST',
-                //     dataType: 'json',
-                //     url: '/employer/new/post',
-                //     headers: {
-                //         'Content-Type': 'application/json; charset=utf-8'
-                //     },
-                //     data: $scope.post
-                // };
-                //
-                // $http(req).then(function (response) {
-                //
-                //     if (response.data.isCreated) {
-                //         $rootScope.getPosts();
-                //         $scope.closeDialog();
-                //     }
-                //
-                // }, function () {
-                //     console.log('Fail to create new post');
-                // });
+                var req = {
+                    method: 'PUT',
+                    dataType: 'json',
+                    url: '/employer/update/post',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    },
+                    data: $scope.post
+                };
+
+                $http(req).then(function (response) {
+
+                    if (response.data.isUpdate) {
+                        var oldPost = postService.getPost();
+
+                        oldPost.name = $scope.post.name;
+                        oldPost.description = $scope.post.description;
+                        oldPost.startDate = dateToStringService.dateToString($scope.post.startDate);
+                        oldPost.endDate = dateToStringService.dateToString($scope.post.endDate);
+                        oldPost.latitude = $scope.post.latitude;
+                        oldPost.longitude = $scope.post.longitude;
+
+                        $scope.closeDialog();
+                    }
+
+                }, function () {
+                    console.log('Fail to update post');
+                });
             }
         }
 

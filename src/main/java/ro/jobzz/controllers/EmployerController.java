@@ -52,7 +52,7 @@ public class EmployerController {
 
 
     @RequestMapping(value = "/new/post", method = RequestMethod.POST)
-    public Map<String, Object> registerNewEmployeeAccount(@RequestBody EmployerPosting post) {
+    public Map<String, Object> newEmployerPost(@RequestBody EmployerPosting post) {
         boolean isCreated = employerPostingService.createNewPost(post);
 
         Map<String, Object> model = new HashMap<>();
@@ -69,6 +69,26 @@ public class EmployerController {
         postings.forEach(posting -> posting.setEmployer(null));
 
         return postings;
+    }
+
+    @RequestMapping(value = "/update/post", method = RequestMethod.PUT)
+    public Map<String, Object> updateEmployerPost(@RequestBody EmployerPosting post) {
+        boolean isUpdate = employerPostingService.updatePost(post);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("isUpdate", isUpdate);
+
+        return model;
+    }
+
+    @RequestMapping(value = "/delete/post", method = RequestMethod.DELETE)
+    public Map<String, Object> deleteEmployerPost(@RequestBody EmployerPosting post) {
+        boolean isDeleted = employerPostingService.deletePost(post);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("isDeleted", isDeleted);
+
+        return model;
     }
 
 }

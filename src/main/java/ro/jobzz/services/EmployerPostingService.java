@@ -47,6 +47,30 @@ public class EmployerPostingService {
         return true;
     }
 
+    public boolean updatePost(EmployerPosting posting) {
+        try {
+            Employer employer = employerRepository.findByEmail(SecurityUtils.getCurrentLogin());
+            posting.setEmployer(employer);
+
+            postingRepository.saveAndFlush(posting);
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean deletePost(EmployerPosting posting) {
+        try {
+            postingRepository.delete(posting);
+
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
     public List<EmployerPosting> findAllEmployerPosts() {
         List<EmployerPosting> postings = postingRepository.findAllEmployerPosts(SecurityUtils.getCurrentLogin());
         List<EmployerPosting> deletePostings = new ArrayList<>();

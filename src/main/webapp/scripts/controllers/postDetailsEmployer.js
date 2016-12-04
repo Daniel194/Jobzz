@@ -51,7 +51,9 @@ angular.module('jobzz')
                 panelClass: 'change-post',
                 position: position,
                 clickOutsideToClose: true,
-                escapeToClose: true
+                escapeToClose: true,
+                disableParentScroll: true,
+                trapFocus: true
             };
 
             $mdPanel.open(config).then(function (result) {
