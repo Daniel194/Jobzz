@@ -1,5 +1,5 @@
 angular.module('jobzz')
-    .controller('FindJobEmployeeCtrl', ['$scope', '$rootScope', '$http', function ($scope, $rootScope, $http) {
+    .controller('FindJobEmployeeCtrl', ['$scope', '$rootScope', '$http', '$location', 'jobService', function ($scope, $rootScope, $http, $location, jobService) {
         var currentDate = new Date();
         $scope.job = {};
 
@@ -57,6 +57,13 @@ angular.module('jobzz')
             }, function () {
                 console.log('Fail to find Jobs');
             });
+
+        };
+
+        $scope.jobDetails = function (job) {
+
+            jobService.setJob(job);
+            $location.path('/employee/job/details').replace();
 
         };
 
