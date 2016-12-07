@@ -119,7 +119,10 @@ public class EmployerPostingService {
             return null;
         }
 
-        return postingRepository.findAllAvailablePosts(employee.getJob().getJobId());
+        List<EmployerPosting> postings = postingRepository.findAllAvailablePosts(employee.getJob().getJobId());
+        postings.forEach(this::hiddenEmployerDetails);
+
+        return postings;
     }
 
     public List<EmployerPosting> findAllAvailablePostsForEmployee(String name, Date startDate, Date endDate) {
@@ -129,7 +132,26 @@ public class EmployerPostingService {
             return null;
         }
 
-        return postingRepository.findAllAvailablePosts(employee.getJob().getJobId(), name, startDate, endDate);
+        List<EmployerPosting> postings = postingRepository.findAllAvailablePosts(employee.getJob().getJobId(), name, startDate, endDate);
+        postings.forEach(this::hiddenEmployerDetails);
+
+        return postings;
+    }
+
+    private void hiddenEmployerDetails(EmployerPosting posting) {
+        Employer hiddenEmployer = new Employer();
+        Employer employer = posting.getEmployer();
+
+        hiddenEmployer.setEmail(employer.getEmail());
+        hiddenEmployer.setPhoneNumber(employer.getPhoneNumber());
+        hiddenEmployer.setDateOfBirth(employer.getDateOfBirth());
+        hiddenEmployer.setFirstName(employer.getFirstName());
+        hiddenEmployer.setLastName(employer.getLastName());
+        hiddenEmployer.setReputation(employer.getReputation());
+        hiddenEmployer.setProfilePicture(employer.getProfilePicture());
+        hiddenEmployer.setReviewEmployer(employer.getReviewEmployer());
+
+        posting.setEmployer(hiddenEmployer);
     }
 
 }

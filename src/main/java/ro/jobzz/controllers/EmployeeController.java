@@ -90,11 +90,7 @@ public class EmployeeController {
     @RequestMapping(value = "/all/available/jobs", method = RequestMethod.GET)
     @ResponseBody
     public List<EmployerPosting> getAllAvailableJobs() {
-        List<EmployerPosting> posts = employerPostingService.findAllAvailablePostsForEmployee();
-
-        posts.forEach(posting -> posting.setEmployer(null));
-
-        return posts;
+        return employerPostingService.findAllAvailablePostsForEmployee();
     }
 
     @RequestMapping(value = "/find/available/jobs", method = RequestMethod.POST)
@@ -104,11 +100,7 @@ public class EmployeeController {
             job.setName("");
         }
 
-        List<EmployerPosting> posts = employerPostingService.findAllAvailablePostsForEmployee(job.getName(), job.getStartDate(), job.getEndDate());
-
-        posts.forEach(posting -> posting.setEmployer(null));
-
-        return posts;
+        return employerPostingService.findAllAvailablePostsForEmployee(job.getName(), job.getStartDate(), job.getEndDate());
     }
 
 }
