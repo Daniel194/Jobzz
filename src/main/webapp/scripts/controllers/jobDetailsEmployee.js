@@ -1,5 +1,5 @@
 angular.module('jobzz')
-    .controller('JobDetailsEmployeeCtrl', ['$scope', '$rootScope', '$http', 'jobService', function ($scope, $rootScope, $http, jobService) {
+    .controller('JobDetailsEmployeeCtrl', ['$scope', '$rootScope', '$http', '$mdPanel', 'jobService', function ($scope, $rootScope, $http, $mdPanel, jobService) {
         $scope.job = jobService.getJob();
         $scope.latlng = [$scope.job.latitude, $scope.job.longitude];
 
@@ -11,7 +11,27 @@ angular.module('jobzz')
         });
 
         $scope.apply = function () {
+            var position = $mdPanel.newPanelPosition()
+                .absolute()
+                .center();
 
+            var config = {
+                attachTo: angular.element(document.body),
+                controller: 'ApplyToJobEmployeeCtrl',
+                controllerAs: 'ApplyToJobEmployeeCtrl',
+                templateUrl: '/views/employee/applyToJob.html',
+                hasBackdrop: true,
+                panelClass: 'change-post',
+                position: position,
+                clickOutsideToClose: true,
+                escapeToClose: true,
+                disableParentScroll: true,
+                trapFocus: true
+            };
+
+            $mdPanel.open(config).then(function (result) {
+                $rootScope.panelRef = result;
+            });
         };
 
     }]);

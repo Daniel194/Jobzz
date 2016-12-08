@@ -17,7 +17,8 @@ $employee-red: #ff8a80;
   background-color: $employee-color;
 }
 
-.nav-bar-employee > .md-nav-bar {
+.nav-bar-employee > .md-nav-bar,
+.apply-job-toolbar {
   background-color: $employee-color !important;
 }
 
