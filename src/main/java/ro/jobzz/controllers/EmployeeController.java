@@ -23,12 +23,14 @@ public class EmployeeController {
     private EmployeeService employeeService;
     private EmployeePostingService postingService;
     private EmployerPostingService employerPostingService;
+    private EmployeePostingService employeePostingService;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService, EmployeePostingService postingService, EmployerPostingService employerPostingService) {
+    public EmployeeController(EmployeeService employeeService, EmployeePostingService postingService, EmployerPostingService employerPostingService, EmployeePostingService employeePostingService) {
         this.employeeService = employeeService;
         this.postingService = postingService;
         this.employerPostingService = employerPostingService;
+        this.employeePostingService = employeePostingService;
     }
 
 
@@ -101,6 +103,16 @@ public class EmployeeController {
         }
 
         return employerPostingService.findAllAvailablePostsForEmployee(job.getName(), job.getStartDate(), job.getEndDate());
+    }
+
+    @RequestMapping(value = "/create/post", method = RequestMethod.POST)
+    public Map<String, Object> updateEmployerPost(@RequestBody EmployeePosting post) {
+        boolean isCreated = employeePostingService.createPost(post);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("isCreated", isCreated);
+
+        return model;
     }
 
 }

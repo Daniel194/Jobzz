@@ -1,10 +1,34 @@
 angular.module('jobzz')
-    .controller('ApplyToJobEmployeeCtrl', ['$scope', '$rootScope', '$http', 'jobService', 'CURRENCIES', function ($scope, $rootScope, $http, jobService, CURRENCIES) {
+    .controller('ApplyToJobEmployeeCtrl', ['$scope', '$rootScope', '$http', '$location', 'jobService', 'CURRENCIES', function ($scope, $rootScope, $http, $location, jobService, CURRENCIES) {
         $scope.job = jobService.getJob();
         $scope.currencies = CURRENCIES;
+        $scope.post = {};
 
-        $scope.apply = function () {
-            //TODO
+        $scope.applyPost = function () {
+            $scope.post.employerPosting = $scope.job;
+
+            var req = {
+                method: 'POST',
+                dataType: 'json',
+                url: '/employee/create/post',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                data: $scope.post
+            };
+
+            $http(req).then(function (response) {
+
+                if (response.data.isCreated) {
+                    $scope.closeDialog();
+                    $location.path('/employee/home').replace();
+                }
+
+            }, function () {
+                console.log('Fail to create post');
+            });
+
+
         };
 
         $scope.closeDialog = function () {
