@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ro.jobzz.entities.Employee;
+import ro.jobzz.entities.EmployeePosting;
 import ro.jobzz.entities.Employer;
 import ro.jobzz.entities.EmployerPosting;
 import ro.jobzz.repositories.EmployeeRepository;
@@ -11,9 +12,7 @@ import ro.jobzz.repositories.EmployerPostingRepository;
 import ro.jobzz.repositories.EmployerRepository;
 import ro.jobzz.security.SecurityUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class EmployerPostingService {
@@ -109,6 +108,15 @@ public class EmployerPostingService {
             postingRepository.delete(posting);
         });
 
+        postings.forEach(posting -> {
+            posting.setEmployer(null);
+
+            if (posting.getEmployeePostings() != null && posting.getEmployeePostings().size() > 0) {
+                hiddenEmployeePostingDetails(posting);
+            }
+
+        });
+
         return postings;
     }
 
@@ -152,6 +160,42 @@ public class EmployerPostingService {
         hiddenEmployer.setReviewEmployer(employer.getReviewEmployer());
 
         posting.setEmployer(hiddenEmployer);
+    }
+
+    private void hiddenEmployeePostingDetails(EmployerPosting posting) {
+        Set<EmployeePosting> employeePostings = posting.getEmployeePostings();
+        Set<EmployeePosting> hiddenEmployeePostings = new HashSet<>();
+
+        employeePostings.forEach(employeePosting -> {
+            EmployeePosting hiddenEmployeePosting = new EmployeePosting();
+
+            // Hidden Employee Details
+            Employee hiddenEmployee = new Employee();
+            Employee employee = employeePosting.getEmployee();
+
+            hiddenEmployee.setEmail(employee.getEmail());
+            hiddenEmployee.setPhoneNumber(employee.getPhoneNumber());
+            hiddenEmployee.setDateOfBirth(employee.getDateOfBirth());
+            hiddenEmployee.setFirstName(employee.getFirstName());
+            hiddenEmployee.setLastName(employee.getLastName());
+            hiddenEmployee.setReputation(employee.getReputation());
+            hiddenEmployee.setPicture(employee.getPicture());
+            hiddenEmployee.setReviewEmployee(employee.getReviewEmployee());
+
+            hiddenEmployeePosting.setEmployee(hiddenEmployee);
+
+            // Hidden Employee Posting Details
+            hiddenEmployeePosting.setEmployeePostingId(employeePosting.getEmployeePostingId());
+            hiddenEmployeePosting.setPrice(employeePosting.getPrice());
+            hiddenEmployeePosting.setCurrency(employeePosting.getCurrency());
+            hiddenEmployeePosting.setDate(employeePosting.getDate());
+            hiddenEmployeePosting.setComment(employeePosting.getComment());
+            hiddenEmployeePosting.setStatus(employeePosting.getStatus());
+
+            hiddenEmployeePostings.add(hiddenEmployeePosting);
+        });
+
+        posting.setEmployeePostings(hiddenEmployeePostings);
     }
 
 }

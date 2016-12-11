@@ -64,11 +64,7 @@ public class EmployerController {
     @RequestMapping(value = "/all/posts", method = RequestMethod.GET)
     @ResponseBody
     public List<EmployerPosting> getAllPosts() {
-        List<EmployerPosting> postings = employerPostingService.findAllEmployerPosts();
-
-        postings.forEach(posting -> posting.setEmployer(null));
-
-        return postings;
+        return employerPostingService.findAllEmployerPosts();
     }
 
     @RequestMapping(value = "/update/post", method = RequestMethod.PUT)
