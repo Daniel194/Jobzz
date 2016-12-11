@@ -2,9 +2,11 @@ package ro.jobzz.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ro.jobzz.entities.EmployeePosting;
 import ro.jobzz.entities.Employer;
 import ro.jobzz.entities.EmployerPosting;
 import ro.jobzz.security.SecurityUtils;
+import ro.jobzz.services.EmployeePostingService;
 import ro.jobzz.services.EmployerPostingService;
 import ro.jobzz.services.EmployerService;
 
@@ -18,11 +20,13 @@ public class EmployerController {
 
     private EmployerService employerService;
     private EmployerPostingService employerPostingService;
+    private EmployeePostingService employeePostingService;
 
     @Autowired
-    public EmployerController(EmployerService employerService, EmployerPostingService employerPostingService) {
+    public EmployerController(EmployerService employerService, EmployerPostingService employerPostingService, EmployeePostingService employeePostingService) {
         this.employerService = employerService;
         this.employerPostingService = employerPostingService;
+        this.employeePostingService = employeePostingService;
     }
 
 
@@ -83,6 +87,16 @@ public class EmployerController {
 
         Map<String, Object> model = new HashMap<>();
         model.put("isDeleted", isDeleted);
+
+        return model;
+    }
+
+    @RequestMapping(value = "/update/employee/post", method = RequestMethod.PUT)
+    public Map<String, Object> updateEmployeePost(@RequestBody EmployeePosting post) {
+        boolean isDeleted = employeePostingService.updateStatus(post);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("isUpdate", isDeleted);
 
         return model;
     }

@@ -85,6 +85,20 @@ public class EmployeePostingService {
 
     }
 
+    public boolean updateStatus(EmployeePosting post) {
+
+        try {
+
+            postingRepository.updateStatus(post.getEmployeePostingId(), post.getStatus());
+
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
+
     private void hiddenEmployerPosting(EmployeePosting posting) {
         EmployerPosting employerPosting = posting.getEmployerPosting();
         EmployerPosting hiddenEmployerPosting = new EmployerPosting();

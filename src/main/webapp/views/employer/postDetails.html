@@ -44,10 +44,12 @@
                         <p><b>Comment : </b> {{employeePost.comment}}</p>
                     </div>
                     <div ng-if="post.status == 0">
-                        <md-button class="md-icon-button md-secondary approve-button" aria-label="Approve">
+                        <md-button class="md-icon-button md-secondary approve-button" ng-click="approved(employeePost)"
+                                   ng-class=" 'checkmark' + employeePost.status " aria-label="Approve">
                             <md-icon md-svg-icon="image/checkmark.svg"></md-icon>
                         </md-button>
-                        <md-button class="md-icon-button md-secondary delete-button" aria-label="Delete">
+                        <md-button class="md-icon-button md-secondary delete-button" ng-click="refused(employeePost)"
+                                   ng-class=" 'cross' + employeePost.status " aria-label="Delete">
                             <md-icon md-svg-icon="image/cross.svg"></md-icon>
                         </md-button>
                     </div>
