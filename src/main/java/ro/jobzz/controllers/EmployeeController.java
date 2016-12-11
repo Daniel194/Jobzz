@@ -62,7 +62,6 @@ public class EmployeeController {
 
 
     @RequestMapping(value = "/all/post", method = RequestMethod.GET)
-    @ResponseBody
     public Map<String, Object> getAllEmployeePost() {
         List<EmployeePosting> postings = postingService.getAllEmployeePost();
         List<EmployeePosting> jobsWaiting = new ArrayList<>();
@@ -81,12 +80,12 @@ public class EmployeeController {
 
         });
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("jobsWaiting", jobsWaiting);
-        response.put("jobsProgress", jobsProgress);
-        response.put("jobsDone", jobsDone);
+        Map<String, Object> model = new HashMap<>();
+        model.put("jobsWaiting", jobsWaiting);
+        model.put("jobsProgress", jobsProgress);
+        model.put("jobsDone", jobsDone);
 
-        return response;
+        return model;
     }
 
     @RequestMapping(value = "/all/available/jobs", method = RequestMethod.GET)

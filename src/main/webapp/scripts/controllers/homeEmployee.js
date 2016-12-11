@@ -12,6 +12,7 @@ angular.module('jobzz')
             };
 
             $http(req).then(function (response) {
+                console.log(response);
                 $scope.jobsWaiting = response.data.jobsWaiting;
                 $scope.jobsProgress = response.data.jobsProgress;
                 $scope.jobsDone = response.data.jobsDone;

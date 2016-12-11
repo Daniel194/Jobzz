@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ro.jobzz.entities.Employee;
 import ro.jobzz.entities.EmployeePosting;
+import ro.jobzz.entities.Employer;
+import ro.jobzz.entities.EmployerPosting;
 import ro.jobzz.repositories.EmployeePostingRepository;
 import ro.jobzz.repositories.EmployeeRepository;
 import ro.jobzz.security.SecurityUtils;
@@ -56,6 +58,11 @@ public class EmployeePostingService {
             postingRepository.delete(post);
         });
 
+        postings.forEach(pos -> {
+            pos.setEmployee(null);
+            hiddenEmployerPosting(pos);
+        });
+
         return postings;
     }
 
@@ -75,6 +82,40 @@ public class EmployeePostingService {
         }
 
         return true;
+
+    }
+
+    private void hiddenEmployerPosting(EmployeePosting posting) {
+        EmployerPosting employerPosting = posting.getEmployerPosting();
+        EmployerPosting hiddenEmployerPosting = new EmployerPosting();
+
+        // Hidden Some Employer Details
+        Employer hiddenEmployer = new Employer();
+        Employer employer = employerPosting.getEmployer();
+
+        hiddenEmployer.setEmail(employer.getEmail());
+        hiddenEmployer.setPhoneNumber(employer.getPhoneNumber());
+        hiddenEmployer.setDateOfBirth(employer.getDateOfBirth());
+        hiddenEmployer.setFirstName(employer.getFirstName());
+        hiddenEmployer.setLastName(employer.getLastName());
+        hiddenEmployer.setReputation(employer.getReputation());
+        hiddenEmployer.setProfilePicture(employer.getProfilePicture());
+        hiddenEmployer.setReviewEmployer(employer.getReviewEmployer());
+
+        hiddenEmployerPosting.setEmployer(hiddenEmployer);
+
+        // Hidden Some Employer Posting Detail
+        hiddenEmployerPosting.setEmployerPostingId(employerPosting.getEmployerPostingId());
+        hiddenEmployerPosting.setName(employerPosting.getName());
+        hiddenEmployerPosting.setDescription(employerPosting.getDescription());
+        hiddenEmployerPosting.setLongitude(employerPosting.getLongitude());
+        hiddenEmployerPosting.setLatitude(employerPosting.getLatitude());
+        hiddenEmployerPosting.setJobId(employerPosting.getJobId());
+        hiddenEmployerPosting.setStartDate(employerPosting.getStartDate());
+        hiddenEmployerPosting.setEndDate(employerPosting.getEndDate());
+        hiddenEmployerPosting.setStatus(employerPosting.getStatus());
+
+        posting.setEmployerPosting(hiddenEmployerPosting);
 
     }
 
