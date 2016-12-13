@@ -1,5 +1,5 @@
 angular.module('jobzz')
-    .controller('PostDetailsEmployerCtrl', ['$scope', '$rootScope', '$http', '$mdPanel', 'postService', 'dateToStringService', function ($scope, $rootScope, $http, $mdPanel, postService, dateToStringService) {
+    .controller('PostDetailsEmployerCtrl', ['$scope', '$rootScope', '$http', '$mdPanel', 'postService', 'dateToStringService', 'removeEmployeePostService', function ($scope, $rootScope, $http, $mdPanel, postService, dateToStringService, removeEmployeePostService) {
         $scope.post = postService.getPost();
         $scope.latlng = [$scope.post.latitude, $scope.post.longitude];
 
@@ -71,6 +71,47 @@ angular.module('jobzz')
         $scope.refused = function (employeePost) {
             employeePost.status = 2;
             updateEmployeePost(employeePost);
+        };
+
+        $scope.removeEmployeePost = function (employeePost) {
+            removeEmployeePostService.setPost(employeePost);
+            removeEmployeePostService.setPostIsDeleted(false);
+
+            var position = $mdPanel.newPanelPosition()
+                .absolute()
+                .center();
+
+
+            var panelRemoved = function () {
+
+                if (removeEmployeePostService.getPostIsDeleted()) {
+                    var removePost = removeEmployeePostService.getPost();
+
+                    $scope.post.employeePostings = $scope.post.employeePostings.filter(function (post) {
+                        return post.employeePostingId !== removePost.employeePostingId;
+                    });
+
+                }
+            };
+
+            var config = {
+                attachTo: angular.element(document.body),
+                controller: 'RemoveEmployeePostEmployerCtrl',
+                controllerAs: 'RemoveEmployeePostEmployerCtrl',
+                templateUrl: '/views/employer/removeEmployeePost.html',
+                hasBackdrop: true,
+                panelClass: 'delete-post',
+                position: position,
+                clickOutsideToClose: true,
+                escapeToClose: true,
+                disableParentScroll: true,
+                trapFocus: true,
+                onRemoving: panelRemoved
+            };
+
+            $mdPanel.open(config).then(function (result) {
+                $rootScope.panelRef = result;
+            });
         };
 
         function updateEmployeePost(employeePost) {
