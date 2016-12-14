@@ -1,7 +1,7 @@
 angular.module('jobzz')
     .controller('RemoveEmployeePostEmployerCtrl', ['$scope', '$rootScope', '$http', 'removeEmployeePostService', function ($scope, $rootScope, $http, removeEmployeePostService) {
         $scope.review = {};
-        $scope.review.rating = 5;
+        $scope.review.point = 5;
         $scope.employeePost = removeEmployeePostService.getPost();
 
         $scope.closeDialog = function () {
@@ -12,9 +12,29 @@ angular.module('jobzz')
         };
 
         $scope.addReview = function () {
-            removeEmployeePostService.setPostIsDeleted(true);
-            $scope.closeDialog();
-            //TODO
+            $scope.review.employee = $scope.employeePost.employee;
+
+            var req = {
+                method: 'POST',
+                dataType: 'json',
+                url: '/employer/remove/employee/post',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                data: $scope.review
+            };
+
+            $http(req).then(function (response) {
+
+                if (response.data.isRemoved) {
+                    removeEmployeePostService.setPostIsDeleted(true);
+                    $scope.closeDialog();
+                }
+
+            }, function (response) {
+                console.log('Fail to delete the post !');
+            });
+
         }
 
     }]);

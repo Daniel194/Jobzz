@@ -173,6 +173,7 @@ public class EmployerPostingService {
             Employee hiddenEmployee = new Employee();
             Employee employee = employeePosting.getEmployee();
 
+            hiddenEmployee.setEmployeeId(employee.getEmployeeId());
             hiddenEmployee.setEmail(employee.getEmail());
             hiddenEmployee.setPhoneNumber(employee.getPhoneNumber());
             hiddenEmployee.setDateOfBirth(employee.getDateOfBirth());

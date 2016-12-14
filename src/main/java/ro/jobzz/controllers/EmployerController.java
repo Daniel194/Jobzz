@@ -5,10 +5,12 @@ import org.springframework.web.bind.annotation.*;
 import ro.jobzz.entities.EmployeePosting;
 import ro.jobzz.entities.Employer;
 import ro.jobzz.entities.EmployerPosting;
+import ro.jobzz.entities.ReviewEmployee;
 import ro.jobzz.security.SecurityUtils;
 import ro.jobzz.services.EmployeePostingService;
 import ro.jobzz.services.EmployerPostingService;
 import ro.jobzz.services.EmployerService;
+import ro.jobzz.services.ReviewEmployeeService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,12 +23,14 @@ public class EmployerController {
     private EmployerService employerService;
     private EmployerPostingService employerPostingService;
     private EmployeePostingService employeePostingService;
+    private ReviewEmployeeService reviewEmployeeService;
 
     @Autowired
-    public EmployerController(EmployerService employerService, EmployerPostingService employerPostingService, EmployeePostingService employeePostingService) {
+    public EmployerController(EmployerService employerService, EmployerPostingService employerPostingService, EmployeePostingService employeePostingService, ReviewEmployeeService reviewEmployeeService) {
         this.employerService = employerService;
         this.employerPostingService = employerPostingService;
         this.employeePostingService = employeePostingService;
+        this.reviewEmployeeService = reviewEmployeeService;
     }
 
 
@@ -97,6 +101,16 @@ public class EmployerController {
 
         Map<String, Object> model = new HashMap<>();
         model.put("isUpdate", isDeleted);
+
+        return model;
+    }
+
+    @RequestMapping(value = "/remove/employee/post", method = RequestMethod.POST)
+    public Map<String, Object> removeEmployeePost(@RequestBody ReviewEmployee review) {
+        boolean isRemoved = reviewEmployeeService.saveReview(review);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("isRemoved", isRemoved);
 
         return model;
     }

@@ -9,7 +9,7 @@
         <div class="change-post-container">
             <form role="form" name="reviewForm" ng-submit="addReview()">
                 <h4>Evaluate the job of {{employeePost.employee.firstName + ' ' + employeePost.employee.lastName}}</h4>
-                <div star-rating ng-model="review.rating" max="10"></div>
+                <div star-rating ng-model="review.point" max="10"></div>
 
                 <div layout="row">
                     <md-input-container class="md-block change-post-label">
