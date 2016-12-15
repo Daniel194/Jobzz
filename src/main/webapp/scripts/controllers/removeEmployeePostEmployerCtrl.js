@@ -21,7 +21,7 @@ angular.module('jobzz')
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8'
                 },
-                data: $scope.review
+                data: {review: $scope.review, employeePost: $scope.employeePost}
             };
 
             $http(req).then(function (response) {
@@ -31,7 +31,7 @@ angular.module('jobzz')
                     $scope.closeDialog();
                 }
 
-            }, function (response) {
+            }, function () {
                 console.log('Fail to delete the post !');
             });
 
