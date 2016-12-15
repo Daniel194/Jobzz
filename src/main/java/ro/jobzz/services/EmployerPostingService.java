@@ -181,7 +181,6 @@ public class EmployerPostingService {
             hiddenEmployee.setLastName(employee.getLastName());
             hiddenEmployee.setReputation(employee.getReputation());
             hiddenEmployee.setPicture(employee.getPicture());
-            hiddenEmployee.setReviewEmployee(employee.getReviewEmployee());
 
             hiddenEmployeePosting.setEmployee(hiddenEmployee);
 
