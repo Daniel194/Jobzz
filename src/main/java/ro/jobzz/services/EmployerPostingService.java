@@ -166,7 +166,12 @@ public class EmployerPostingService {
         Set<EmployeePosting> employeePostings = posting.getEmployeePostings();
         Set<EmployeePosting> hiddenEmployeePostings = new HashSet<>();
 
-        employeePostings.forEach(employeePosting -> {
+        for (EmployeePosting employeePosting : employeePostings) {
+
+            if (employeePosting.getStatus() == 4) {
+                continue;
+            }
+
             EmployeePosting hiddenEmployeePosting = new EmployeePosting();
 
             // Hidden Employee Details
@@ -193,7 +198,7 @@ public class EmployerPostingService {
             hiddenEmployeePosting.setStatus(employeePosting.getStatus());
 
             hiddenEmployeePostings.add(hiddenEmployeePosting);
-        });
+        }
 
         posting.setEmployeePostings(hiddenEmployeePostings);
     }
