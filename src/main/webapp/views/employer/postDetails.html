@@ -52,9 +52,15 @@
                                ng-class=" 'cross' + employeePost.status " aria-label="Delete" ng-if="post.status == 0">
                         <md-icon md-svg-icon="image/cross.svg"></md-icon>
                     </md-button>
-                    <md-button class="md-icon-button md-secondary delete-button" ng-click="removeEmployeePost(employeePost)"
+                    <md-button class="md-icon-button md-secondary delete-button"
+                               ng-click="removeEmployeePost(employeePost)"
                                ng-class=" 'cross' + employeePost.status " aria-label="Delete" ng-if="post.status == 1">
                         <md-icon md-svg-icon="image/cross.svg"></md-icon>
+                    </md-button>
+                    <md-button flex class="md-secondary md-primary btn-success btn-pay"
+                               ng-click="payEmployee(employeePost)"
+                               ng-if="post.status == 2">
+                        Pay
                     </md-button>
                     <md-divider></md-divider>
                 </md-list-item>
@@ -62,5 +68,4 @@
         </md-content>
 
     </div>
-
 </div>
