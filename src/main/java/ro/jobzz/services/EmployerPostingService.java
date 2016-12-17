@@ -3,10 +3,13 @@ package ro.jobzz.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import ro.jobzz.constants.EmployeePostStatus;
+import ro.jobzz.constants.EmployerPostStatus;
 import ro.jobzz.entities.Employee;
 import ro.jobzz.entities.EmployeePosting;
 import ro.jobzz.entities.Employer;
 import ro.jobzz.entities.EmployerPosting;
+import ro.jobzz.repositories.EmployeePostingRepository;
 import ro.jobzz.repositories.EmployeeRepository;
 import ro.jobzz.repositories.EmployerPostingRepository;
 import ro.jobzz.repositories.EmployerRepository;
@@ -18,16 +21,19 @@ import java.util.*;
 public class EmployerPostingService {
 
     private EmployerPostingRepository postingRepository;
+    private EmployeePostingRepository employeePostingRepository;
     private EmployerRepository employerRepository;
     private EmployeeRepository employeeRepository;
 
     @Autowired
-    public EmployerPostingService(EmployerPostingRepository postingRepository, EmployerRepository employerRepository, EmployeeRepository employeeRepository) {
+    public EmployerPostingService(EmployerPostingRepository postingRepository, EmployerRepository employerRepository,
+                                  EmployeeRepository employeeRepository, EmployeePostingRepository employeePostingRepository) {
         Assert.notNull(postingRepository, "Employer Posting Repository must not be null !");
 
         this.postingRepository = postingRepository;
         this.employerRepository = employerRepository;
         this.employeeRepository = employeeRepository;
+        this.employeePostingRepository = employeePostingRepository;
     }
 
     public boolean createNewPost(EmployerPosting posting) {
@@ -35,7 +41,7 @@ public class EmployerPostingService {
         try {
             Employer employer = employerRepository.findByEmail(SecurityUtils.getCurrentLogin());
 
-            posting.setStatus(0);
+            posting.setStatus(EmployerPostStatus.WAITING.getStatus());
             posting.setEmployer(employer);
 
             postingRepository.saveAndFlush(posting);
@@ -72,7 +78,7 @@ public class EmployerPostingService {
 
     public List<EmployerPosting> findAllEmployerPosts() {
         List<EmployerPosting> postings = postingRepository.findAllEmployerPosts(SecurityUtils.getCurrentLogin());
-        List<EmployerPosting> deletePostings = new ArrayList<>();
+        List<EmployerPosting> closePostings = new ArrayList<>();
         Date currentDate = new Date();
 
         if (postings == null) {
@@ -81,31 +87,57 @@ public class EmployerPostingService {
 
         postings.forEach(posting -> {
 
-            if (posting.getEndDate().after(currentDate) && posting.getStartDate().before(currentDate) && posting.getEmployeePostings().size() > 0 && posting.getStatus() < 1) {
+            if (posting.getEndDate().after(currentDate) && posting.getStartDate().before(currentDate) && posting.getStatus() < 1) {
+                long validEmployeePost = posting.getEmployeePostings().stream()
+                        .filter(post -> post.getStatus().equals(EmployeePostStatus.WAITING_ACCEPTED.getStatus())).count();
 
-                posting.setStatus(1);
-                postingRepository.saveAndFlush(posting);
+                if (validEmployeePost > 0) {
+                    posting.setStatus(EmployerPostStatus.IN_PROGRESS.getStatus());
+                    postingRepository.saveAndFlush(posting);
 
-            } else if (posting.getEndDate().after(currentDate) && posting.getStartDate().before(currentDate) && posting.getEmployeePostings().size() == 0 && posting.getStatus() < 1) {
+                    posting.getEmployeePostings().forEach(post -> {
+                        if (post.getStatus().equals(EmployeePostStatus.WAITING_ACCEPTED.getStatus())) {
+                            post.setStatus(EmployeePostStatus.IN_PROGRESS.getStatus());
+                        } else {
+                            post.setStatus(EmployeePostStatus.CLOSED.getStatus());
+                        }
 
-                deletePostings.add(posting);
+                        employeePostingRepository.saveAndFlush(post);
+                    });
 
-            } else if (posting.getEndDate().before(currentDate) && posting.getEmployeePostings().size() > 0 && posting.getStatus() < 2) {
+                } else {
+                    closePostings.add(posting);
+                }
 
-                posting.setStatus(2);
-                postingRepository.saveAndFlush(posting);
+            } else if (posting.getEndDate().before(currentDate) && posting.getStatus() < 2) {
+                long validEmployeePost = posting.getEmployeePostings().stream()
+                        .filter(post -> post.getStatus().equals(EmployeePostStatus.IN_PROGRESS.getStatus())).count();
 
-            } else if (posting.getEndDate().before(currentDate) && posting.getEmployeePostings().size() == 0 && posting.getStatus() < 2) {
+                if (validEmployeePost > 0) {
+                    posting.setStatus(EmployerPostStatus.DONE.getStatus());
+                    postingRepository.saveAndFlush(posting);
 
-                deletePostings.add(posting);
+                    posting.getEmployeePostings().forEach(post -> {
+
+                        if (post.getStatus().equals(EmployeePostStatus.IN_PROGRESS.getStatus())) {
+                            post.setStatus(EmployeePostStatus.DONE_WAITING.getStatus());
+                            employeePostingRepository.saveAndFlush(post);
+                        }
+
+                    });
+
+                } else {
+                    closePostings.add(posting);
+                }
 
             }
 
         });
 
-        deletePostings.forEach(posting -> {
+        closePostings.forEach(posting -> {
+            posting.setStatus(EmployerPostStatus.CLOSED.getStatus());
+            postingRepository.saveAndFlush(posting);
             postings.remove(posting);
-            postingRepository.delete(posting);
         });
 
         postings.forEach(posting -> {
@@ -128,9 +160,8 @@ public class EmployerPostingService {
         }
 
         List<EmployerPosting> postings = postingRepository.findAllAvailablePosts(employee.getJob().getJobId());
-        postings.forEach(this::hiddenEmployerDetails);
 
-        return postings;
+        return filterPostsForEmployee(postings, employee);
     }
 
     public List<EmployerPosting> findAllAvailablePostsForEmployee(String name, Date startDate, Date endDate) {
@@ -141,25 +172,8 @@ public class EmployerPostingService {
         }
 
         List<EmployerPosting> postings = postingRepository.findAllAvailablePosts(employee.getJob().getJobId(), name, startDate, endDate);
-        postings.forEach(this::hiddenEmployerDetails);
 
-        return postings;
-    }
-
-    private void hiddenEmployerDetails(EmployerPosting posting) {
-        Employer hiddenEmployer = new Employer();
-        Employer employer = posting.getEmployer();
-
-        hiddenEmployer.setEmail(employer.getEmail());
-        hiddenEmployer.setPhoneNumber(employer.getPhoneNumber());
-        hiddenEmployer.setDateOfBirth(employer.getDateOfBirth());
-        hiddenEmployer.setFirstName(employer.getFirstName());
-        hiddenEmployer.setLastName(employer.getLastName());
-        hiddenEmployer.setReputation(employer.getReputation());
-        hiddenEmployer.setProfilePicture(employer.getProfilePicture());
-        hiddenEmployer.setReviewEmployer(employer.getReviewEmployer());
-
-        posting.setEmployer(hiddenEmployer);
+        return filterPostsForEmployee(postings, employee);
     }
 
     private void hiddenEmployeePostingDetails(EmployerPosting posting) {
@@ -168,7 +182,7 @@ public class EmployerPostingService {
 
         for (EmployeePosting employeePosting : employeePostings) {
 
-            if (employeePosting.getStatus() == 4 || employeePosting.getStatus() == 6) {
+            if (employeePosting.getStatus() == 4 || employeePosting.getStatus() == 6 || employeePosting.getStatus() == 7) {
                 continue;
             }
 
@@ -202,5 +216,25 @@ public class EmployerPostingService {
 
         posting.setEmployeePostings(hiddenEmployeePostings);
     }
+
+    private List<EmployerPosting> filterPostsForEmployee(List<EmployerPosting> postings, Employee employee) {
+        List<EmployerPosting> result = new ArrayList<>();
+
+        postings.forEach(posting -> {
+            posting.setEmployer(null);
+
+            boolean hadPosted = posting.getEmployeePostings().stream()
+                    .filter(p -> p.getEmployee().getEmployeeId().equals(employee.getEmployeeId())).count() > 0;
+
+            if (!hadPosted) {
+                result.add(posting);
+            }
+
+            posting.setEmployeePostings(null);
+        });
+
+        return result;
+    }
+
 
 }

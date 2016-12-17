@@ -2,6 +2,8 @@ package ro.jobzz.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ro.jobzz.constants.EmployeePostStatus;
+import ro.jobzz.constants.EmployerPostStatus;
 import ro.jobzz.entities.EmployeePosting;
 import ro.jobzz.entities.Employer;
 import ro.jobzz.entities.EmployerPosting;
@@ -26,7 +28,8 @@ public class EmployerController {
     private ReviewEmployeeService reviewEmployeeService;
 
     @Autowired
-    public EmployerController(EmployerService employerService, EmployerPostingService employerPostingService, EmployeePostingService employeePostingService, ReviewEmployeeService reviewEmployeeService) {
+    public EmployerController(EmployerService employerService, EmployerPostingService employerPostingService,
+                              EmployeePostingService employeePostingService, ReviewEmployeeService reviewEmployeeService) {
         this.employerService = employerService;
         this.employerPostingService = employerPostingService;
         this.employeePostingService = employeePostingService;
@@ -107,7 +110,7 @@ public class EmployerController {
 
     @RequestMapping(value = "/remove/employee/post", method = RequestMethod.POST)
     public Map<String, Object> removeEmployeePost(@RequestBody ReviewEmployeePost reviewEmployeePost) {
-        reviewEmployeePost.getEmployeePost().setStatus(4);
+        reviewEmployeePost.getEmployeePost().setStatus(EmployeePostStatus.IN_PROGRESS_REMOVED.getStatus());
         boolean isAdd = reviewEmployeeService.saveReview(reviewEmployeePost.getReview());
         boolean isUpdate = employeePostingService.updateStatus(reviewEmployeePost.getEmployeePost());
 
@@ -119,7 +122,7 @@ public class EmployerController {
 
     @RequestMapping(value = "/pay/employee/post", method = RequestMethod.POST)
     public Map<String, Object> payEmployeePost(@RequestBody ReviewEmployeePost reviewEmployeePost) {
-        reviewEmployeePost.getEmployeePost().setStatus(6);
+        reviewEmployeePost.getEmployeePost().setStatus(EmployeePostStatus.DONE_PAID.getStatus());
         boolean isAdd = reviewEmployeeService.saveReview(reviewEmployeePost.getReview());
         boolean isUpdate = employeePostingService.updateStatus(reviewEmployeePost.getEmployeePost());
 
@@ -131,7 +134,7 @@ public class EmployerController {
 
     @RequestMapping(value = "/close/post", method = RequestMethod.POST)
     public Map<String, Object> closePost(@RequestBody EmployerPosting post) {
-        post.setStatus(3);
+        post.setStatus(EmployerPostStatus.CLOSED.getStatus());
         boolean isClose = employerPostingService.updatePost(post);
 
         Map<String, Object> model = new HashMap<>();
