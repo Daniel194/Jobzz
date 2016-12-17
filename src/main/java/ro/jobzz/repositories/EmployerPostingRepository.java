@@ -14,7 +14,7 @@ public interface EmployerPostingRepository extends JpaRepository<EmployerPosting
     @SuppressWarnings("unchecked")
     EmployerPosting saveAndFlush(EmployerPosting posting);
 
-    @Query("SELECT p from EmployerPosting p WHERE p.employer.email = ?1")
+    @Query("SELECT p from EmployerPosting p WHERE p.employer.email = ?1 AND p.status <> 3")
     List<EmployerPosting> findAllEmployerPosts(String email);
 
     void delete(EmployerPosting posting);

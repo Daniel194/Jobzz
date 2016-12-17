@@ -1,6 +1,6 @@
 angular.module('jobzz')
-    .controller('PostDetailsEmployerCtrl', ['$scope', '$rootScope', '$http', '$mdPanel', 'postService', 'dateToStringService', 'removeEmployeePostService', 'payEmployeePostService',
-        function ($scope, $rootScope, $http, $mdPanel, postService, dateToStringService, removeEmployeePostService, payEmployeePostService) {
+    .controller('PostDetailsEmployerCtrl', ['$scope', '$rootScope', '$http', '$mdPanel', 'postService', 'dateToStringService', 'removeEmployeePostService', 'payEmployeePostService', '$location',
+        function ($scope, $rootScope, $http, $mdPanel, postService, dateToStringService, removeEmployeePostService, payEmployeePostService, $location) {
             $scope.post = postService.getPost();
             $scope.latlng = [$scope.post.latitude, $scope.post.longitude];
 
@@ -92,6 +92,10 @@ angular.module('jobzz')
                             return post.employeePostingId !== removePost.employeePostingId;
                         });
 
+                        if ($scope.post.employeePostings.length == 0) {
+                            closePost();
+                        }
+
                     }
                 };
 
@@ -146,6 +150,10 @@ angular.module('jobzz')
                             return post.employeePostingId !== removePost.employeePostingId;
                         });
 
+                        if ($scope.post.employeePostings.length == 0) {
+                            closePost();
+                        }
+
                     }
                 };
 
@@ -170,6 +178,30 @@ angular.module('jobzz')
 
                 $mdPanel.open(config).then(function (result) {
                     $rootScope.panelRef = result;
+                });
+
+            };
+
+            var closePost = function () {
+
+                var req = {
+                    method: 'POST',
+                    dataType: 'json',
+                    url: '/employer/close/post',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    },
+                    data: $scope.post
+                };
+
+                $http(req).then(function (response) {
+
+                    if (response.data.isClose) {
+                        $location.path('/employer/home').replace();
+                    }
+
+                }, function () {
+                    console.log('Fail to close');
                 });
 
             }

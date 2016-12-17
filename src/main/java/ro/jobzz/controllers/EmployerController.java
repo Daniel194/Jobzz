@@ -129,4 +129,15 @@ public class EmployerController {
         return model;
     }
 
+    @RequestMapping(value = "/close/post", method = RequestMethod.POST)
+    public Map<String, Object> closePost(@RequestBody EmployerPosting post) {
+        post.setStatus(3);
+        boolean isClose = employerPostingService.updatePost(post);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("isClose", isClose);
+
+        return model;
+    }
+
 }
