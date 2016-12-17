@@ -4,7 +4,7 @@ package ro.jobzz.models;
 import ro.jobzz.entities.EmployeePosting;
 import ro.jobzz.entities.ReviewEmployee;
 
-public class RemoveEmployeePost {
+public class ReviewEmployeePost {
 
     private ReviewEmployee review;
 

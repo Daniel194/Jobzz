@@ -12,9 +12,29 @@ angular.module('jobzz')
         };
 
         $scope.payEmployee = function () {
-            payEmployeePostService.setPostIsPaid(true);
-            $scope.closeDialog();
-            //TODO
+            $scope.review.employee = $scope.employeePost.employee;
+
+            var req = {
+                method: 'POST',
+                dataType: 'json',
+                url: '/employer/pay/employee/post',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                data: {review: $scope.review, employeePost: $scope.employeePost}
+            };
+
+            $http(req).then(function (response) {
+
+                if (response.data.isPaid) {
+                    payEmployeePostService.setPostIsPaid(true);
+                    $scope.closeDialog();
+                }
+
+            }, function () {
+                console.log('Fail to delete the post !');
+            });
+
         }
 
     }]);

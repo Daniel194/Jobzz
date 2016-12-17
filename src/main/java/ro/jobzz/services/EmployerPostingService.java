@@ -168,7 +168,7 @@ public class EmployerPostingService {
 
         for (EmployeePosting employeePosting : employeePostings) {
 
-            if (employeePosting.getStatus() == 4) {
+            if (employeePosting.getStatus() == 4 || employeePosting.getStatus() == 6) {
                 continue;
             }
 

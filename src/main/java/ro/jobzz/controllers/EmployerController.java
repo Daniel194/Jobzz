@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ro.jobzz.entities.EmployeePosting;
 import ro.jobzz.entities.Employer;
 import ro.jobzz.entities.EmployerPosting;
-import ro.jobzz.models.RemoveEmployeePost;
+import ro.jobzz.models.ReviewEmployeePost;
 import ro.jobzz.security.SecurityUtils;
 import ro.jobzz.services.EmployeePostingService;
 import ro.jobzz.services.EmployerPostingService;
@@ -106,13 +106,25 @@ public class EmployerController {
     }
 
     @RequestMapping(value = "/remove/employee/post", method = RequestMethod.POST)
-    public Map<String, Object> removeEmployeePost(@RequestBody RemoveEmployeePost removeEmployeePost) {
-        removeEmployeePost.getEmployeePost().setStatus(4);
-        boolean isAdd = reviewEmployeeService.saveReview(removeEmployeePost.getReview());
-        boolean isUpdate = employeePostingService.updateStatus(removeEmployeePost.getEmployeePost());
+    public Map<String, Object> removeEmployeePost(@RequestBody ReviewEmployeePost reviewEmployeePost) {
+        reviewEmployeePost.getEmployeePost().setStatus(4);
+        boolean isAdd = reviewEmployeeService.saveReview(reviewEmployeePost.getReview());
+        boolean isUpdate = employeePostingService.updateStatus(reviewEmployeePost.getEmployeePost());
 
         Map<String, Object> model = new HashMap<>();
         model.put("isRemoved", isAdd && isUpdate);
+
+        return model;
+    }
+
+    @RequestMapping(value = "/pay/employee/post", method = RequestMethod.POST)
+    public Map<String, Object> payEmployeePost(@RequestBody ReviewEmployeePost reviewEmployeePost) {
+        reviewEmployeePost.getEmployeePost().setStatus(6);
+        boolean isAdd = reviewEmployeeService.saveReview(reviewEmployeePost.getReview());
+        boolean isUpdate = employeePostingService.updateStatus(reviewEmployeePost.getEmployeePost());
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("isPaid", isAdd && isUpdate);
 
         return model;
     }
