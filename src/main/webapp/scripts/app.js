@@ -113,6 +113,15 @@ angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages', 'ht
                     authorizedRoles: [USER_ROLES.employee]
                 }
             })
+            .when('/employee/post/details', {
+                templateUrl: '/views/employee/postDetails.html',
+                controller: 'PostDetailsEmployeeCtrl',
+                controllerAs: 'PostDetailsEmployeeCtrl',
+                access: {
+                    loginRequired: true,
+                    authorizedRoles: [USER_ROLES.employee]
+                }
+            })
             .when('/loading', {
                 templateUrl: 'views/loading.html',
                 access: {
