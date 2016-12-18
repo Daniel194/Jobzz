@@ -99,6 +99,24 @@ public class EmployeePostingService {
         return true;
     }
 
+    public boolean updateStatusToDone(EmployeePosting post) {
+
+        try {
+
+            if (post.getStatus().equals(EmployeePostStatus.IN_PROGRESS_REMOVED.getStatus())
+                    || post.getStatus().equals(EmployeePostStatus.DONE_PAID.getStatus())) {
+
+                postingRepository.updateStatus(post.getEmployeePostingId(), EmployeePostStatus.CLOSED.getStatus());
+
+            }
+
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+
+    }
 
     private void hiddenEmployerPosting(EmployeePosting posting) {
         EmployerPosting employerPosting = posting.getEmployerPosting();
@@ -108,6 +126,7 @@ public class EmployeePostingService {
         Employer hiddenEmployer = new Employer();
         Employer employer = employerPosting.getEmployer();
 
+        hiddenEmployer.setEmployerId(employer.getEmployerId());
         hiddenEmployer.setEmail(employer.getEmail());
         hiddenEmployer.setPhoneNumber(employer.getPhoneNumber());
         hiddenEmployer.setDateOfBirth(employer.getDateOfBirth());
@@ -115,7 +134,6 @@ public class EmployeePostingService {
         hiddenEmployer.setLastName(employer.getLastName());
         hiddenEmployer.setReputation(employer.getReputation());
         hiddenEmployer.setProfilePicture(employer.getProfilePicture());
-        hiddenEmployer.setReviewEmployer(employer.getReviewEmployer());
 
         hiddenEmployerPosting.setEmployer(hiddenEmployer);
 

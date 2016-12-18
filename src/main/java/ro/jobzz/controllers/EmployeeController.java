@@ -6,10 +6,12 @@ import ro.jobzz.entities.Employee;
 import ro.jobzz.entities.EmployeePosting;
 import ro.jobzz.entities.EmployerPosting;
 import ro.jobzz.models.FindJobRequest;
+import ro.jobzz.models.ReviewEmployerPost;
 import ro.jobzz.security.SecurityUtils;
 import ro.jobzz.services.EmployeePostingService;
 import ro.jobzz.services.EmployeeService;
 import ro.jobzz.services.EmployerPostingService;
+import ro.jobzz.services.ReviewEmployerService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,13 +26,17 @@ public class EmployeeController {
     private EmployeePostingService postingService;
     private EmployerPostingService employerPostingService;
     private EmployeePostingService employeePostingService;
+    private ReviewEmployerService reviewEmployerService;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService, EmployeePostingService postingService, EmployerPostingService employerPostingService, EmployeePostingService employeePostingService) {
+    public EmployeeController(EmployeeService employeeService, EmployeePostingService postingService, EmployerPostingService employerPostingService,
+                              EmployeePostingService employeePostingService, ReviewEmployerService reviewEmployerService) {
+
         this.employeeService = employeeService;
         this.postingService = postingService;
         this.employerPostingService = employerPostingService;
         this.employeePostingService = employeePostingService;
+        this.reviewEmployerService = reviewEmployerService;
     }
 
 
@@ -120,6 +126,17 @@ public class EmployeeController {
 
         Map<String, Object> model = new HashMap<>();
         model.put("isUpdate", isUpdate);
+
+        return model;
+    }
+
+    @RequestMapping(value = "/review/employer/post", method = RequestMethod.POST)
+    public Map<String, Object> reviewEmployerPost(@RequestBody ReviewEmployerPost review) {
+        boolean isCreated = reviewEmployerService.reviewEmployerPost(review.getReview());
+        boolean isChange = employeePostingService.updateStatusToDone(review.getEmployeePosting());
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("isCreated", isCreated && isChange);
 
         return model;
     }

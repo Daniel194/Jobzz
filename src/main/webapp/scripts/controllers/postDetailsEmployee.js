@@ -39,7 +39,27 @@ angular.module('jobzz')
             };
 
             $scope.reviewEmployer = function () {
-                //TODO
+                var position = $mdPanel.newPanelPosition()
+                    .absolute()
+                    .center();
+
+                var config = {
+                    attachTo: angular.element(document.body),
+                    controller: 'ReviewEmployerEmployeeCtrl',
+                    controllerAs: 'ReviewEmployerEmployeeCtrl',
+                    templateUrl: '/views/employee/reviewEmployer.html',
+                    hasBackdrop: true,
+                    panelClass: 'change-post',
+                    position: position,
+                    clickOutsideToClose: true,
+                    escapeToClose: true,
+                    disableParentScroll: true,
+                    trapFocus: true
+                };
+
+                $mdPanel.open(config).then(function (result) {
+                    $rootScope.panelRef = result;
+                });
             }
 
         }]);
