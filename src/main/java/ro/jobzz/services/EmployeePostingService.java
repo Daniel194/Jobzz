@@ -118,6 +118,12 @@ public class EmployeePostingService {
 
     }
 
+    public boolean allowNewPost() {
+        Employee employer = employeeRepository.findByEmail(SecurityUtils.getCurrentLogin());
+
+        return postingRepository.numberOfPostInDoneStatus(employer.getEmail()) == 0;
+    }
+
     private void hiddenEmployerPosting(EmployeePosting posting) {
         EmployerPosting employerPosting = posting.getEmployerPosting();
         EmployerPosting hiddenEmployerPosting = new EmployerPosting();

@@ -26,4 +26,7 @@ public interface EmployeePostingRepository extends JpaRepository<EmployeePosting
     @Query("UPDATE EmployeePosting p SET p.status =:status WHERE p.employeePostingId =:employeePostingId")
     void updateStatus(@Param("employeePostingId") Integer employeePostingId, @Param("status") Integer status);
 
+    @Query("SELECT COUNT(p) FROM EmployeePosting p WHERE p.employee.email = ?1 AND p.status IN(4, 6)")
+    Long numberOfPostInDoneStatus(String email);
+
 }

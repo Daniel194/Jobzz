@@ -1,70 +1,115 @@
 angular.module('jobzz')
-    .controller('FindJobEmployeeCtrl', ['$scope', '$rootScope', '$http', '$location', 'jobService', function ($scope, $rootScope, $http, $location, jobService) {
-        var currentDate = new Date();
-        $scope.job = {};
+    .controller('FindJobEmployeeCtrl', ['$scope', '$rootScope', '$http', '$location', 'jobService', '$mdPanel',
+        function ($scope, $rootScope, $http, $location, jobService, $mdPanel) {
+            var currentDate = new Date();
+            $scope.job = {};
 
-        $scope.minDate = new Date(
-            currentDate.getFullYear(),
-            currentDate.getMonth(),
-            currentDate.getDate());
+            $scope.minDate = new Date(
+                currentDate.getFullYear(),
+                currentDate.getMonth(),
+                currentDate.getDate());
 
-        $scope.maxDate = new Date(
-            currentDate.getFullYear() + 10,
-            currentDate.getMonth(),
-            currentDate.getDate());
+            $scope.maxDate = new Date(
+                currentDate.getFullYear() + 10,
+                currentDate.getMonth(),
+                currentDate.getDate());
 
-        $scope.job.startDate = $scope.minDate;
-        $scope.job.endDate = $scope.maxDate;
+            $scope.job.startDate = $scope.minDate;
+            $scope.job.endDate = $scope.maxDate;
 
-        var getJobs = function () {
-            var req = {
-                method: 'GET',
-                dataType: 'json',
-                url: '/employee/all/available/jobs',
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
-                }
+            var getJobs = function () {
+                var req = {
+                    method: 'GET',
+                    dataType: 'json',
+                    url: '/employee/all/available/jobs',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    }
+                };
+
+                $http(req).then(function (response) {
+
+                    $scope.jobs = response.data;
+
+                }, function () {
+                    console.log('Fail to load the Jobs');
+                });
+
             };
 
-            $http(req).then(function (response) {
+            getJobs();
 
-                $scope.jobs = response.data;
+            $scope.findJob = function () {
 
-            }, function () {
-                console.log('Fail to load the Jobs');
-            });
+                var req = {
+                    method: 'POST',
+                    dataType: 'json',
+                    url: '/employee/find/available/jobs',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    },
+                    data: $scope.job
+                };
 
-        };
+                $http(req).then(function (response) {
 
-        getJobs();
+                    $scope.jobs = response.data;
 
-        $scope.findJob = function () {
+                }, function () {
+                    console.log('Fail to find Jobs');
+                });
 
-            var req = {
-                method: 'POST',
-                dataType: 'json',
-                url: '/employee/find/available/jobs',
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
-                },
-                data: $scope.job
             };
 
-            $http(req).then(function (response) {
+            $scope.jobDetails = function (job) {
 
-                $scope.jobs = response.data;
+                var req = {
+                    method: 'GET',
+                    dataType: 'json',
+                    url: '/employee/allow/new/post',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    }
+                };
 
-            }, function () {
-                console.log('Fail to find Jobs');
-            });
+                $http(req).then(function (response) {
 
-        };
+                    if (response.data.isAllow) {
 
-        $scope.jobDetails = function (job) {
+                        jobService.setJob(job);
+                        $location.path('/employee/job/details').replace();
 
-            jobService.setJob(job);
-            $location.path('/employee/job/details').replace();
+                    } else {
 
-        };
+                        var position = $mdPanel.newPanelPosition()
+                            .absolute()
+                            .center();
 
-    }]);
+                        var config = {
+                            attachTo: angular.element(document.body),
+                            controller: 'WarningNewPostEmployeeCtrl',
+                            controllerAs: 'WarningNewPostEmployeeCtrl',
+                            templateUrl: '/views/employee/warningNewPost.html',
+                            hasBackdrop: true,
+                            panelClass: 'change-post',
+                            position: position,
+                            clickOutsideToClose: true,
+                            escapeToClose: true,
+                            disableParentScroll: true,
+                            trapFocus: true
+                        };
+
+                        $mdPanel.open(config).then(function (result) {
+                            $rootScope.panelRef = result;
+                        });
+
+                    }
+
+                }, function () {
+                    console.log('Fail');
+                });
+
+
+            };
+
+        }]);
