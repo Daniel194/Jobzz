@@ -143,4 +143,14 @@ public class EmployerController {
         return model;
     }
 
+    @RequestMapping(value = "/allow/new/post", method = RequestMethod.GET)
+    public Map<String, Object> allowNewPost() {
+        boolean isAllow = employerPostingService.allowNewPost();
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("isAllow", isAllow);
+
+        return model;
+    }
+
 }
