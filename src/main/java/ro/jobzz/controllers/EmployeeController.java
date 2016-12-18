@@ -151,4 +151,14 @@ public class EmployeeController {
         return model;
     }
 
+    @RequestMapping(value = "/allow/new/review", method = RequestMethod.GET)
+    public Map<String, Object> allowNewReview() {
+        boolean isAllow = reviewEmployerService.allowNewReview();
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("isAllow", isAllow);
+
+        return model;
+    }
+
 }

@@ -6,13 +6,13 @@ import org.springframework.util.Assert;
 import ro.jobzz.entities.Employee;
 import ro.jobzz.entities.Employer;
 import ro.jobzz.entities.ReviewEmployer;
-import ro.jobzz.models.ReviewEmployerPost;
 import ro.jobzz.repositories.EmployeeRepository;
 import ro.jobzz.repositories.EmployerRepository;
 import ro.jobzz.repositories.ReviewEmployerRepository;
 import ro.jobzz.security.SecurityUtils;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class ReviewEmployerService {
@@ -46,6 +46,21 @@ public class ReviewEmployerService {
 
         } catch (Exception e) {
             return false;
+        }
+
+        return true;
+    }
+
+    public boolean allowNewReview() {
+        Employee employee = employeeRepository.findByEmail(SecurityUtils.getCurrentLogin());
+        Date currentDate = new Date();
+        Date maxDate = repository.reviewMaxDate(employee.getEmployeeId());
+
+        if (maxDate != null) {
+            long diff = currentDate.getTime() - maxDate.getTime();
+            long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+
+            return days > 1;
         }
 
         return true;

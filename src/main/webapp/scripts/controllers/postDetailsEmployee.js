@@ -39,6 +39,37 @@ angular.module('jobzz')
             };
 
             $scope.reviewEmployer = function () {
+
+                if ($scope.job.status == 5) {
+
+                    var req = {
+                        method: 'GET',
+                        dataType: 'json',
+                        url: '/employee/allow/new/review',
+                        headers: {
+                            'Content-Type': 'application/json; charset=utf-8'
+                        }
+                    };
+
+                    $http(req).then(function (response) {
+
+                        if (response.data.isAllow) {
+                            reviewEmployerPopUp();
+                        } else {
+                            warningNewReview();
+                        }
+
+                    }, function () {
+                        console.log('Fail');
+                    });
+
+                } else {
+                    reviewEmployerPopUp();
+                }
+
+            };
+
+            var reviewEmployerPopUp = function () {
                 var position = $mdPanel.newPanelPosition()
                     .absolute()
                     .center();
@@ -60,6 +91,30 @@ angular.module('jobzz')
                 $mdPanel.open(config).then(function (result) {
                     $rootScope.panelRef = result;
                 });
-            }
+            };
+
+            var warningNewReview = function () {
+                var position = $mdPanel.newPanelPosition()
+                    .absolute()
+                    .center();
+
+                var config = {
+                    attachTo: angular.element(document.body),
+                    controller: 'WarningNewReviewEmployeeCtrl',
+                    controllerAs: 'WarningNewReviewEmployeeCtrl',
+                    templateUrl: '/views/employee/warningNewReview.html',
+                    hasBackdrop: true,
+                    panelClass: 'change-post',
+                    position: position,
+                    clickOutsideToClose: true,
+                    escapeToClose: true,
+                    disableParentScroll: true,
+                    trapFocus: true
+                };
+
+                $mdPanel.open(config).then(function (result) {
+                    $rootScope.panelRef = result;
+                });
+            };
 
         }]);
