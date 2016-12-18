@@ -1,8 +1,8 @@
 angular.module('jobzz')
-    .controller('ChangePostEmployeeCtrl', ['$scope', '$rootScope', '$http', 'jobService', 'CURRENCIES',
-        function ($scope, $rootScope, $http, jobService, CURRENCIES) {
+    .controller('ChangePostEmployeeCtrl', ['$scope', '$rootScope', '$http', 'jobService', 'CURRENCIES', 'dateToStringService',
+        function ($scope, $rootScope, $http, jobService, CURRENCIES, dateToStringService) {
 
-            $scope.post = jobService.getJob();
+            $scope.post = $.extend(true, {}, jobService.getJob());
             $scope.currencies = CURRENCIES;
 
             $scope.closeDialog = function () {
@@ -13,7 +13,32 @@ angular.module('jobzz')
             };
 
             $scope.changePost = function () {
-                console.log($scope.post);
+                var req = {
+                    method: 'PUT',
+                    dataType: 'json',
+                    url: '/employee/update/post',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    },
+                    data: $scope.post
+                };
+
+                $http(req).then(function (response) {
+
+                    if (response.data.isUpdate) {
+                        var oldPost = jobService.getJob();
+
+                        oldPost.price = $scope.post.price;
+                        oldPost.comment = $scope.post.comment;
+                        oldPost.date = dateToStringService.dateToString(new Date());
+
+                        $scope.closeDialog();
+                    }
+
+                }, function () {
+                    console.log('Fail to update post');
+                });
+
             }
 
         }]);

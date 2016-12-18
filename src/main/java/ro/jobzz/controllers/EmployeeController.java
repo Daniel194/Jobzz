@@ -105,11 +105,21 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/create/post", method = RequestMethod.POST)
-    public Map<String, Object> updateEmployerPost(@RequestBody EmployeePosting post) {
+    public Map<String, Object> createEmployeePost(@RequestBody EmployeePosting post) {
         boolean isCreated = employeePostingService.createPost(post);
 
         Map<String, Object> model = new HashMap<>();
         model.put("isCreated", isCreated);
+
+        return model;
+    }
+
+    @RequestMapping(value = "/update/post", method = RequestMethod.PUT)
+    public Map<String, Object> updateEmployeePost(@RequestBody EmployeePosting post) {
+        boolean isUpdate = employeePostingService.createPost(post);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("isUpdate", isUpdate);
 
         return model;
     }

@@ -3,6 +3,7 @@ package ro.jobzz.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import ro.jobzz.constants.EmployeePostStatus;
 import ro.jobzz.entities.Employee;
 import ro.jobzz.entities.EmployeePosting;
 import ro.jobzz.entities.Employer;
@@ -72,7 +73,7 @@ public class EmployeePostingService {
             Employee employee = employeeRepository.findByEmail(SecurityUtils.getCurrentLogin());
             Date currentDate = new Date();
 
-            post.setStatus(0);
+            post.setStatus(EmployeePostStatus.WAITING_NO_RESPONSE.getStatus());
             post.setEmployee(employee);
             post.setDate(currentDate);
 
