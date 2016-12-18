@@ -15,7 +15,27 @@ angular.module('jobzz')
 
 
             $scope.changePostEmployer = function (post) {
-                //TODO
+                var position = $mdPanel.newPanelPosition()
+                    .absolute()
+                    .center();
+
+                var config = {
+                    attachTo: angular.element(document.body),
+                    controller: 'ChangePostEmployeeCtrl',
+                    controllerAs: 'ChangePostEmployeeCtrl',
+                    templateUrl: '/views/employee/changePost.html',
+                    hasBackdrop: true,
+                    panelClass: 'change-post',
+                    position: position,
+                    clickOutsideToClose: true,
+                    escapeToClose: true,
+                    disableParentScroll: true,
+                    trapFocus: true
+                };
+
+                $mdPanel.open(config).then(function (result) {
+                    $rootScope.panelRef = result;
+                });
             };
 
             $scope.reviewEmployer = function () {
