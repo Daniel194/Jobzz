@@ -45,7 +45,7 @@ angular.module('jobzz')
                     var req = {
                         method: 'GET',
                         dataType: 'json',
-                        url: '/employee/allow/new/review',
+                        url: '/employee/allow/new/review/' + $scope.job.employerPosting.employer.employerId,
                         headers: {
                             'Content-Type': 'application/json; charset=utf-8'
                         }

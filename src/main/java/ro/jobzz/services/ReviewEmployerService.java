@@ -51,10 +51,10 @@ public class ReviewEmployerService {
         return true;
     }
 
-    public boolean allowNewReview() {
+    public boolean allowNewReview(int employerId) {
         Employee employee = employeeRepository.findByEmail(SecurityUtils.getCurrentLogin());
         Date currentDate = new Date();
-        Date maxDate = repository.reviewMaxDate(employee.getEmployeeId());
+        Date maxDate = repository.reviewMaxDate(employee.getEmployeeId(), employerId);
 
         if (maxDate != null) {
             long diff = currentDate.getTime() - maxDate.getTime();

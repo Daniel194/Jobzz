@@ -13,7 +13,7 @@ public interface ReviewEmployerRepository extends JpaRepository<ReviewEmployer, 
     @SuppressWarnings("unchecked")
     ReviewEmployer saveAndFlush(ReviewEmployer review);
 
-    @Query("SELECT MAX(r.date) FROM ReviewEmployer r WHERE r.employeeId = ?1 ")
-    Date reviewMaxDate(Integer employeeId);
+    @Query("SELECT MAX(r.date) FROM ReviewEmployer r WHERE r.employeeId = ?1 AND r.employer.employerId = ?2 ")
+    Date reviewMaxDate(Integer employeeId, Integer employerId);
 
 }

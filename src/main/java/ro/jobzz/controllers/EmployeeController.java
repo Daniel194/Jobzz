@@ -151,9 +151,9 @@ public class EmployeeController {
         return model;
     }
 
-    @RequestMapping(value = "/allow/new/review", method = RequestMethod.GET)
-    public Map<String, Object> allowNewReview() {
-        boolean isAllow = reviewEmployerService.allowNewReview();
+    @RequestMapping(value = "/allow/new/review/{employerId}", method = RequestMethod.GET)
+    public Map<String, Object> allowNewReview(@PathVariable("employerId") int employerId) {
+        boolean isAllow = reviewEmployerService.allowNewReview(employerId);
 
         Map<String, Object> model = new HashMap<>();
         model.put("isAllow", isAllow);
