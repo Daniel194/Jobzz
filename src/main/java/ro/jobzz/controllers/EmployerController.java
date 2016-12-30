@@ -7,12 +7,10 @@ import ro.jobzz.constants.EmployerPostStatus;
 import ro.jobzz.entities.EmployeePosting;
 import ro.jobzz.entities.Employer;
 import ro.jobzz.entities.EmployerPosting;
+import ro.jobzz.models.EmployerReviews;
 import ro.jobzz.models.ReviewEmployeePost;
 import ro.jobzz.security.SecurityUtils;
-import ro.jobzz.services.EmployeePostingService;
-import ro.jobzz.services.EmployerPostingService;
-import ro.jobzz.services.EmployerService;
-import ro.jobzz.services.ReviewEmployeeService;
+import ro.jobzz.services.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,14 +24,17 @@ public class EmployerController {
     private EmployerPostingService employerPostingService;
     private EmployeePostingService employeePostingService;
     private ReviewEmployeeService reviewEmployeeService;
+    private ReviewEmployerService reviewEmployerService;
 
     @Autowired
     public EmployerController(EmployerService employerService, EmployerPostingService employerPostingService,
-                              EmployeePostingService employeePostingService, ReviewEmployeeService reviewEmployeeService) {
+                              EmployeePostingService employeePostingService, ReviewEmployeeService reviewEmployeeService, ReviewEmployerService reviewEmployerService) {
+
         this.employerService = employerService;
         this.employerPostingService = employerPostingService;
         this.employeePostingService = employeePostingService;
         this.reviewEmployeeService = reviewEmployeeService;
+        this.reviewEmployerService = reviewEmployerService;
     }
 
 
@@ -58,7 +59,11 @@ public class EmployerController {
     @RequestMapping(value = "/account/full", method = RequestMethod.GET)
     @ResponseBody
     public Employer getEmployerAccountFull() {
-        return employerService.findByEmail(SecurityUtils.getCurrentLogin());
+        Employer employer = employerService.findByEmail(SecurityUtils.getCurrentLogin());
+        employer.setEmployerPostings(null);
+        employer.setReviewEmployer(null);
+
+        return employer;
     }
 
 
@@ -151,6 +156,12 @@ public class EmployerController {
         model.put("isAllow", isAllow);
 
         return model;
+    }
+
+    @RequestMapping(value = "/all/reviews", method = RequestMethod.GET)
+    @ResponseBody
+    public List<EmployerReviews> allReviews() {
+        return reviewEmployerService.getAllReviews();
     }
 
 }
