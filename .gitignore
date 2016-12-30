@@ -9,7 +9,5 @@ src/main/webapp/components/*
 
 *.iml
 
-src/main/resources/database.properties
-
 src/main/webapp/styles/main.css
 /src/main/webapp/fonts/bootstrap/
