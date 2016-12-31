@@ -6,12 +6,15 @@ import org.springframework.util.Assert;
 import ro.jobzz.entities.Employee;
 import ro.jobzz.entities.Employer;
 import ro.jobzz.entities.ReviewEmployee;
+import ro.jobzz.models.EmployeeReviews;
 import ro.jobzz.repositories.EmployeeRepository;
 import ro.jobzz.repositories.EmployerRepository;
 import ro.jobzz.repositories.ReviewEmployeeRepository;
 import ro.jobzz.security.SecurityUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ReviewEmployeeService {
@@ -47,6 +50,34 @@ public class ReviewEmployeeService {
         }
 
         return true;
+    }
+
+    public List<EmployeeReviews> getAllReviews() {
+        Employee employee = employeeRepository.findByEmail(SecurityUtils.getCurrentLogin());
+        List<ReviewEmployee> reviewEmployees = repository.findAllReviewsByEmployeeId(employee.getEmployeeId());
+
+        List<EmployeeReviews> employeeReviews = new ArrayList<>();
+        List<Integer> employerIds = new ArrayList<>();
+
+        reviewEmployees.forEach(reviewEmployee -> employerIds.add(reviewEmployee.getEmployerId()));
+        List<Employer> employers = employerRepository.findByIdIn(employerIds);
+
+        reviewEmployees.forEach(reviewEmployee -> {
+            reviewEmployee.setEmployee(null);
+            Employer employer = employers.stream().filter(e -> e.getEmployerId().equals(reviewEmployee.getEmployerId()))
+                    .findFirst().orElse(null);
+
+            EmployeeReviews review = new EmployeeReviews();
+            review.setReview(reviewEmployee);
+
+            if (employer != null) {
+                review.setEmployerFullName(employer.getFirstName() + " " + employer.getLastName());
+            }
+
+            employeeReviews.add(review);
+        });
+
+        return employeeReviews;
     }
 
     private Integer calculateEmployeeReputation(Employee employee, Integer points) {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import ro.jobzz.entities.Employer;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 public interface EmployerRepository extends JpaRepository<Employer, Integer> {
@@ -22,5 +23,8 @@ public interface EmployerRepository extends JpaRepository<Employer, Integer> {
     @Transactional
     @Query("UPDATE Employer e SET e.reputation =:reputation WHERE e.employerId =:employerId")
     void updateReputation(@Param("employerId") Integer employerId, @Param("reputation") Integer reputation);
+
+    @Query("SELECT e FROM Employer e WHERE e.employerId IN ?1")
+    List<Employer> findByIdIn(List<Integer> employerIds);
 
 }

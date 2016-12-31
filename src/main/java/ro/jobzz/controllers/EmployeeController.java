@@ -5,13 +5,11 @@ import org.springframework.web.bind.annotation.*;
 import ro.jobzz.entities.Employee;
 import ro.jobzz.entities.EmployeePosting;
 import ro.jobzz.entities.EmployerPosting;
+import ro.jobzz.models.EmployeeReviews;
 import ro.jobzz.models.FindJobRequest;
 import ro.jobzz.models.ReviewEmployerPost;
 import ro.jobzz.security.SecurityUtils;
-import ro.jobzz.services.EmployeePostingService;
-import ro.jobzz.services.EmployeeService;
-import ro.jobzz.services.EmployerPostingService;
-import ro.jobzz.services.ReviewEmployerService;
+import ro.jobzz.services.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,16 +25,19 @@ public class EmployeeController {
     private EmployerPostingService employerPostingService;
     private EmployeePostingService employeePostingService;
     private ReviewEmployerService reviewEmployerService;
+    private ReviewEmployeeService reviewEmployeeService;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService, EmployeePostingService postingService, EmployerPostingService employerPostingService,
-                              EmployeePostingService employeePostingService, ReviewEmployerService reviewEmployerService) {
+    public EmployeeController(EmployeeService employeeService, EmployeePostingService postingService,
+                              EmployerPostingService employerPostingService, EmployeePostingService employeePostingService,
+                              ReviewEmployerService reviewEmployerService, ReviewEmployeeService reviewEmployeeService) {
 
         this.employeeService = employeeService;
         this.postingService = postingService;
         this.employerPostingService = employerPostingService;
         this.employeePostingService = employeePostingService;
         this.reviewEmployerService = reviewEmployerService;
+        this.reviewEmployeeService = reviewEmployeeService;
     }
 
 
@@ -63,7 +64,12 @@ public class EmployeeController {
     @RequestMapping(value = "/account/full", method = RequestMethod.GET)
     @ResponseBody
     public Employee getEmployerAccountFull() {
-        return employeeService.findByEmail(SecurityUtils.getCurrentLogin());
+        Employee employee = employeeService.findByEmail(SecurityUtils.getCurrentLogin());
+        employee.setReviewEmployee(null);
+        employee.setEmployeePostings(null);
+        employee.setJob(null);
+
+        return employee;
     }
 
 
@@ -159,6 +165,12 @@ public class EmployeeController {
         model.put("isAllow", isAllow);
 
         return model;
+    }
+
+    @RequestMapping(value = "/all/reviews", method = RequestMethod.GET)
+    @ResponseBody
+    public List<EmployeeReviews> allReviews() {
+        return reviewEmployeeService.getAllReviews();
     }
 
 }
