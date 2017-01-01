@@ -34,7 +34,8 @@
 
         <md-content>
             <md-list flex>
-                <md-list-item class="md-3-line" ng-click="null" ng-repeat="employeePost in post.employeePostings">
+                <md-list-item class="md-3-line" ng-click="employeeProfile(employeePost.employee)"
+                              ng-repeat="employeePost in post.employeePostings">
                     <md-icon md-svg-icon="image/user.svg" class="md-avatar"></md-icon>
                     <div class="md-list-item-text md-list-item-padding">
                         <h3>{{ employeePost.employee.firstName + ' ' + employeePost.employee.lastName }}</h3>

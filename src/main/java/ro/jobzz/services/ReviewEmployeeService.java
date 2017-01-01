@@ -54,6 +54,17 @@ public class ReviewEmployeeService {
 
     public List<EmployeeReviews> getAllReviews() {
         Employee employee = employeeRepository.findByEmail(SecurityUtils.getCurrentLogin());
+
+        return getAllReviews(employee);
+    }
+
+    public List<EmployeeReviews> getAllReviews(int employeeId) {
+        Employee employee = employeeRepository.findById(employeeId);
+
+        return getAllReviews(employee);
+    }
+
+    private List<EmployeeReviews> getAllReviews(Employee employee) {
         List<ReviewEmployee> reviewEmployees = repository.findAllReviewsByEmployeeId(employee.getEmployeeId());
 
         List<EmployeeReviews> employeeReviews = new ArrayList<>();
@@ -79,6 +90,7 @@ public class ReviewEmployeeService {
 
         return employeeReviews;
     }
+
 
     private Integer calculateEmployeeReputation(Employee employee, Integer points) {
         Integer reputation = employee.getReputation() + points - 5;

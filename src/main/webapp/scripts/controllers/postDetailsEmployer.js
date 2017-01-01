@@ -1,6 +1,9 @@
 angular.module('jobzz')
-    .controller('PostDetailsEmployerCtrl', ['$scope', '$rootScope', '$http', '$mdPanel', 'postService', 'dateToStringService', 'removeEmployeePostService', 'payEmployeePostService', '$location',
-        function ($scope, $rootScope, $http, $mdPanel, postService, dateToStringService, removeEmployeePostService, payEmployeePostService, $location) {
+    .controller('PostDetailsEmployerCtrl', ['$scope', '$rootScope', '$http', '$mdPanel', 'postService',
+        'dateToStringService', 'removeEmployeePostService', 'payEmployeePostService', '$location', 'employeeProfileService',
+        function ($scope, $rootScope, $http, $mdPanel, postService, dateToStringService,
+                  removeEmployeePostService, payEmployeePostService, $location, employeeProfileService) {
+
             $scope.post = postService.getPost();
             $scope.latlng = [$scope.post.latitude, $scope.post.longitude];
 
@@ -180,6 +183,11 @@ angular.module('jobzz')
                     $rootScope.panelRef = result;
                 });
 
+            };
+
+            $scope.employeeProfile = function (employee) {
+                employeeProfileService.setEmployee(employee);
+                $location.path('/employer/employee/profile').replace();
             };
 
             var closePost = function () {
