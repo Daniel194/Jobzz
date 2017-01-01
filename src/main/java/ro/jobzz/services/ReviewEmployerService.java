@@ -71,6 +71,17 @@ public class ReviewEmployerService {
 
     public List<EmployerReviews> getAllReviews() {
         Employer employer = employerRepository.findByEmail(SecurityUtils.getCurrentLogin());
+
+        return getAllReviews(employer);
+    }
+
+    public List<EmployerReviews> getAllReviews(int employerId) {
+        Employer employer = employerRepository.findById(employerId);
+
+        return getAllReviews(employer);
+    }
+
+    private List<EmployerReviews> getAllReviews(Employer employer) {
         List<ReviewEmployer> reviewEmployers = repository.findAllReviewsByEmployerId(employer.getEmployerId());
 
         List<EmployerReviews> employerReviews = new ArrayList<>();

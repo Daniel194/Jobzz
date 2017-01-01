@@ -227,7 +227,19 @@ public class EmployerPostingService {
         List<EmployerPosting> result = new ArrayList<>();
 
         postings.forEach(posting -> {
-            posting.setEmployer(null);
+            Employer hiddenEmployer = new Employer();
+            Employer employer = posting.getEmployer();
+
+            hiddenEmployer.setEmployerId(employer.getEmployerId());
+            hiddenEmployer.setEmail(employer.getEmail());
+            hiddenEmployer.setPhoneNumber(employer.getPhoneNumber());
+            hiddenEmployer.setDateOfBirth(employer.getDateOfBirth());
+            hiddenEmployer.setFirstName(employer.getFirstName());
+            hiddenEmployer.setLastName(employer.getLastName());
+            hiddenEmployer.setReputation(employer.getReputation());
+            hiddenEmployer.setProfilePicture(employer.getProfilePicture());
+
+            posting.setEmployer(hiddenEmployer);
 
             boolean hadPosted = posting.getEmployeePostings().stream()
                     .filter(p -> p.getEmployee().getEmployeeId().equals(employee.getEmployeeId())).count() > 0;

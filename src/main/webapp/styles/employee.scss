@@ -19,7 +19,7 @@ $employee-red: #ff8a80;
 
 .nav-bar-employee > .md-nav-bar,
 .apply-job-toolbar,
-.review-employer-toolbar{
+.review-employer-toolbar {
   background-color: $employee-color !important;
 }
 
@@ -86,4 +86,8 @@ div.job-details {
   width: 100%;
   height: 30px;
   font-size: 20px;
+}
+
+.margin-top-10 {
+  margin-top: 10px;
 }

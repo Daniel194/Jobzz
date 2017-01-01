@@ -27,4 +27,7 @@ public interface EmployerRepository extends JpaRepository<Employer, Integer> {
     @Query("SELECT e FROM Employer e WHERE e.employerId IN ?1")
     List<Employer> findByIdIn(List<Integer> employerIds);
 
+    @Query("SELECT e FROM Employer e WHERE e.employerId = ?1")
+    Employer findById(int employerId);
+
 }

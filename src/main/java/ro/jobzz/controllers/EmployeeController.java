@@ -6,6 +6,7 @@ import ro.jobzz.entities.Employee;
 import ro.jobzz.entities.EmployeePosting;
 import ro.jobzz.entities.EmployerPosting;
 import ro.jobzz.models.EmployeeReviews;
+import ro.jobzz.models.EmployerReviews;
 import ro.jobzz.models.FindJobRequest;
 import ro.jobzz.models.ReviewEmployerPost;
 import ro.jobzz.security.SecurityUtils;
@@ -171,6 +172,11 @@ public class EmployeeController {
     @ResponseBody
     public List<EmployeeReviews> allReviews() {
         return reviewEmployeeService.getAllReviews();
+    }
+
+    @RequestMapping(value = "/employer/{employerId}", method = RequestMethod.GET)
+    public List<EmployerReviews> getEmployee(@PathVariable("employerId") int employerId) {
+        return reviewEmployerService.getAllReviews(employerId);
     }
 
 }

@@ -1,6 +1,7 @@
 angular.module('jobzz')
     .controller('PostDetailsEmployeeCtrl', ['$scope', '$rootScope', '$http', '$mdPanel', '$location', 'jobService', 'dateToStringService',
-        function ($scope, $rootScope, $http, $mdPanel, $location, jobService, dateToStringService) {
+        'employerProfileService',
+        function ($scope, $rootScope, $http, $mdPanel, $location, jobService, dateToStringService, employerProfileService) {
 
             $scope.job = jobService.getJob();
             $scope.job.date = dateToStringService.dateToString(new Date($scope.job.date));
@@ -66,6 +67,12 @@ angular.module('jobzz')
                 } else {
                     reviewEmployerPopUp();
                 }
+
+            };
+
+            $scope.employerProfile = function (employer) {
+                employerProfileService.setEmployer(employer);
+                $location.path('/employee/employer/profile').replace();
 
             };
 
