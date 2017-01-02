@@ -16,8 +16,8 @@ angular.module('jobzz').service('EmployerAuthSharedService', function ($rootScop
 
                     authService.loginConfirmed(data);
                 }).error(function (data, status, headers, config) {
-                $rootScope.authenticationError = true;
-                $rootScope.authenticationError = true;
+
+                $rootScope.employerAuthenticationError = true;
                 EmployerSession.invalidate();
             });
 
@@ -50,7 +50,7 @@ angular.module('jobzz').service('EmployerAuthSharedService', function ($rootScop
         },
 
         logout: function () {
-            $rootScope.authenticationError = false;
+            $rootScope.employerAuthenticationError = false;
             $rootScope.authenticated = false;
             $rootScope.account = null;
             localStorageService.remove('isEmployer');
@@ -80,8 +80,8 @@ angular.module('jobzz').service('EmployeeAuthSharedService', function ($rootScop
 
                     authService.loginConfirmed(data);
                 }).error(function (data, status, headers, config) {
-                $rootScope.authenticationError = true;
-                $rootScope.authenticationError = true;
+
+                $rootScope.employeeAuthenticationError = true;
                 EmployeeSession.invalidate();
             });
         },
@@ -112,7 +112,7 @@ angular.module('jobzz').service('EmployeeAuthSharedService', function ($rootScop
             return isAuthorized;
         },
         logout: function () {
-            $rootScope.authenticationError = false;
+            $rootScope.employeeAuthenticationError = false;
             $rootScope.authenticated = false;
             localStorageService.remove('isEmployer');
             localStorageService.remove('isEmployee');

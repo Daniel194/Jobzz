@@ -9,7 +9,7 @@
                             <md-input-container>
                                 <label for="employerEmail">Email</label>
                                 <input id="employerEmail" ng-model="employer.email" type="email" required>
-                                <span ng-show="authenticationError" class="help-block login-alert">
+                                <span ng-show="employerAuthenticationError" class="help-block login-alert">
                                     Please check your credentials and try again.
                                 </span>
                             </md-input-container>
@@ -39,7 +39,7 @@
                             <md-input-container>
                                 <label for="employeeEmail">Email</label>
                                 <input id="employeeEmail" ng-model="employee.email" type="email" required>
-                                <span ng-show="authenticationError" class="help-block login-alert">
+                                <span ng-show="employeeAuthenticationError" class="help-block login-alert">
                                     Please check your credentials and try again.
                                 </span>
                             </md-input-container>
