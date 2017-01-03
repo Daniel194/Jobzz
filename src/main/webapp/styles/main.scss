@@ -22,6 +22,12 @@ html, body, .body-background {
   background-color: #EFEFEF !important;
 }
 
+.img-size,
+.size-full {
+  height: 100%;
+  width: 100%;
+}
+
 @import "../components/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "../components/bootstrap-sass/assets/stylesheets/bootstrap/theme";
 @import "../components/angular-material/angular-material.scss";

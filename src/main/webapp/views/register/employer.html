@@ -5,7 +5,6 @@
             <form role="form" name="employerForm" ng-submit="newAccount()">
                 <h3>General Information</h3>
                 <div layout-gt-sm="row">
-
                     <md-input-container class="md-block" flex-gt-sm>
                         <label for="email">Email</label>
                         <input id="email" name="email" ng-model="employer.email" type="email" required minlength="10"
@@ -16,7 +15,6 @@
                             </div>
                         </div>
                     </md-input-container>
-
                     <md-input-container class="md-block" flex-gt-sm>
                         <label for="password">Password</label>
                         <input id="password" name="password" ng-model="employer.password" type="password" required
@@ -27,7 +25,6 @@
                             </div>
                         </div>
                     </md-input-container>
-
                     <md-input-container class="md-block" flex-gt-sm>
                         <label for="repeatPassword">Repeat Password</label>
                         <input id="repeatPassword" name="repeatPassword" ng-model="employer.repeatPassword"
@@ -41,10 +38,8 @@
                             </div>
                         </div>
                     </md-input-container>
-
                 </div>
                 <div layout-gt-sm="row">
-
                     <md-input-container class="md-block" flex-gt-sm>
                         <label for="firstName">First Name</label>
                         <input id="firstName" required name="firstName" ng-model="employer.firstName" minlength="3"
@@ -55,8 +50,6 @@
                             </div>
                         </div>
                     </md-input-container>
-
-
                     <md-input-container class="md-block" flex-gt-sm>
                         <label for="lastName">Last Name</label>
                         <input id="lastName" required name="lastName" ng-model="employer.lastName" minlength="3"
@@ -67,8 +60,6 @@
                             </div>
                         </div>
                     </md-input-container>
-
-
                     <md-input-container class="md-block" flex-gt-sm>
                         <label for="phoneNumber">Phone Number</label>
                         <input id="phoneNumber" required name="phoneNumber" ng-model="employer.phoneNumber"
@@ -79,8 +70,6 @@
                             </div>
                         </div>
                     </md-input-container>
-
-
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Date of Birth</label>
                         <md-datepicker required name="dateOfBirth" ng-model="employer.dateOfBirth"
@@ -92,14 +81,10 @@
                             </div>
                         </div>
                     </md-input-container>
-
-
                 </div>
                 <hr/>
                 <h3>Payment Information</h3>
                 <div layout-gt-sm="row">
-
-
                     <md-input-container class="md-block" flex-gt-sm="60">
                         <label for="cardNumber">Card Number</label>
                         <input id="cardNumber" name="cardNumber" ng-model="employer.cardNumber" required
@@ -111,8 +96,6 @@
                             </div>
                         </div>
                     </md-input-container>
-
-
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Expiration Date</label>
                         <md-datepicker name="expirationDate" required ng-model="employer.expirationDate"
@@ -124,8 +107,6 @@
                             </div>
                         </div>
                     </md-input-container>
-
-
                     <md-input-container class="md-block" flex-gt-sm="10">
                         <label for="cvv">CVV</label>
                         <input id="cvv" name="cvv" ng-model="employer.cvv" required
@@ -137,8 +118,6 @@
                             </div>
                         </div>
                     </md-input-container>
-
-
                 </div>
                 <div class="text-center">
                     <md-button type="submit">Create Account</md-button>

@@ -90,7 +90,8 @@ div.home-employer {
 }
 
 .applications md-toolbar,
-.reviews md-toolbar {
+.reviews md-toolbar,
+.change md-toolbar{
   background-color: $employer-color !important;
   color: white;
 }
