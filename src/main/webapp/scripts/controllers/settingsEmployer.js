@@ -1,6 +1,7 @@
 angular.module('jobzz')
-    .controller('SettingsEmployerCtrl', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
+    .controller('SettingsEmployerCtrl', ['$scope', '$rootScope', '$http', function ($scope, $rootScope, $http) {
 
+        $scope.employer = {};
         $scope.currentDate = new Date();
 
         $scope.minDate = new Date(
@@ -24,8 +25,50 @@ angular.module('jobzz')
             $scope.currentDate.getDate());
 
 
+        var getEmployerFullDetails = function () {
+
+            var req = {
+                method: 'GET',
+                dataType: 'json',
+                url: '/employer/account/full',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                }
+            };
+
+            $http(req).then(function (response) {
+
+                $scope.employer = response.data;
+                $scope.employer.dateOfBirth = new Date($scope.employer.dateOfBirth);
+                $scope.employer.expirationDate = new Date($scope.employer.expirationDate);
+
+            }, function () {
+                console.log('Fail to get employer full details !');
+            });
+
+        };
+
+        getEmployerFullDetails();
+
         $scope.changeGeneralInformation = function () {
-            //TODO
+
+            var req = {
+                method: 'PUT',
+                dataType: 'json',
+                url: '/employer/update/employer/general/information',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                data: $scope.employer
+            };
+
+            $http(req).then(function (response) {
+
+
+            }, function () {
+                console.log('Fail to get employer full details !');
+            });
+
         };
 
 

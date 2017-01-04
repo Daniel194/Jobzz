@@ -63,6 +63,7 @@ public class EmployerController {
         Employer employer = employerService.findByEmail(SecurityUtils.getCurrentLogin());
         employer.setEmployerPostings(null);
         employer.setReviewEmployer(null);
+        employer.setPassword(null);
 
         return employer;
     }
@@ -168,6 +169,16 @@ public class EmployerController {
     @RequestMapping(value = "/employee/{employeeId}", method = RequestMethod.GET)
     public List<EmployeeReviews> getEmployee(@PathVariable("employeeId") int employeeId) {
         return reviewEmployeeService.getAllReviews(employeeId);
+    }
+
+    @RequestMapping(value = "/update/employer/general/information", method = RequestMethod.PUT)
+    public Map<String, Object> updateEmployerGeneralInformation(@RequestBody Employer employer) {
+        boolean isDeleted = employerService.updateGeneralInformation(employer);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("isUpdate", isDeleted);
+
+        return model;
     }
 
 }

@@ -36,8 +36,24 @@ public class EmployerService {
         return true;
     }
 
-    public Employer findByEmail(String email){
+    public Employer findByEmail(String email) {
         return repository.findByEmail(email);
     }
+
+    public boolean updateGeneralInformation(Employer employer) {
+
+        try {
+
+            repository.updateGeneralInformation(employer.getEmployerId(), employer.getEmail(), employer.getFirstName(),
+                    employer.getLastName(), employer.getPhoneNumber(), employer.getDateOfBirth());
+
+
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
 
 }

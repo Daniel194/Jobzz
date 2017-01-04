@@ -22,20 +22,6 @@
                           ng-submit="changeGeneralInformation()">
                         <div layout-gt-sm="row">
                             <md-input-container class="md-block" flex-gt-sm>
-                                <label for="email">Email</label>
-                                <input id="email" name="email" ng-model="employer.email" type="email" required
-                                       minlength="10"
-                                       maxlength="100" ng-pattern="/^.+@.+\..+$/">
-                                <div ng-messages="generalInformationForm.email.$error" role="alert">
-                                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                                        Your email must be between 10 and 100 characters long and look like an email
-                                        address.
-                                    </div>
-                                </div>
-                            </md-input-container>
-                        </div>
-                        <div layout-gt-sm="row">
-                            <md-input-container class="md-block" flex-gt-sm>
                                 <label for="firstName">First Name</label>
                                 <input id="firstName" required name="firstName" ng-model="employer.firstName"
                                        minlength="3"
@@ -150,7 +136,7 @@
                         <div layout-gt-sm="row">
                             <md-input-container class="md-block" flex-gt-sm>
                                 <label for="oldPassword">Old Password</label>
-                                <input id="oldPassword" name="oldPassword" ng-model="employer.oldPassword"
+                                <input id="oldPassword" name="oldPassword" ng-model="changePassword.oldPassword"
                                        type="password"
                                        required
                                        minlength="10" maxlength="30">
@@ -162,7 +148,7 @@
                             </md-input-container>
                             <md-input-container class="md-block" flex-gt-sm>
                                 <label for="newPassword">New Password</label>
-                                <input id="newPassword" name="newPassword" ng-model="employer.newPassword"
+                                <input id="newPassword" name="newPassword" ng-model="changePassword.newPassword"
                                        type="password"
                                        required
                                        minlength="10" maxlength="30">
@@ -175,9 +161,9 @@
                             <md-input-container class="md-block" flex-gt-sm>
                                 <label for="repeatNewPassword">Repeat New Password</label>
                                 <input id="repeatNewPassword" name="repeatNewPassword"
-                                       ng-model="employer.repeatNewPassword"
+                                       ng-model="changePassword.repeatNewPassword"
                                        type="password" required minlength="10" maxlength="30"
-                                       ng-match="employer.newPassword">
+                                       ng-match="changePassword.newPassword">
                                 <div ng-messages="changePasswordForm.repeatNewPassword.$error" role="alert">
                                     <div ng-message-exp="['required', 'minlength', 'maxlength']">
                                         Your password must be between 10 and 30 characters long.
@@ -204,7 +190,7 @@
                     <form role="form" name="deleteAccountForm" class="size-full" ng-submit="deleteAccount()">
                         <md-input-container class="md-block" flex-gt-sm>
                             <label for="password">Password</label>
-                            <input id="password" name="password" ng-model="employer.password"
+                            <input id="password" name="password" ng-model="deleteAccount.password"
                                    type="password"
                                    required
                                    minlength="10" maxlength="30">
