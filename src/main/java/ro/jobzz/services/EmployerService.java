@@ -55,5 +55,21 @@ public class EmployerService {
         return true;
     }
 
+    public boolean updatePaymentInformation(Employer employer) {
+
+        try {
+
+            repository.updatePaymentInformation(employer.getEmployerId(), employer.getCardNumber(), employer.getExpirationDate(),
+                    employer.getCvv());
+
+
+        } catch (Exception e) {
+            return false;
+        }
+
+
+        return true;
+    }
+
 
 }

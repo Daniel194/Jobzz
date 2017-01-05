@@ -66,14 +66,32 @@ angular.module('jobzz')
 
 
             }, function () {
-                console.log('Fail to get employer full details !');
+                console.log('Fail to update employer !');
             });
 
         };
 
 
         $scope.changePaymentInformation = function () {
-            //TODO
+
+            var req = {
+                method: 'PUT',
+                dataType: 'json',
+                url: '/employer/update/employer/payment/information',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                data: $scope.employer
+            };
+
+            $http(req).then(function (response) {
+
+
+            }, function () {
+                console.log('Fail to update employer !');
+            });
+
+
         };
 
         $scope.changePassword = function () {

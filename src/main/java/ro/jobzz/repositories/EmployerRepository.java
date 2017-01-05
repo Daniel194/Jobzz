@@ -37,4 +37,11 @@ public interface EmployerRepository extends JpaRepository<Employer, Integer> {
             " WHERE e.employerId = ?1")
     void updateGeneralInformation(Integer employerId, String email, String firstName, String lastName, String phoneNumber, Date dob);
 
+
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query("UPDATE Employer e SET e.cardNumber = ?2, e.expirationDate = ?3, e.cvv = ?4 " +
+            " WHERE e.employerId = ?1")
+    void updatePaymentInformation(Integer employerId, String cardNumber, Date expirationDate, String cvv);
+
 }
