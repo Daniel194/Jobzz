@@ -37,4 +37,11 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
             " WHERE e.employeeId = ?1")
     void updateGeneralInformation(Integer employeeId, String email, String firstName, String lastName, String phoneNumber, Date dob);
 
+
+    @Modifying(clearAutomatically = true)
+    @javax.transaction.Transactional
+    @Query("UPDATE Employee e SET e.cardNumber = ?2, e.expirationDate = ?3, e.cvv = ?4 " +
+            " WHERE e.employeeId = ?1")
+    void updatePaymentInformation(Integer employeeId, String cardNumber, Date expirationDate, String cvv);
+
 }

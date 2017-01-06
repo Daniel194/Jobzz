@@ -73,4 +73,25 @@ angular.module('jobzz')
 
             };
 
+            $scope.changePaymentInformation = function () {
+
+                var req = {
+                    method: 'PUT',
+                    dataType: 'json',
+                    url: '/employee/update/employee/payment/information',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    },
+                    data: $scope.employee
+                };
+
+                $http(req).then(function (response) {
+
+
+                }, function () {
+                    console.log('Fail to update employee !');
+                });
+
+            };
+
         }]);

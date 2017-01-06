@@ -63,17 +63,33 @@ public class EmployeeService {
         return repository.findByEmail(email);
     }
 
-    public boolean updateGeneralInformation(Employee employer) {
+    public boolean updateGeneralInformation(Employee employee) {
 
         try {
 
-            repository.updateGeneralInformation(employer.getEmployeeId(), employer.getEmail(), employer.getFirstName(),
-                    employer.getLastName(), employer.getPhoneNumber(), employer.getDateOfBirth());
+            repository.updateGeneralInformation(employee.getEmployeeId(), employee.getEmail(), employee.getFirstName(),
+                    employee.getLastName(), employee.getPhoneNumber(), employee.getDateOfBirth());
 
 
         } catch (Exception e) {
             return false;
         }
+
+        return true;
+    }
+
+    public boolean updatePaymentInformation(Employee employee) {
+
+        try {
+
+            repository.updatePaymentInformation(employee.getEmployeeId(), employee.getCardNumber(), employee.getExpirationDate(),
+                    employee.getCvv());
+
+
+        } catch (Exception e) {
+            return false;
+        }
+
 
         return true;
     }

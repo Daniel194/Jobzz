@@ -191,4 +191,15 @@ public class EmployeeController {
         return model;
     }
 
+    @RequestMapping(value = "/update/employee/payment/information", method = RequestMethod.PUT)
+    public Map<String, Object> updateEmployerPaymentInformation(@RequestBody Employee employee) {
+        boolean isDeleted = employeeService.updatePaymentInformation(employee);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("isUpdate", isDeleted);
+
+        return model;
+    }
+
+
 }
