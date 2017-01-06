@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ro.jobzz.entities.Employee;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -29,5 +30,11 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     @Query("SELECT e FROM Employee e WHERE e.employeeId = ?1")
     Employee findById(Integer employeeId);
+
+    @Modifying(clearAutomatically = true)
+    @javax.transaction.Transactional
+    @Query("UPDATE Employee e SET e.email = ?2, e.firstName = ?3, e.lastName = ?4, e.phoneNumber = ?5, e.dateOfBirth = ?6" +
+            " WHERE e.employeeId = ?1")
+    void updateGeneralInformation(Integer employeeId, String email, String firstName, String lastName, String phoneNumber, Date dob);
 
 }

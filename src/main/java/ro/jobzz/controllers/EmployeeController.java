@@ -69,6 +69,7 @@ public class EmployeeController {
         employee.setReviewEmployee(null);
         employee.setEmployeePostings(null);
         employee.setJob(null);
+        employee.setPassword(null);
 
         return employee;
     }
@@ -177,6 +178,17 @@ public class EmployeeController {
     @RequestMapping(value = "/employer/{employerId}", method = RequestMethod.GET)
     public List<EmployerReviews> getEmployee(@PathVariable("employerId") int employerId) {
         return reviewEmployerService.getAllReviews(employerId);
+    }
+
+
+    @RequestMapping(value = "/update/employee/general/information", method = RequestMethod.PUT)
+    public Map<String, Object> updateEmployeeGeneralInformation(@RequestBody Employee employee) {
+        boolean isDeleted = employeeService.updateGeneralInformation(employee);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("isUpdate", isDeleted);
+
+        return model;
     }
 
 }
