@@ -3,6 +3,7 @@ angular.module('jobzz')
         function ($scope, $rootScope, $http) {
 
             $scope.employee = {};
+            $scope.change = {};
             $scope.currentDate = new Date();
 
             $scope.minDate = new Date(
@@ -93,5 +94,27 @@ angular.module('jobzz')
                 });
 
             };
+
+            $scope.changePassword = function () {
+
+                var req = {
+                    method: 'PUT',
+                    dataType: 'json',
+                    url: '/employee/change/password',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    },
+                    data: $scope.change
+                };
+
+                $http(req).then(function (response) {
+
+
+                }, function () {
+                    console.log('Fail to update employee password !');
+                });
+
+            };
+
 
         }]);

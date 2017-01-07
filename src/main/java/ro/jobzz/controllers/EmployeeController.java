@@ -5,10 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ro.jobzz.entities.Employee;
 import ro.jobzz.entities.EmployeePosting;
 import ro.jobzz.entities.EmployerPosting;
-import ro.jobzz.models.EmployeeReviews;
-import ro.jobzz.models.EmployerReviews;
-import ro.jobzz.models.FindJobRequest;
-import ro.jobzz.models.ReviewEmployerPost;
+import ro.jobzz.models.*;
 import ro.jobzz.security.SecurityUtils;
 import ro.jobzz.services.*;
 
@@ -201,5 +198,14 @@ public class EmployeeController {
         return model;
     }
 
+    @RequestMapping(value = "/change/password", method = RequestMethod.PUT)
+    public Map<String, Object> changeEmployerPassword(@RequestBody ChangePassword changePassword) {
+        boolean isChanged = employeeService.changePassword(changePassword);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("isChanged", isChanged);
+
+        return model;
+    }
 
 }

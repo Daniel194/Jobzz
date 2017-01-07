@@ -2,14 +2,17 @@ package ro.jobzz.services;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ro.jobzz.entities.Employee;
 import ro.jobzz.entities.Job;
+import ro.jobzz.models.ChangePassword;
 import ro.jobzz.repositories.EmployeeRepository;
 import ro.jobzz.models.EmployeeRequest;
 import ro.jobzz.repositories.JobRepository;
+import ro.jobzz.security.SecurityUtils;
 
 @Service
 public class EmployeeService {
@@ -59,7 +62,7 @@ public class EmployeeService {
         return true;
     }
 
-    public Employee findByEmail(String email){
+    public Employee findByEmail(String email) {
         return repository.findByEmail(email);
     }
 
@@ -92,6 +95,27 @@ public class EmployeeService {
 
 
         return true;
+    }
+
+    public boolean changePassword(ChangePassword changePassword) {
+        Employee employee = repository.findByEmail(SecurityUtils.getCurrentLogin());
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        if (!changePassword.getNewPassword().equals(changePassword.getRepeatNewPassword())) {
+            return false;
+        }
+
+        if (encoder.matches(changePassword.getOldPassword(), employee.getPassword())) {
+            String encodedPassword = encoder.encode(changePassword.getNewPassword());
+            employee.setPassword(encodedPassword);
+            repository.saveAndFlush(employee);
+
+            return true;
+
+        } else {
+            return false;
+        }
+
     }
 
 }
