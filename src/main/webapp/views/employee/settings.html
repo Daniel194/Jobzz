@@ -180,32 +180,6 @@
                     </form>
                 </md-card-title>
             </md-card>
-            <md-card md-theme-watch>
-                <md-toolbar layout="row">
-                    <div class="md-toolbar-tools">
-                        <span>Delete Account</span>
-                    </div>
-                </md-toolbar>
-                <md-card-title>
-                    <form role="form" name="deleteAccountForm" class="size-full" ng-submit="deleteAccount()">
-                        <md-input-container class="md-block" flex-gt-sm>
-                            <label for="password">Password</label>
-                            <input id="password" name="password" ng-model="deleteAccount.password"
-                                   type="password"
-                                   required
-                                   minlength="10" maxlength="30">
-                            <div ng-messages="deleteAccountForm.password.$error" role="alert">
-                                <div ng-message-exp="['required', 'minlength', 'maxlength']">
-                                    Your password must be between 10 and 30 characters long.
-                                </div>
-                            </div>
-                        </md-input-container>
-                        <div class="text-center">
-                            <md-button type="submit" class="md-warn">Delete</md-button>
-                        </div>
-                    </form>
-                </md-card-title>
-            </md-card>
         </div>
     </div>
 </div>

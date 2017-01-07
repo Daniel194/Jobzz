@@ -98,8 +98,4 @@ angular.module('jobzz')
             //TODO
         };
 
-        $scope.deleteAccount = function () {
-            //TODO
-        };
-
     }]);
