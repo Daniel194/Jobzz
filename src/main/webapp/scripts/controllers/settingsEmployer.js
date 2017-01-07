@@ -2,6 +2,7 @@ angular.module('jobzz')
     .controller('SettingsEmployerCtrl', ['$scope', '$rootScope', '$http', function ($scope, $rootScope, $http) {
 
         $scope.employer = {};
+        $scope.change = {};
         $scope.currentDate = new Date();
 
         $scope.minDate = new Date(
@@ -91,11 +92,27 @@ angular.module('jobzz')
                 console.log('Fail to update employer !');
             });
 
-
         };
 
         $scope.changePassword = function () {
-            //TODO
+
+            var req = {
+                method: 'PUT',
+                dataType: 'json',
+                url: '/employer/change/password',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                data: $scope.change
+            };
+
+            $http(req).then(function (response) {
+
+
+            }, function () {
+                console.log('Fail to update employer password !');
+            });
+
         };
 
     }]);

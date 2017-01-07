@@ -7,6 +7,7 @@ import ro.jobzz.constants.EmployerPostStatus;
 import ro.jobzz.entities.EmployeePosting;
 import ro.jobzz.entities.Employer;
 import ro.jobzz.entities.EmployerPosting;
+import ro.jobzz.models.ChangePassword;
 import ro.jobzz.models.EmployeeReviews;
 import ro.jobzz.models.EmployerReviews;
 import ro.jobzz.models.ReviewEmployeePost;
@@ -173,20 +174,30 @@ public class EmployerController {
 
     @RequestMapping(value = "/update/employer/general/information", method = RequestMethod.PUT)
     public Map<String, Object> updateEmployerGeneralInformation(@RequestBody Employer employer) {
-        boolean isDeleted = employerService.updateGeneralInformation(employer);
+        boolean isUpdate = employerService.updateGeneralInformation(employer);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isUpdate", isDeleted);
+        model.put("isUpdate", isUpdate);
 
         return model;
     }
 
     @RequestMapping(value = "/update/employer/payment/information", method = RequestMethod.PUT)
     public Map<String, Object> updateEmployerPaymentInformation(@RequestBody Employer employer) {
-        boolean isDeleted = employerService.updatePaymentInformation(employer);
+        boolean isUpdate = employerService.updatePaymentInformation(employer);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isUpdate", isDeleted);
+        model.put("isUpdate", isUpdate);
+
+        return model;
+    }
+
+    @RequestMapping(value = "/change/password", method = RequestMethod.PUT)
+    public Map<String, Object> changeEmployerPassword(@RequestBody ChangePassword changePassword) {
+        boolean isChanged = employerService.changePassword(changePassword);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("isChanged", isChanged);
 
         return model;
     }
