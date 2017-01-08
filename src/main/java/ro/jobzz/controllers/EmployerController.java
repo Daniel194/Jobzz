@@ -2,6 +2,7 @@ package ro.jobzz.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ro.jobzz.constants.EmployeePostStatus;
 import ro.jobzz.constants.EmployerPostStatus;
 import ro.jobzz.entities.EmployeePosting;
@@ -202,4 +203,14 @@ public class EmployerController {
         return model;
     }
 
+    @RequestMapping(value = "/change/picture", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> changePicture(@RequestParam(value = "file") MultipartFile file) {
+        String profilePicture = employerService.changeUserPicture(file);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("profilePicture", profilePicture);
+
+        return model;
+    }
 }

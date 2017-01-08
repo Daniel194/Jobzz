@@ -4,7 +4,6 @@ package ro.jobzz.entities;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.sql.Blob;
 import java.sql.Date;
 import java.util.Set;
 
@@ -57,7 +56,7 @@ public class Employer {
     @Column(nullable = false)
     private Integer reputation;
 
-    private Blob profilePicture;
+    private String profilePicture;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employer")
     private Set<ReviewEmployer> reviewEmployer;
@@ -156,11 +155,11 @@ public class Employer {
         this.reputation = reputation;
     }
 
-    public Blob getProfilePicture() {
+    public String getProfilePicture() {
         return profilePicture;
     }
 
-    public void setProfilePicture(Blob profilePicture) {
+    public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
     }
 

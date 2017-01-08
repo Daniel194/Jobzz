@@ -5,10 +5,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.web.multipart.MultipartFile;
 import ro.jobzz.entities.Employer;
 import ro.jobzz.models.ChangePassword;
 import ro.jobzz.repositories.EmployerRepository;
 import ro.jobzz.security.SecurityUtils;
+
+import java.io.File;
+import java.io.IOException;
 
 @Service
 public class EmployerService {
@@ -94,6 +98,26 @@ public class EmployerService {
             return false;
         }
 
+    }
+
+    public String changeUserPicture(MultipartFile file) {
+        String rootDirectory = System.getProperty("user.dir") + "/src/main/webapp/image/users/employer/";
+        Employer employer = repository.findByEmail(SecurityUtils.getCurrentLogin());
+
+        try {
+            String fileName = employer.getEmployerId() + "_" + file.getOriginalFilename();
+
+            File newFile = new File(rootDirectory + fileName);
+            file.transferTo(newFile);
+
+            employer.setProfilePicture(fileName);
+            repository.saveAndFlush(employer);
+
+        } catch (IOException e) {
+            return null;
+        }
+
+        return employer.getProfilePicture();
     }
 
 }

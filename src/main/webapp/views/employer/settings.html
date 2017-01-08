@@ -3,10 +3,11 @@
         <div class="col-md-4">
             <md-card md-theme-watch>
                 <div class="md-media-lg">
-                    <img src="/image/user.png" class="img-size">
+                    <img ng-src="{{employer.profilePicture}}" class="img-size">
                 </div>
                 <div class="text-center">
-                    <md-button class="md-primary">Change Profile Picture</md-button>
+                    <input type="file" file-model="myFile"/>
+                    <md-button class="md-primary" ng-click="changePicture()">Change Profile Picture</md-button>
                 </div>
             </md-card>
         </div>
