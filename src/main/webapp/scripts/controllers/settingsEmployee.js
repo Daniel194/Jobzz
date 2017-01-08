@@ -1,6 +1,6 @@
 angular.module('jobzz')
-    .controller('SettingsEmployeeCtrl', ['$scope', '$rootScope', '$http',
-        function ($scope, $rootScope, $http) {
+    .controller('SettingsEmployeeCtrl', ['$scope', '$rootScope', '$http', 'userProfilePictureService',
+        function ($scope, $rootScope, $http, userProfilePictureService) {
 
             $scope.employee = {};
             $scope.change = {};
@@ -43,6 +43,7 @@ angular.module('jobzz')
                     $scope.employee = response.data;
                     $scope.employee.dateOfBirth = new Date($scope.employee.dateOfBirth);
                     $scope.employee.expirationDate = new Date($scope.employee.expirationDate);
+                    $scope.employee.picture = userProfilePictureService.employeeProfilePicture($scope.employee.picture);
 
                 }, function () {
                     console.log('Fail to get employee full details !');
@@ -116,5 +117,27 @@ angular.module('jobzz')
 
             };
 
+
+            $scope.changePicture = function () {
+                var file = $scope.myFile;
+                var uploadUrl = "/employee/change/picture";
+                var fd = new FormData();
+
+                fd.append('file', file);
+
+                $http.post(uploadUrl, fd, {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined
+                    }
+                }).success(function (response) {
+
+                    $scope.employee.picture = userProfilePictureService.employeeProfilePicture(response.profilePicture);
+
+                }).error(function () {
+                    console.log('error');
+                });
+
+            };
 
         }]);
