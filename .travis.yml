@@ -1,3 +1,10 @@
 language: java
+dist: trusty
 jdk:
   - oraclejdk8
+addons:
+  sonarqube:
+    token: 08d467b7ea3136be100b19eaf0f7770788f19b75
+script:
+  - sonar-scanner
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
