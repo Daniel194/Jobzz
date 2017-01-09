@@ -5,7 +5,13 @@ angular.module('jobzz').service('userProfilePictureService', function () {
         if (imageName === null) {
             return defaultImage;
         } else {
-            return "/image/users/employer/" + imageName;
+            var path = "/image/users/employer/";
+
+            if (imageName.includes(path)) {
+                return imageName;
+            } else {
+                return path + imageName;
+            }
         }
     };
 
@@ -13,7 +19,13 @@ angular.module('jobzz').service('userProfilePictureService', function () {
         if (imageName === null) {
             return defaultImage;
         } else {
-            return "/image/users/employee/" + imageName;
+            var path = "/image/users/employee/";
+
+            if (imageName.includes(path)) {
+                return imageName;
+            } else {
+                return path + imageName;
+            }
         }
     };
 

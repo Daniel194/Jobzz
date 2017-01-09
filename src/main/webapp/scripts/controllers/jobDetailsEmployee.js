@@ -1,9 +1,11 @@
 angular.module('jobzz')
     .controller('JobDetailsEmployeeCtrl', ['$scope', '$rootScope', '$http', '$mdPanel', 'jobService', 'employerProfileService', '$location',
-        function ($scope, $rootScope, $http, $mdPanel, jobService, employerProfileService, $location) {
+        'userProfilePictureService',
+        function ($scope, $rootScope, $http, $mdPanel, jobService, employerProfileService, $location, userProfilePictureService) {
 
             $scope.job = jobService.getJob();
             $scope.latlng = [$scope.job.latitude, $scope.job.longitude];
+            $scope.job.employer.profilePicture = userProfilePictureService.employerProfilePicture($scope.job.employer.profilePicture);
 
             $scope.$on('mapInitialized', function (event, map) {
                 window.setTimeout(function () {

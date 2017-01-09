@@ -5,7 +5,7 @@
             <md-card md-theme-watch class="post-details-card" ng-click="employerProfile(job.employerPosting.employer)">
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline"><b>{{job.employerPosting.employer.firstName + ' ' + job.employer.lastName}}</b></span>
+                        <span class="md-headline"><b>{{job.employerPosting.employer.firstName + ' ' + job.employerPosting.employer.lastName}}</b></span>
                         <br/>
                         <span class="md-subhead"><b>Email : </b> <br/>{{job.employerPosting.employer.email}}</span>
                         <br/>
@@ -15,7 +15,7 @@
                     </md-card-title-text>
                     <md-card-title-media>
                         <div class="md-media-lg">
-                            <img src="/image/user.png">
+                            <img ng-src="{{job.employerPosting.employer.profilePicture}}">
                         </div>
                     </md-card-title-media>
                 </md-card-title>

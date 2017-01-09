@@ -1,11 +1,15 @@
 angular.module('jobzz')
     .controller('PostDetailsEmployeeCtrl', ['$scope', '$rootScope', '$http', '$mdPanel', '$location', 'jobService', 'dateToStringService',
-        'employerProfileService',
-        function ($scope, $rootScope, $http, $mdPanel, $location, jobService, dateToStringService, employerProfileService) {
+        'employerProfileService', 'userProfilePictureService',
+        function ($scope, $rootScope, $http, $mdPanel, $location, jobService, dateToStringService, employerProfileService
+            , userProfilePictureService) {
 
             $scope.job = jobService.getJob();
             $scope.job.date = dateToStringService.dateToString(new Date($scope.job.date));
             $scope.latlng = [$scope.job.employerPosting.latitude, $scope.job.employerPosting.longitude];
+
+            $scope.job.employerPosting.employer.profilePicture = userProfilePictureService.employerProfilePicture(
+                $scope.job.employerPosting.employer.profilePicture);
 
             $scope.$on('mapInitialized', function (event, map) {
                 window.setTimeout(function () {

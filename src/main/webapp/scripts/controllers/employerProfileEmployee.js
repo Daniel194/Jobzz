@@ -1,8 +1,9 @@
 angular.module('jobzz')
-    .controller('EmployerProfileEmployeeCtrl', ['$scope', '$rootScope', '$http', 'employerProfileService',
-        function ($scope, $rootScope, $http, employerProfileService) {
+    .controller('EmployerProfileEmployeeCtrl', ['$scope', '$rootScope', '$http', 'employerProfileService', 'userProfilePictureService',
+        function ($scope, $rootScope, $http, employerProfileService, userProfilePictureService) {
 
             $scope.employer = employerProfileService.getEmployer();
+            $scope.employer.profilePicture = userProfilePictureService.employerProfilePicture($scope.employer.profilePicture);
             $scope.responses = {};
 
             var getAllEmployerReviews = function () {

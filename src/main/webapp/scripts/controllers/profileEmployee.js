@@ -1,6 +1,6 @@
 angular.module('jobzz')
-    .controller('ProfileEmployeeCtrl', ['$scope', '$rootScope', '$http', 'dateToStringService',
-        function ($scope, $rootScope, $http, dateToStringService) {
+    .controller('ProfileEmployeeCtrl', ['$scope', '$rootScope', '$http', 'dateToStringService', 'userProfilePictureService',
+        function ($scope, $rootScope, $http, dateToStringService, userProfilePictureService) {
 
             $scope.employee = {};
             $scope.responses = {};
@@ -18,6 +18,7 @@ angular.module('jobzz')
 
                 $http(req).then(function (response) {
                     $scope.employee = response.data;
+                    $scope.employee.picture = userProfilePictureService.employeeProfilePicture(response.data.picture);
 
                 }, function () {
                     console.log('Fail');
