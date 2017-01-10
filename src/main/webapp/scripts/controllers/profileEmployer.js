@@ -21,7 +21,7 @@ angular.module('jobzz')
                     $scope.employer.profilePicture = userProfilePictureService.employerProfilePicture(response.data.profilePicture);
 
                 }, function () {
-                    console.log('Fail');
+                    //Empty
                 });
 
             };
@@ -45,7 +45,7 @@ angular.module('jobzz')
                     });
 
                 }, function () {
-                    console.log('Fail');
+                    //Empty
                 });
 
             };
@@ -53,5 +53,36 @@ angular.module('jobzz')
             getAllEmployerDetails();
 
             getAllEmployerReviews();
+
+            (function () {
+
+                var bar = new ProgressBar.Circle(container, {
+                    color: '#3063A5',
+                    strokeWidth: 4,
+                    trailWidth: 1,
+                    easing: 'easeInOut',
+                    duration: 1400,
+                    text: {
+                        autoStyleContainer: false
+                    },
+                    from: {color: '#3063A5', width: 1},
+                    to: {color: '#3063A5', width: 4},
+                    // Set default step function for all animate calls
+                    step: function (state, circle) {
+                        circle.path.setAttribute('stroke', state.color);
+                        circle.path.setAttribute('stroke-width', state.width);
+                        circle.setText('lvl 2');
+
+                    }
+                });
+                bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+                bar.text.style.fontSize = '2rem';
+
+                bar.animate(0.8);  // Number from 0.0 to 1.0
+
+                $($('#container svg')[0]).hide();
+
+            })();
+
 
         }]);

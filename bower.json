@@ -22,6 +22,7 @@
     "angular-material": "^1.1.1",
     "angular-http-auth": "^1.5.0",
     "angular-local-storage": "^0.5.2",
-    "ngmap": "^1.17.8"
+    "ngmap": "^1.17.8",
+    "progressbar.js": "^1.0.1"
   }
 }

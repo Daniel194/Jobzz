@@ -1,75 +1,82 @@
 angular.module('jobzz')
-    .controller('EmployerCtrl', ['$scope', '$rootScope', '$http', '$location', '$mdPanel', 'EmployerAuthSharedService', function ($scope, $rootScope, $http, $location, $mdPanel, EmployerAuthSharedService) {
-        $scope.currentNavItem = 'home';
+    .controller('EmployerCtrl', ['$scope', '$rootScope', '$http', '$location', '$mdPanel', 'EmployerAuthSharedService',
+        function ($scope, $rootScope, $http, $location, $mdPanel, EmployerAuthSharedService) {
+            $scope.currentNavItem = 'home';
 
-        $scope.newPost = function () {
+            $scope.newPost = function () {
 
-            var req = {
-                method: 'GET',
-                dataType: 'json',
-                url: '/employer/allow/new/post',
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
-                }
-            };
+                var req = {
+                    method: 'GET',
+                    dataType: 'json',
+                    url: '/employer/allow/new/post',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    }
+                };
 
-            $http(req).then(function (response) {
+                $http(req).then(function (response) {
 
-                var position = $mdPanel.newPanelPosition()
-                    .absolute()
-                    .center();
+                    var position = $mdPanel.newPanelPosition()
+                        .absolute()
+                        .center();
 
-                var config = {};
+                    var config = {};
 
-                if (response.data.isAllow) {
+                    if (response.data.isAllow) {
 
-                    config = {
-                        attachTo: angular.element(document.body),
-                        controller: 'NewPostEmployerCtrl',
-                        controllerAs: 'NewPostEmployerCtrl',
-                        templateUrl: '/views/employer/newPost.html',
-                        hasBackdrop: true,
-                        panelClass: 'new-post',
-                        position: position,
-                        clickOutsideToClose: true,
-                        escapeToClose: true,
-                        disableParentScroll: true,
-                        trapFocus: true
-                    };
+                        config = {
+                            attachTo: angular.element(document.body),
+                            controller: 'NewPostEmployerCtrl',
+                            controllerAs: 'NewPostEmployerCtrl',
+                            templateUrl: '/views/employer/newPost.html',
+                            hasBackdrop: true,
+                            panelClass: 'new-post',
+                            position: position,
+                            clickOutsideToClose: true,
+                            escapeToClose: true,
+                            disableParentScroll: true,
+                            trapFocus: true
+                        };
 
-                } else {
+                    } else {
 
-                    config = {
-                        attachTo: angular.element(document.body),
-                        controller: 'WarningNewPostEmployerCtrl',
-                        controllerAs: 'WarningNewPostEmployerCtrl',
-                        templateUrl: '/views/employer/warningNewPost.html',
-                        hasBackdrop: true,
-                        panelClass: 'new-post',
-                        position: position,
-                        clickOutsideToClose: true,
-                        escapeToClose: true,
-                        disableParentScroll: true,
-                        trapFocus: true
-                    };
+                        config = {
+                            attachTo: angular.element(document.body),
+                            controller: 'WarningNewPostEmployerCtrl',
+                            controllerAs: 'WarningNewPostEmployerCtrl',
+                            templateUrl: '/views/employer/warningNewPost.html',
+                            hasBackdrop: true,
+                            panelClass: 'new-post',
+                            position: position,
+                            clickOutsideToClose: true,
+                            escapeToClose: true,
+                            disableParentScroll: true,
+                            trapFocus: true
+                        };
 
-                }
+                    }
 
-                $mdPanel.open(config).then(function (result) {
-                    $rootScope.panelRef = result;
+                    $mdPanel.open(config).then(function (result) {
+                        $rootScope.panelRef = result;
+                    });
+
+                }, function () {
+                    //Empty
                 });
 
-            }, function () {
-                console.log('Fail !');
-            });
-
-        };
+            };
 
 
-        $scope.logoutEmployer = function () {
-            $http.post('/employer/logout', {}).finally(function () {
-                EmployerAuthSharedService.logout();
-            });
-        };
+            $scope.logoutEmployer = function () {
+                $http.post('/employer/logout', {}).finally(function () {
+                    EmployerAuthSharedService.logout();
+                });
+            };
 
-    }]);
+            $scope.navigateTo = function (newPath) {
+
+                $location.path(newPath).replace();
+
+            };
+
+        }]);

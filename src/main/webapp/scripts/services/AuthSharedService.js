@@ -10,12 +10,12 @@ angular.module('jobzz').service('EmployerAuthSharedService', function ($rootScop
                 email: email,
                 password: password
             }), config)
-                .success(function (data, status, headers, config) {
+                .then(function (response) {
                     localStorageService.set('isEmployer', true);
                     localStorageService.set('isEmployee', false);
 
-                    authService.loginConfirmed(data);
-                }).error(function (data, status, headers, config) {
+                    authService.loginConfirmed(response.data);
+                }).catch(function (response) {
 
                 $rootScope.employerAuthenticationError = true;
                 EmployerSession.invalidate();
@@ -74,12 +74,12 @@ angular.module('jobzz').service('EmployeeAuthSharedService', function ($rootScop
                 email: email,
                 password: password
             }), config)
-                .success(function (data, status, headers, config) {
+                .then(function (response) {
                     localStorageService.set('isEmployer', false);
                     localStorageService.set('isEmployee', true);
 
-                    authService.loginConfirmed(data);
-                }).error(function (data, status, headers, config) {
+                    authService.loginConfirmed(response.data);
+                }).catch(function (response) {
 
                 $rootScope.employeeAuthenticationError = true;
                 EmployeeSession.invalidate();
