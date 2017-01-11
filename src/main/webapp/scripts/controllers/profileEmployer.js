@@ -5,6 +5,39 @@ angular.module('jobzz')
             $scope.employer = {};
             $scope.responses = {};
 
+            var calculateLvl = function () {
+
+                var lvl = Math.floor($scope.employer.reputation / 10);
+                var exp = ($scope.employer.reputation % 10) * 0.1;
+
+                var bar = new ProgressBar.Circle(container, {
+                    color: '#3063A5',
+                    strokeWidth: 4,
+                    trailWidth: 1,
+                    easing: 'easeInOut',
+                    duration: 1400,
+                    text: {
+                        autoStyleContainer: false
+                    },
+                    from: {color: '#3063A5', width: 1},
+                    to: {color: '#3063A5', width: 4},
+
+                    step: function (state, circle) {
+                        circle.path.setAttribute('stroke', state.color);
+                        circle.path.setAttribute('stroke-width', state.width);
+                        circle.setText('lvl ' + lvl);
+
+                    }
+                });
+                bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+                bar.text.style.fontSize = '2rem';
+
+                bar.animate(exp);
+
+                $($('#container').find('svg')[0]).hide();
+
+            };
+
             var getAllEmployerDetails = function () {
 
                 var req = {
@@ -19,6 +52,8 @@ angular.module('jobzz')
                 $http(req).then(function (response) {
                     $scope.employer = response.data;
                     $scope.employer.profilePicture = userProfilePictureService.employerProfilePicture(response.data.profilePicture);
+
+                    calculateLvl();
 
                 }, function () {
                     //Empty
@@ -51,38 +86,6 @@ angular.module('jobzz')
             };
 
             getAllEmployerDetails();
-
             getAllEmployerReviews();
-
-            (function () {
-
-                var bar = new ProgressBar.Circle(container, {
-                    color: '#3063A5',
-                    strokeWidth: 4,
-                    trailWidth: 1,
-                    easing: 'easeInOut',
-                    duration: 1400,
-                    text: {
-                        autoStyleContainer: false
-                    },
-                    from: {color: '#3063A5', width: 1},
-                    to: {color: '#3063A5', width: 4},
-                    // Set default step function for all animate calls
-                    step: function (state, circle) {
-                        circle.path.setAttribute('stroke', state.color);
-                        circle.path.setAttribute('stroke-width', state.width);
-                        circle.setText('lvl 2');
-
-                    }
-                });
-                bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
-                bar.text.style.fontSize = '2rem';
-
-                bar.animate(0.8);  // Number from 0.0 to 1.0
-
-                $($('#container svg')[0]).hide();
-
-            })();
-
 
         }]);
