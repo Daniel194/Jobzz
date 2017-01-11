@@ -1,14 +1,40 @@
 angular.module('jobzz')
-    .controller('PostDetailsEmployerCtrl', ['$scope', '$rootScope', '$http', '$mdPanel', 'postService',
-        'dateToStringService', 'removeEmployeePostService', 'payEmployeePostService', '$location', 'employeeProfileService',
-        function ($scope, $rootScope, $http, $mdPanel, postService, dateToStringService,
-                  removeEmployeePostService, payEmployeePostService, $location, employeeProfileService) {
+    .controller('PostDetailsEmployerCtrl', ['$scope', '$rootScope', '$http', '$mdPanel', 'postService', 'dateToStringService',
+        'removeEmployeePostService', 'payEmployeePostService', '$location', 'employeeProfileService', 'userProfilePictureService',
+        function ($scope, $rootScope, $http, $mdPanel, postService, dateToStringService, removeEmployeePostService, payEmployeePostService,
+                  $location, employeeProfileService, userProfilePictureService) {
+
+            var closePost = function () {
+
+                var req = {
+                    method: 'POST',
+                    dataType: 'json',
+                    url: '/employer/close/post',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    },
+                    data: $scope.post
+                };
+
+                $http(req).then(function (response) {
+
+                    if (response.data.isClose) {
+                        $location.path('/employer/home').replace();
+                    }
+
+                }, function () {
+                    // Empty
+                });
+
+            };
 
             $scope.post = postService.getPost();
             $scope.latlng = [$scope.post.latitude, $scope.post.longitude];
 
             $scope.post.employeePostings.forEach(function (post) {
                 post.date = dateToStringService.dateToString(new Date(post.date));
+                post.employee.lvl = Math.floor(post.employee.reputation / 10);
+                post.employee.picture = userProfilePictureService.employeeProfilePicture(post.employee.picture);
             });
 
             $scope.$on('mapInitialized', function (event, map) {
@@ -133,10 +159,10 @@ angular.module('jobzz')
                     data: employeePost
                 };
 
-                $http(req).then(function (response) {
-
+                $http(req).then(function () {
+                    //Empty
                 }, function () {
-                    console.log('Fail to update');
+                    //Empty
                 });
             }
 
@@ -189,29 +215,5 @@ angular.module('jobzz')
                 employeeProfileService.setEmployee(employee);
                 $location.path('/employer/employee/profile').replace();
             };
-
-            var closePost = function () {
-
-                var req = {
-                    method: 'POST',
-                    dataType: 'json',
-                    url: '/employer/close/post',
-                    headers: {
-                        'Content-Type': 'application/json; charset=utf-8'
-                    },
-                    data: $scope.post
-                };
-
-                $http(req).then(function (response) {
-
-                    if (response.data.isClose) {
-                        $location.path('/employer/home').replace();
-                    }
-
-                }, function () {
-                    console.log('Fail to close');
-                });
-
-            }
 
         }]);

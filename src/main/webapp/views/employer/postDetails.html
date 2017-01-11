@@ -36,10 +36,10 @@
             <md-list flex>
                 <md-list-item class="md-3-line" ng-click="employeeProfile(employeePost.employee)"
                               ng-repeat="employeePost in post.employeePostings">
-                    <md-icon md-svg-icon="image/user.svg" class="md-avatar"></md-icon>
+                    <img class="employee-picture" ng-src="{{employeePost.employee.picture}}"/>
                     <div class="md-list-item-text md-list-item-padding">
                         <h3>{{ employeePost.employee.firstName + ' ' + employeePost.employee.lastName }}</h3>
-                        <h4><b>Reputation : </b>{{ employeePost.employee.reputation }}</h4>
+                        <h4><b>Lvl : </b>{{ employeePost.employee.lvl }}</h4>
                         <h4><b>Price : </b>{{ employeePost.price + ' ' + employeePost.currency }}</h4>
                         <h4><b>Date : </b> {{employeePost.date}}</h4>
                         <p><b>Comment : </b> {{employeePost.comment}}</p>
