@@ -10,7 +10,9 @@
                         <br/>
                         <span class="md-subhead"><b>Phone Number : </b> <br/> {{employer.phoneNumber}}</span>
                         <br/>
-                        <span class="md-subhead"><b>Reputation : </b> {{employer.reputation}}</span>
+                        <span class="md-subhead">
+                            <div id="container1"></div>
+                        </span>
                     </md-card-title-text>
                     <md-card-title-media>
                         <div class="md-media-lg">
@@ -32,7 +34,7 @@
                 <md-list flex>
                     <md-list-item class="md-3-line" ng-repeat="response in responses">
                         <div class="md-list-item-text md-list-item-padding">
-                            <h4><b>{{response.employerFullName}}</b></h4>
+                            <h4><b>{{response.employeeFullName}}</b></h4>
                             <h4><b>Date : </b> {{response.review.date}}</h4>
                             <p><b>Comment : </b> {{response.review.comment}}</p>
                         </div>

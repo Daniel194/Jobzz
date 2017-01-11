@@ -6,7 +6,7 @@
             restrict: 'EA',
             template: '<ul class="star-rating" ng-class="{readonly: readonly}">' +
             '  <li ng-repeat="star in stars" class="star" ng-class="{filled: star.filled}" ng-click="toggle($index)">' +
-            '    <i class="fa fa-star">&#9733</i>' +
+            '    <i class="fa fa-star" aria-hidden="true"></i>' +
             '  </li>' +
             '</ul>',
             scope: {

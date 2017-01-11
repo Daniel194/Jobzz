@@ -4,6 +4,54 @@ angular.module('jobzz')
         function ($scope, $rootScope, $http, $mdPanel, $location, jobService, dateToStringService, employerProfileService
             , userProfilePictureService) {
 
+            var reviewEmployerPopUp = function () {
+                var position = $mdPanel.newPanelPosition()
+                    .absolute()
+                    .center();
+
+                var config = {
+                    attachTo: angular.element(document.body),
+                    controller: 'ReviewEmployerEmployeeCtrl',
+                    controllerAs: 'ReviewEmployerEmployeeCtrl',
+                    templateUrl: '/views/employee/reviewEmployer.html',
+                    hasBackdrop: true,
+                    panelClass: 'change-post',
+                    position: position,
+                    clickOutsideToClose: true,
+                    escapeToClose: true,
+                    disableParentScroll: true,
+                    trapFocus: true
+                };
+
+                $mdPanel.open(config).then(function (result) {
+                    $rootScope.panelRef = result;
+                });
+            };
+
+            var warningNewReview = function () {
+                var position = $mdPanel.newPanelPosition()
+                    .absolute()
+                    .center();
+
+                var config = {
+                    attachTo: angular.element(document.body),
+                    controller: 'WarningNewReviewEmployeeCtrl',
+                    controllerAs: 'WarningNewReviewEmployeeCtrl',
+                    templateUrl: '/views/employee/warningNewReview.html',
+                    hasBackdrop: true,
+                    panelClass: 'change-post',
+                    position: position,
+                    clickOutsideToClose: true,
+                    escapeToClose: true,
+                    disableParentScroll: true,
+                    trapFocus: true
+                };
+
+                $mdPanel.open(config).then(function (result) {
+                    $rootScope.panelRef = result;
+                });
+            };
+
             $scope.job = jobService.getJob();
             $scope.job.date = dateToStringService.dateToString(new Date($scope.job.date));
             $scope.latlng = [$scope.job.employerPosting.latitude, $scope.job.employerPosting.longitude];
@@ -65,7 +113,7 @@ angular.module('jobzz')
                         }
 
                     }, function () {
-                        console.log('Fail');
+                        //Empty
                     });
 
                 } else {
@@ -80,52 +128,37 @@ angular.module('jobzz')
 
             };
 
-            var reviewEmployerPopUp = function () {
-                var position = $mdPanel.newPanelPosition()
-                    .absolute()
-                    .center();
+            (function () {
 
-                var config = {
-                    attachTo: angular.element(document.body),
-                    controller: 'ReviewEmployerEmployeeCtrl',
-                    controllerAs: 'ReviewEmployerEmployeeCtrl',
-                    templateUrl: '/views/employee/reviewEmployer.html',
-                    hasBackdrop: true,
-                    panelClass: 'change-post',
-                    position: position,
-                    clickOutsideToClose: true,
-                    escapeToClose: true,
-                    disableParentScroll: true,
-                    trapFocus: true
-                };
+                var lvl = Math.floor($scope.job.employerPosting.employer.reputation / 10);
+                var exp = ($scope.job.employerPosting.employer.reputation % 10) * 0.1;
 
-                $mdPanel.open(config).then(function (result) {
-                    $rootScope.panelRef = result;
+                var bar = new ProgressBar.Circle(container, {
+                    color: '#61B329',
+                    strokeWidth: 4,
+                    trailWidth: 1,
+                    easing: 'easeInOut',
+                    duration: 1400,
+                    text: {
+                        autoStyleContainer: false
+                    },
+                    from: {color: '#61B329', width: 1},
+                    to: {color: '#61B329', width: 4},
+
+                    step: function (state, circle) {
+                        circle.path.setAttribute('stroke', state.color);
+                        circle.path.setAttribute('stroke-width', state.width);
+                        circle.setText('lvl ' + lvl);
+
+                    }
                 });
-            };
+                bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+                bar.text.style.fontSize = '2rem';
 
-            var warningNewReview = function () {
-                var position = $mdPanel.newPanelPosition()
-                    .absolute()
-                    .center();
+                bar.animate(exp);
 
-                var config = {
-                    attachTo: angular.element(document.body),
-                    controller: 'WarningNewReviewEmployeeCtrl',
-                    controllerAs: 'WarningNewReviewEmployeeCtrl',
-                    templateUrl: '/views/employee/warningNewReview.html',
-                    hasBackdrop: true,
-                    panelClass: 'change-post',
-                    position: position,
-                    clickOutsideToClose: true,
-                    escapeToClose: true,
-                    disableParentScroll: true,
-                    trapFocus: true
-                };
+                $($('#container').find('svg')[0]).hide();
 
-                $mdPanel.open(config).then(function (result) {
-                    $rootScope.panelRef = result;
-                });
-            };
+            })();
 
         }]);
