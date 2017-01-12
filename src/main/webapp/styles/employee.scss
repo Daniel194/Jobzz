@@ -8,6 +8,11 @@ $employee-red: #ff8a80;
   border-color: $employee-color;
 }
 
+.employee-logo {
+  @extend .logo;
+  color: $employee-color;
+}
+
 .employee-login-header {
   @extend .login-header;
   background-color: $employee-color;
