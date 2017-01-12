@@ -2,8 +2,7 @@
     <md-content>
         <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links"
                     class="nav-bar-employer">
-            <span class="logo">Jobzz</span>
-            <span flex></span>
+            <span class="employer-logo">Jobzz</span>
             <md-nav-item md-nav-click="navigateTo('/employer/home')" name="home">
                 <div class="nav-item">
                     <md-icon md-svg-icon="image/home.svg"></md-icon>
@@ -16,24 +15,37 @@
                     <span class="nav-caption">New Post</span>
                 </div>
             </md-nav-item>
-            <md-nav-item md-nav-click="navigateTo('/employer/profile')" name="profile">
-                <div class="nav-item">
-                    <md-icon md-svg-icon="image/user.svg"></md-icon>
-                    <span class="nav-caption">My Profile</span>
-                </div>
-            </md-nav-item>
-            <md-nav-item md-nav-click="navigateTo('/employer/settings')" name="settings">
-                <div class="nav-item">
-                    <md-icon md-svg-icon="image/wrench.svg"></md-icon>
-                    <span class="nav-caption">Settings</span>
-                </div>
-            </md-nav-item>
-            <md-nav-item md-nav-click="logoutEmployer()" name="logout">
-                <div class="nav-item">
-                    <md-icon md-svg-icon="image/switch.svg"></md-icon>
-                    <span class="nav-caption">Logout</span>
-                </div>
-            </md-nav-item>
+            <span flex></span>
+            <div class="menu-demo-container" layout-align="center center" layout="column">
+                <md-menu>
+                    <md-button ng-click="openMenu($mdOpenMenu, $event)" class="user-menu">
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        <span class="user-name">{{employer.firstName + ' ' + employer.lastName}}</span>
+                        <img ng-src="{{employer.profilePicture}}" class="user-img-menu">
+                    </md-button>
+                    <md-menu-content width="3">
+                        <md-menu-item>
+                            <md-button ng-click="navigateTo('/employer/profile')">
+                                <md-icon md-svg-icon="image/user.svg"></md-icon>
+                                My Profile
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="navigateTo('/employer/settings')">
+                                <md-icon md-svg-icon="image/wrench.svg"></md-icon>
+                                Settings
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-divider></md-menu-divider>
+                        <md-menu-item>
+                            <md-button ng-click="logoutEmployer()">
+                                <md-icon md-svg-icon="image/switch.svg"></md-icon>
+                                Logout
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
         </md-nav-bar>
     </md-content>
 </div>

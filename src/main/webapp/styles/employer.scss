@@ -8,6 +8,11 @@ $employer-post2: #ff8a80;
   border-color: $employer-color;
 }
 
+.employer-logo {
+  @extend .logo;
+  color: $employer-color;
+}
+
 .employer-login-header {
   @extend .login-header;
   background-color: $employer-color;

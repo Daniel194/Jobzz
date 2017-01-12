@@ -41,9 +41,10 @@
 
 .logo {
   font-size: 33px;
-  margin-left: 30px;
-  margin-top: 5px;
-  color: white;
+  padding-left: 30px;
+  padding-right: 50px;
+  padding-top: 5px;
+  background-color: white;
 }
 
 div.nav-item {
@@ -67,4 +68,23 @@ span.nav-caption {
 
 .view {
   height: 100%;
+}
+
+.user-menu {
+  padding: 15px;
+  margin-top: -10px;
+  margin-right: -5px;
+  padding-right: 30px;
+  color: white;
+}
+
+.user-name {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.user-img-menu {
+  height: 50px;
+  border-radius: 10px;
+  border: 3px solid #FFFFFF;
 }

@@ -1,6 +1,7 @@
 angular.module('jobzz')
     .controller('EmployerCtrl', ['$scope', '$rootScope', '$http', '$location', '$mdPanel', 'EmployerAuthSharedService',
-        function ($scope, $rootScope, $http, $location, $mdPanel, EmployerAuthSharedService) {
+        'userProfilePictureService',
+        function ($scope, $rootScope, $http, $location, $mdPanel, EmployerAuthSharedService, userProfilePictureService) {
             $scope.currentNavItem = 'home';
 
             $scope.newPost = function () {
@@ -20,7 +21,7 @@ angular.module('jobzz')
                         .absolute()
                         .center();
 
-                    var config = {};
+                    var config;
 
                     if (response.data.isAllow) {
 
@@ -74,9 +75,29 @@ angular.module('jobzz')
             };
 
             $scope.navigateTo = function (newPath) {
-
                 $location.path(newPath).replace();
-
             };
+
+            $scope.openMenu = function ($mdOpenMenu, ev) {
+                $mdOpenMenu(ev);
+            };
+
+            (function () {
+                var req = {
+                    method: 'GET',
+                    dataType: 'json',
+                    url: '/employer/account',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    }
+                };
+
+                $http(req).then(function (response) {
+                    $scope.employer = response.data;
+                    $scope.employer.profilePicture = userProfilePictureService.employerProfilePicture($scope.employer.profilePicture);
+                }, function () {
+                    //Empty
+                });
+            })();
 
         }]);
