@@ -28,10 +28,10 @@ public final class SecurityUtils {
     public static String getCurrentLogin() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
-        UserDetails springSecurityUser = null;
+        UserDetails springSecurityUser;
         String userName = null;
 
-        if(authentication != null) {
+        if (authentication != null) {
             if (authentication.getPrincipal() instanceof UserDetails) {
                 springSecurityUser = (UserDetails) authentication.getPrincipal();
                 userName = springSecurityUser.getUsername();
@@ -43,7 +43,7 @@ public final class SecurityUtils {
         return userName;
     }
 
-    public static void sendError(HttpServletResponse response, Exception exception, int status, String message) throws IOException {
+    static void sendError(HttpServletResponse response, Exception exception, int status, String message) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(status);
         PrintWriter writer = response.getWriter();
@@ -54,7 +54,7 @@ public final class SecurityUtils {
     }
 
 
-    public static void sendResponse(HttpServletResponse response, int status, Object object) throws IOException {
+    static void sendResponse(HttpServletResponse response, int status, Object object) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter writer = response.getWriter();
         writer.write(mapper.writeValueAsString(object));

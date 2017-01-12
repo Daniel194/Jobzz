@@ -16,9 +16,13 @@ import ro.jobzz.repositories.EmployerRepository;
 import ro.jobzz.security.SecurityUtils;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class EmployerPostingService {
+
+    private static final Logger LOGGER = Logger.getLogger(EmployeePostingService.class.getName());
 
     private EmployerPostingRepository postingRepository;
     private EmployeePostingRepository employeePostingRepository;
@@ -46,6 +50,8 @@ public class EmployerPostingService {
 
             postingRepository.saveAndFlush(posting);
         } catch (Exception e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+
             return false;
         }
 
@@ -59,6 +65,8 @@ public class EmployerPostingService {
 
             postingRepository.saveAndFlush(posting);
         } catch (Exception e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+
             return false;
         }
 
@@ -70,6 +78,8 @@ public class EmployerPostingService {
             postingRepository.delete(posting);
 
         } catch (Exception e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+
             return false;
         }
 
@@ -85,54 +95,7 @@ public class EmployerPostingService {
             return new ArrayList<>();
         }
 
-        postings.forEach(posting -> {
-
-            if (posting.getEndDate().after(currentDate) && posting.getStartDate().before(currentDate) && posting.getStatus() < 1) {
-                long validEmployeePost = posting.getEmployeePostings().stream()
-                        .filter(post -> post.getStatus().equals(EmployeePostStatus.WAITING_ACCEPTED.getStatus())).count();
-
-                if (validEmployeePost > 0) {
-                    posting.setStatus(EmployerPostStatus.IN_PROGRESS.getStatus());
-                    postingRepository.saveAndFlush(posting);
-
-                    posting.getEmployeePostings().forEach(post -> {
-                        if (post.getStatus().equals(EmployeePostStatus.WAITING_ACCEPTED.getStatus())) {
-                            post.setStatus(EmployeePostStatus.IN_PROGRESS.getStatus());
-                        } else {
-                            post.setStatus(EmployeePostStatus.CLOSED.getStatus());
-                        }
-
-                        employeePostingRepository.saveAndFlush(post);
-                    });
-
-                } else {
-                    closePostings.add(posting);
-                }
-
-            } else if (posting.getEndDate().before(currentDate) && posting.getStatus() < 2) {
-                long validEmployeePost = posting.getEmployeePostings().stream()
-                        .filter(post -> post.getStatus().equals(EmployeePostStatus.IN_PROGRESS.getStatus())).count();
-
-                if (validEmployeePost > 0) {
-                    posting.setStatus(EmployerPostStatus.DONE.getStatus());
-                    postingRepository.saveAndFlush(posting);
-
-                    posting.getEmployeePostings().forEach(post -> {
-
-                        if (post.getStatus().equals(EmployeePostStatus.IN_PROGRESS.getStatus())) {
-                            post.setStatus(EmployeePostStatus.DONE_WAITING.getStatus());
-                            employeePostingRepository.saveAndFlush(post);
-                        }
-
-                    });
-
-                } else {
-                    closePostings.add(posting);
-                }
-
-            }
-
-        });
+        postings.forEach(posting -> updatePost(posting, currentDate, closePostings));
 
         closePostings.forEach(posting -> {
             posting.setStatus(EmployerPostStatus.CLOSED.getStatus());
@@ -143,7 +106,7 @@ public class EmployerPostingService {
         postings.forEach(posting -> {
             posting.setEmployer(null);
 
-            if (posting.getEmployeePostings() != null && posting.getEmployeePostings().size() > 0) {
+            if (posting.getEmployeePostings() != null && (!posting.getEmployeePostings().isEmpty())) {
                 hiddenEmployeePostingDetails(posting);
             }
 
@@ -156,7 +119,7 @@ public class EmployerPostingService {
         Employee employee = employeeRepository.findByEmail(SecurityUtils.getCurrentLogin());
 
         if (employee == null) {
-            return null;
+            return Collections.emptyList();
         }
 
         List<EmployerPosting> postings = postingRepository.findAllAvailablePosts(employee.getJob().getJobId());
@@ -168,7 +131,7 @@ public class EmployerPostingService {
         Employee employee = employeeRepository.findByEmail(SecurityUtils.getCurrentLogin());
 
         if (employee == null) {
-            return null;
+            return Collections.emptyList();
         }
 
         List<EmployerPosting> postings = postingRepository.findAllAvailablePosts(employee.getJob().getJobId(), name, startDate, endDate);
@@ -254,5 +217,61 @@ public class EmployerPostingService {
         return result;
     }
 
+    private void updatePost(EmployerPosting posting, Date currentDate, List<EmployerPosting> closePostings) {
+
+        if (posting.getEndDate().after(currentDate) && posting.getStartDate().before(currentDate) && posting.getStatus() < 1) {
+            updatePostInWaiting(posting, closePostings);
+
+        } else if (posting.getEndDate().before(currentDate) && posting.getStatus() < 2) {
+            updatePostInProgress(posting, closePostings);
+
+        }
+
+    }
+
+    private void updatePostInWaiting(EmployerPosting posting, List<EmployerPosting> closePostings) {
+        long validEmployeePost = posting.getEmployeePostings().stream()
+                .filter(post -> post.getStatus().equals(EmployeePostStatus.WAITING_ACCEPTED.getStatus())).count();
+
+        if (validEmployeePost > 0) {
+            posting.setStatus(EmployerPostStatus.IN_PROGRESS.getStatus());
+            postingRepository.saveAndFlush(posting);
+
+            posting.getEmployeePostings().forEach(post -> {
+                if (post.getStatus().equals(EmployeePostStatus.WAITING_ACCEPTED.getStatus())) {
+                    post.setStatus(EmployeePostStatus.IN_PROGRESS.getStatus());
+                } else {
+                    post.setStatus(EmployeePostStatus.CLOSED.getStatus());
+                }
+
+                employeePostingRepository.saveAndFlush(post);
+            });
+
+        } else {
+            closePostings.add(posting);
+        }
+    }
+
+    private void updatePostInProgress(EmployerPosting posting, List<EmployerPosting> closePostings) {
+        long validEmployeePost = posting.getEmployeePostings().stream()
+                .filter(post -> post.getStatus().equals(EmployeePostStatus.IN_PROGRESS.getStatus())).count();
+
+        if (validEmployeePost > 0) {
+            posting.setStatus(EmployerPostStatus.DONE.getStatus());
+            postingRepository.saveAndFlush(posting);
+
+            posting.getEmployeePostings().forEach(post -> {
+
+                if (post.getStatus().equals(EmployeePostStatus.IN_PROGRESS.getStatus())) {
+                    post.setStatus(EmployeePostStatus.DONE_WAITING.getStatus());
+                    employeePostingRepository.saveAndFlush(post);
+                }
+
+            });
+
+        } else {
+            closePostings.add(posting);
+        }
+    }
 
 }

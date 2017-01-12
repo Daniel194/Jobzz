@@ -17,9 +17,13 @@ import ro.jobzz.security.SecurityUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class EmployeeService {
+
+    private static final Logger LOGGER = Logger.getLogger(EmployeePostingService.class.getName());
 
     private EmployeeRepository repository;
     private PasswordEncoder passwordEncoder;
@@ -60,6 +64,8 @@ public class EmployeeService {
 
             repository.saveAndFlush(employee);
         } catch (Exception e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+
             return false;
         }
 
@@ -79,6 +85,8 @@ public class EmployeeService {
 
 
         } catch (Exception e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+
             return false;
         }
 
@@ -94,6 +102,8 @@ public class EmployeeService {
 
 
         } catch (Exception e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+
             return false;
         }
 
@@ -136,6 +146,8 @@ public class EmployeeService {
             repository.saveAndFlush(employee);
 
         } catch (IOException e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+
             return null;
         }
 

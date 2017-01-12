@@ -19,9 +19,9 @@
             <div class="menu-demo-container" layout-align="center center" layout="column">
                 <md-menu>
                     <md-button ng-click="openMenu($mdOpenMenu, $event)" class="user-menu">
-                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        <em class="fa fa-caret-down" aria-hidden="true"></em>
                         <span class="user-name">{{employee.firstName + ' ' + employee.lastName}}</span>
-                        <img ng-src="{{employee.picture}}" class="user-img-menu">
+                        <img ng-src="{{employee.picture}}" alt="No image" class="user-img-menu">
                     </md-button>
                     <md-menu-content width="3">
                         <md-menu-item>

@@ -15,9 +15,13 @@ import ro.jobzz.security.SecurityUtils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class EmployeePostingService {
+
+    private static final Logger LOGGER = Logger.getLogger(EmployeePostingService.class.getName());
 
     private EmployeePostingRepository postingRepository;
     private EmployeeRepository employeeRepository;
@@ -38,13 +42,13 @@ public class EmployeePostingService {
 
         postings.forEach(post -> {
 
-            if (post.getStatus() == 0 && post.getEmployerPosting().getStartDate().before(currentDate)) {
-                deletePostings.add(post);
-            } else if (post.getStatus() == 1 && post.getEmployerPosting().getStartDate().before(currentDate)) {
-                post.setStatus(3);
-                postingRepository.saveAndFlush(post);
-            } else if (post.getStatus() == 2 && post.getEmployerPosting().getStartDate().before(currentDate)) {
-                deletePostings.add(post);
+            if (post.getEmployerPosting().getStartDate().before(currentDate)) {
+                if (post.getStatus() == 0 || post.getStatus() == 2) {
+                    deletePostings.add(post);
+                } else if (post.getStatus() == 1) {
+                    post.setStatus(3);
+                    postingRepository.saveAndFlush(post);
+                }
             }
 
             if (post.getStatus() == 3 && post.getEmployerPosting().getEndDate().before(currentDate)) {
@@ -79,6 +83,8 @@ public class EmployeePostingService {
 
             postingRepository.saveAndFlush(post);
         } catch (Exception e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+
             return false;
         }
 
@@ -93,6 +99,8 @@ public class EmployeePostingService {
             postingRepository.updateStatus(post.getEmployeePostingId(), post.getStatus());
 
         } catch (Exception e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+
             return false;
         }
 
@@ -111,6 +119,8 @@ public class EmployeePostingService {
             }
 
         } catch (Exception e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+
             return false;
         }
 
