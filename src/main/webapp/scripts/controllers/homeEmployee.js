@@ -17,7 +17,7 @@ angular.module('jobzz')
                     $scope.jobsProgress = response.data.jobsProgress;
                     $scope.jobsDone = response.data.jobsDone;
                 }, function () {
-                    console.log('fail');
+                    // Empty
                 });
 
             };

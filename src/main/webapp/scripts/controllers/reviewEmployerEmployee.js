@@ -35,7 +35,7 @@ angular.module('jobzz')
                     }
 
                 }, function () {
-                    console.log('Fail to create review');
+                    //Empty
                 });
 
             };

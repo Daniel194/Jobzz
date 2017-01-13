@@ -46,7 +46,7 @@ angular.module('jobzz')
                     $scope.employer.profilePicture = userProfilePictureService.employerProfilePicture($scope.employer.profilePicture);
 
                 }, function () {
-                    console.log('Fail to get employer full details !');
+                    //Empty
                 });
 
             };
@@ -65,11 +65,10 @@ angular.module('jobzz')
                     data: $scope.employer
                 };
 
-                $http(req).then(function (response) {
-
-
+                $http(req).then(function () {
+                    //Empty
                 }, function () {
-                    console.log('Fail to update employer !');
+                    //Empty
                 });
 
             };
@@ -87,11 +86,10 @@ angular.module('jobzz')
                     data: $scope.employer
                 };
 
-                $http(req).then(function (response) {
-
-
+                $http(req).then(function () {
+                    //Empty
                 }, function () {
-                    console.log('Fail to update employer !');
+                    //Empty
                 });
 
             };
@@ -108,11 +106,10 @@ angular.module('jobzz')
                     data: $scope.change
                 };
 
-                $http(req).then(function (response) {
-
-
+                $http(req).then(function () {
+                    //Empty
                 }, function () {
-                    console.log('Fail to update employer password !');
+                    //Empty
                 });
 
             };
@@ -136,7 +133,7 @@ angular.module('jobzz')
                     $scope.employer.profilePicture = userProfilePictureService.employerProfilePicture(response.profilePicture);
 
                 }).error(function () {
-                    console.log('error');
+                    //Empty
                 });
 
             };

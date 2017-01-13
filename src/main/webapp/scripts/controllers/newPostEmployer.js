@@ -29,7 +29,7 @@ angular.module('jobzz').controller('NewPostEmployerCtrl', ['$scope', '$rootScope
         $http(req).then(function (response) {
             $scope.jobs = response.data.jobs;
         }, function () {
-            console.log('Fail to load jobs');
+            //Empty
         });
 
     };
@@ -79,7 +79,7 @@ angular.module('jobzz').controller('NewPostEmployerCtrl', ['$scope', '$rootScope
                 }
 
             }, function () {
-                console.log('Fail to create new post');
+                //Empty
             });
         }
     }

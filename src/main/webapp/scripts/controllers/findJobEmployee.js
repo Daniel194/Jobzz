@@ -32,7 +32,7 @@ angular.module('jobzz')
                     $scope.jobs = response.data;
 
                 }, function () {
-                    console.log('Fail to load the Jobs');
+                    // Empty
                 });
 
             };
@@ -56,7 +56,7 @@ angular.module('jobzz')
                     $scope.jobs = response.data;
 
                 }, function () {
-                    console.log('Fail to find Jobs');
+                    // Empty
                 });
 
             };
@@ -106,7 +106,7 @@ angular.module('jobzz')
                     }
 
                 }, function () {
-                    console.log('Fail');
+                    // Empty
                 });
 
 

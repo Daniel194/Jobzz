@@ -25,7 +25,7 @@ angular.module('jobzz')
             $http(req).then(function (response) {
                 $scope.jobs = response.data.jobs;
             }, function () {
-                console.log('Fail to load jobs');
+                //Empty
             });
 
         };
@@ -89,7 +89,7 @@ angular.module('jobzz')
                     }
 
                 }, function () {
-                    console.log('Fail to update post');
+                    //Empty
                 });
             }
         }

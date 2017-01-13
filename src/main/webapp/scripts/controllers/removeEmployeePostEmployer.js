@@ -32,7 +32,7 @@ angular.module('jobzz')
                 }
 
             }, function () {
-                console.log('Fail to delete the post !');
+                //Empty
             });
 
         }

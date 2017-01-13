@@ -37,7 +37,7 @@ angular.module('jobzz')
             $http(req).then(function (response) {
                 $scope.jobs = response.data.jobs;
             }, function () {
-                console.log('fail');
+                // Empty
             });
 
         };
@@ -67,7 +67,7 @@ angular.module('jobzz')
                         $scope.errorMessage = $scope.employee.email + " already exist !";
                     }
 
-                }, function (response) {
+                }, function () {
                     $scope.error = true;
                     $scope.errorMessage = "A problem has happened during recording. Please try again.";
                 });
