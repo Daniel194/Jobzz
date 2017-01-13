@@ -16,9 +16,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class ReviewEmployerService {
+
+    private static final Logger LOGGER = Logger.getLogger(EmployeePostingService.class.getName());
 
     private ReviewEmployerRepository repository;
     private EmployeeRepository employeeRepository;
@@ -48,6 +52,8 @@ public class ReviewEmployerService {
             repository.saveAndFlush(review);
 
         } catch (Exception e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+
             return false;
         }
 

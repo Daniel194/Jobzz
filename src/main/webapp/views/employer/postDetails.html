@@ -5,9 +5,9 @@
             <md-card md-theme-watch class="post-details-card">
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline"><b>{{post.name}}</b></span>
-                        <span class="md-subhead"><b>Description : </b>{{post.description}}</span>
-                        <span class="md-subhead"><b>From </b> {{post.startDate}} <b>to</b> {{post.endDate}}</span>
+                        <span class="md-headline"><strong>{{post.name}}</strong></span>
+                        <span class="md-subhead"><strong>Description : </strong>{{post.description}}</span>
+                        <span class="md-subhead"><strong>From </strong> {{post.startDate}} <strong>to</strong> {{post.endDate}}</span>
                     </md-card-title-text>
                 </md-card-title>
                 <div ng-if="post.status == 0">
@@ -39,10 +39,10 @@
                     <img class="employee-picture" ng-src="{{employeePost.employee.picture}}" alt="No image"/>
                     <div class="md-list-item-text md-list-item-padding">
                         <h3>{{ employeePost.employee.firstName + ' ' + employeePost.employee.lastName }}</h3>
-                        <h4><b>Lvl : </b>{{ employeePost.employee.lvl }}</h4>
-                        <h4><b>Price : </b>{{ employeePost.price + ' ' + employeePost.currency }}</h4>
-                        <h4><b>Date : </b> {{employeePost.date}}</h4>
-                        <p><b>Comment : </b> {{employeePost.comment}}</p>
+                        <h4><strong>Lvl : </strong>{{ employeePost.employee.lvl }}</h4>
+                        <h4><strong>Price : </strong>{{ employeePost.price + ' ' + employeePost.currency }}</h4>
+                        <h4><strong>Date : </strong> {{employeePost.date}}</h4>
+                        <p><strong>Comment : </strong> {{employeePost.comment}}</p>
                     </div>
                     <md-button class="md-icon-button md-secondary approve-button" ng-click="approved(employeePost)"
                                ng-class=" 'checkmark' + employeePost.status " aria-label="Approve"

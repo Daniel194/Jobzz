@@ -5,11 +5,11 @@
             <md-card md-theme-watch class="post-details-card" ng-click="employerProfile(job.employerPosting.employer)">
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline"><b>{{job.employerPosting.employer.firstName + ' ' + job.employerPosting.employer.lastName}}</b></span>
+                        <span class="md-headline"><strong>{{job.employerPosting.employer.firstName + ' ' + job.employerPosting.employer.lastName}}</strong></span>
                         <br/>
-                        <span class="md-subhead"><b>Email : </b> <br/>{{job.employerPosting.employer.email}}</span>
+                        <span class="md-subhead"><strong>Email : </strong> <br/>{{job.employerPosting.employer.email}}</span>
                         <br/>
-                        <span class="md-subhead"><b>Phone Number : </b> <br/> {{job.employerPosting.employer.phoneNumber}}</span>
+                        <span class="md-subhead"><strong>Phone Number : </strong> <br/> {{job.employerPosting.employer.phoneNumber}}</span>
                         <br/>
                         <span class="md-subhead">
                             <div id="container"></div>
@@ -17,7 +17,7 @@
                     </md-card-title-text>
                     <md-card-title-media>
                         <div class="md-media-lg">
-                            <img ng-src="{{job.employerPosting.employer.profilePicture}}">
+                            <img alt="No img" ng-src="{{job.employerPosting.employer.profilePicture}}">
                         </div>
                     </md-card-title-media>
                 </md-card-title>
@@ -33,9 +33,9 @@
             <md-card md-theme-watch class="post-details-card">
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline"><b>{{job.employerPosting.name}}</b></span>
-                        <span class="md-subhead"><b>Description : </b>{{job.employerPosting.description}}</span>
-                        <span class="md-subhead"><b>From </b> {{job.employerPosting.startDate}} <b>to</b> {{job.employerPosting.endDate}}</span>
+                        <span class="md-headline"><strong>{{job.employerPosting.name}}</strong></span>
+                        <span class="md-subhead"><strong>Description : </strong>{{job.employerPosting.description}}</span>
+                        <span class="md-subhead"><strong>From </strong> {{job.employerPosting.startDate}} <strong>to</strong> {{job.employerPosting.endDate}}</span>
                     </md-card-title-text>
                 </md-card-title>
             </md-card>
@@ -59,9 +59,9 @@
                 <md-list-item class="md-3-line">
                     <md-icon md-svg-icon="image/user.svg" class="md-avatar"></md-icon>
                     <div class="md-list-item-text md-list-item-padding">
-                        <h4><b>Price : </b>{{ job.price + ' ' + job.currency }}</h4>
-                        <h4><b>Date : </b> {{job.date}}</h4>
-                        <p><b>Comment : </b> {{job.comment}}</p>
+                        <h4><strong>Price : </strong>{{ job.price + ' ' + job.currency }}</h4>
+                        <h4><strong>Date : </strong> {{job.date}}</h4>
+                        <p><strong>Comment : </strong> {{job.comment}}</p>
                     </div>
                     <md-button flex class="md-secondary md-primary btn-success btn-pay"
                                ng-click="changePostEmployer(job)"

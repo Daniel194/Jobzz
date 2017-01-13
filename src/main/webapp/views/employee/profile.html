@@ -4,11 +4,11 @@
             <md-card md-theme-watch class="post-details-card">
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline"><b>{{employee.firstName + ' ' + employee.lastName}}</b></span>
+                        <span class="md-headline"><strong>{{employee.firstName + ' ' + employee.lastName}}</strong></span>
                         <br/>
-                        <span class="md-subhead"><b>Email : </b> <br/>{{employee.email}}</span>
+                        <span class="md-subhead"><strong>Email : </strong> <br/>{{employee.email}}</span>
                         <br/>
-                        <span class="md-subhead"><b>Phone Number : </b> <br/> {{employee.phoneNumber}}</span>
+                        <span class="md-subhead"><strong>Phone Number : </strong> <br/> {{employee.phoneNumber}}</span>
                         <br/>
                         <span class="md-subhead">
                             <div id="container"></div>
@@ -34,9 +34,9 @@
                 <md-list flex>
                     <md-list-item class="md-3-line" ng-repeat="response in responses">
                         <div class="md-list-item-text md-list-item-padding">
-                            <h4><b>{{response.employerFullName}}</b></h4>
-                            <h4><b>Date : </b> {{response.review.date}}</h4>
-                            <p><b>Comment : </b> {{response.review.comment}}</p>
+                            <h4><strong>{{response.employerFullName}}</strong></h4>
+                            <h4><strong>Date : </strong> {{response.review.date}}</h4>
+                            <p><strong>Comment : </strong> {{response.review.comment}}</p>
                         </div>
                         <div flex class="md-secondary">
                             <div star-rating ng-model="response.review.point" max="10" readonly="true"></div>

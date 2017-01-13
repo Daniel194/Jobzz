@@ -15,9 +15,13 @@ import ro.jobzz.security.SecurityUtils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class ReviewEmployeeService {
+
+    private static final Logger LOGGER = Logger.getLogger(EmployeePostingService.class.getName());
 
     private ReviewEmployeeRepository repository;
     private EmployerRepository employerRepository;
@@ -46,6 +50,8 @@ public class ReviewEmployeeService {
 
             repository.saveAndFlush(review);
         } catch (Exception e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+
             return false;
         }
 
