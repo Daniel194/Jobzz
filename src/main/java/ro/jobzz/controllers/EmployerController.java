@@ -31,7 +31,8 @@ public class EmployerController {
 
     @Autowired
     public EmployerController(EmployerService employerService, EmployerPostingService employerPostingService,
-                              EmployeePostingService employeePostingService, ReviewEmployeeService reviewEmployeeService, ReviewEmployerService reviewEmployerService) {
+                              EmployeePostingService employeePostingService, ReviewEmployeeService reviewEmployeeService,
+                              ReviewEmployerService reviewEmployerService) {
 
         this.employerService = employerService;
         this.employerPostingService = employerPostingService;
@@ -109,10 +110,10 @@ public class EmployerController {
 
     @RequestMapping(value = "/update/employee/post", method = RequestMethod.PUT)
     public Map<String, Object> updateEmployeePost(@RequestBody EmployeePosting post) {
-        boolean isDeleted = employeePostingService.updateStatus(post);
+        boolean isUpdate = employeePostingService.updateStatus(post);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isUpdate", isDeleted);
+        model.put("isUpdate", isUpdate);
 
         return model;
     }

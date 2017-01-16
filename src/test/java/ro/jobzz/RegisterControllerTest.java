@@ -9,9 +9,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import ro.jobzz.controllers.RegisterController;
+import ro.jobzz.services.EmployeePostingService;
 import ro.jobzz.services.EmployeeService;
 import ro.jobzz.services.EmployerService;
 import ro.jobzz.services.JobService;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -22,6 +26,9 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RegisterControllerTest {
+
+    private static final Logger LOGGER = Logger.getLogger(EmployeePostingService.class.getName());
+
     private MockMvc mockMvc;
 
     @Before
@@ -34,11 +41,18 @@ public class RegisterControllerTest {
     }
 
     @Test
-    public void testGetJobs() throws Exception {
-        mockMvc.perform(get("/register/get/jobs").accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    public void testGetJobs() {
+        try {
+            mockMvc.perform(get("/register/get/jobs").accept(MediaType.APPLICATION_JSON))
+                    .andDo(print())
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+        } catch (Exception e) {
+
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+
+            e.printStackTrace();
+        }
     }
 
 }
