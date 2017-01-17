@@ -6,9 +6,19 @@ import org.springframework.web.multipart.MultipartFile;
 import ro.jobzz.entities.Employee;
 import ro.jobzz.entities.EmployeePosting;
 import ro.jobzz.entities.EmployerPosting;
-import ro.jobzz.models.*;
+import ro.jobzz.models.EmployeeReviews;
+import ro.jobzz.models.EmployerReviews;
+import ro.jobzz.models.FindJobRequest;
+import ro.jobzz.models.ReviewEmployerPost;
+import ro.jobzz.models.ChangePassword;
 import ro.jobzz.security.SecurityUtils;
-import ro.jobzz.services.*;
+import ro.jobzz.services.EmployeePostingService;
+import ro.jobzz.services.EmployeeService;
+import ro.jobzz.services.EmployerPostingService;
+import ro.jobzz.services.ReviewEmployerService;
+import ro.jobzz.services.ReviewEmployeeService;
+import ro.jobzz.utilities.EmployeeUtils;
+import ro.jobzz.utilities.MessagesConstant;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,19 +53,8 @@ public class EmployeeController {
     @RequestMapping(value = "/account", method = RequestMethod.GET)
     @ResponseBody
     public Employee getEmployerAccount() {
-
         Employee employee = employeeService.findByEmail(SecurityUtils.getCurrentLogin());
-
-        employee.setPassword(null);
-        employee.setPhoneNumber(null);
-        employee.setCardNumber(null);
-        employee.setCvv(null);
-        employee.setExpirationDate(null);
-        employee.setDateOfBirth(null);
-        employee.setReputation(null);
-        employee.setEmployeePostings(null);
-        employee.setReviewEmployee(null);
-        employee.setJob(null);
+        EmployeeUtils.hiddenEmployeeDetails(employee);
 
         return employee;
     }
@@ -121,7 +120,7 @@ public class EmployeeController {
         boolean isCreated = employeePostingService.createPost(post);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isCreated", isCreated);
+        model.put(MessagesConstant.IS_CREATED, isCreated);
 
         return model;
     }
@@ -131,7 +130,7 @@ public class EmployeeController {
         boolean isUpdate = employeePostingService.createPost(post);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isUpdate", isUpdate);
+        model.put(MessagesConstant.IS_UPDATE, isUpdate);
 
         return model;
     }
@@ -142,7 +141,7 @@ public class EmployeeController {
         boolean isChange = employeePostingService.updateStatusToDone(review.getEmployeePosting());
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isCreated", isCreated && isChange);
+        model.put(MessagesConstant.IS_CREATED, isCreated && isChange);
 
         return model;
     }
@@ -152,7 +151,7 @@ public class EmployeeController {
         boolean isAllow = employeePostingService.allowNewPost();
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isAllow", isAllow);
+        model.put(MessagesConstant.IS_ALLOW, isAllow);
 
         return model;
     }
@@ -162,7 +161,7 @@ public class EmployeeController {
         boolean isAllow = reviewEmployerService.allowNewReview(employerId);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isAllow", isAllow);
+        model.put(MessagesConstant.IS_ALLOW, isAllow);
 
         return model;
     }
@@ -184,7 +183,7 @@ public class EmployeeController {
         boolean isDeleted = employeeService.updateGeneralInformation(employee);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isUpdate", isDeleted);
+        model.put(MessagesConstant.IS_UPDATE, isDeleted);
 
         return model;
     }
@@ -194,7 +193,7 @@ public class EmployeeController {
         boolean isDeleted = employeeService.updatePaymentInformation(employee);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isUpdate", isDeleted);
+        model.put(MessagesConstant.IS_UPDATE, isDeleted);
 
         return model;
     }
@@ -204,7 +203,7 @@ public class EmployeeController {
         boolean isChanged = employeeService.changePassword(changePassword);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isChanged", isChanged);
+        model.put(MessagesConstant.IS_CHANGED, isChanged);
 
         return model;
     }

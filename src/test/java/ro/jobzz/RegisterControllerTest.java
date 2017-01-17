@@ -50,8 +50,7 @@ public class RegisterControllerTest {
         } catch (Exception e) {
 
             LOGGER.log(Level.WARNING, e.getMessage(), e);
-
-            e.printStackTrace();
+            
         }
     }
 

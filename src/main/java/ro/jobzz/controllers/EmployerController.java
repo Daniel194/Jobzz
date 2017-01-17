@@ -14,6 +14,8 @@ import ro.jobzz.models.EmployerReviews;
 import ro.jobzz.models.ReviewEmployeePost;
 import ro.jobzz.security.SecurityUtils;
 import ro.jobzz.services.*;
+import ro.jobzz.utilities.EmployerUtils;
+import ro.jobzz.utilities.MessagesConstant;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,16 +48,7 @@ public class EmployerController {
     @ResponseBody
     public Employer getEmployeeAccount() {
         Employer employer = employerService.findByEmail(SecurityUtils.getCurrentLogin());
-
-        employer.setPassword(null);
-        employer.setPhoneNumber(null);
-        employer.setCardNumber(null);
-        employer.setCvv(null);
-        employer.setExpirationDate(null);
-        employer.setDateOfBirth(null);
-        employer.setReputation(null);
-        employer.setEmployerPostings(null);
-        employer.setReviewEmployer(null);
+        EmployerUtils.hiddenEmployerDetails(employer);
 
         return employer;
     }
@@ -77,7 +70,7 @@ public class EmployerController {
         boolean isCreated = employerPostingService.createNewPost(post);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isCreated", isCreated);
+        model.put(MessagesConstant.IS_CREATED, isCreated);
 
         return model;
     }
@@ -93,7 +86,7 @@ public class EmployerController {
         boolean isUpdate = employerPostingService.updatePost(post);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isUpdate", isUpdate);
+        model.put(MessagesConstant.IS_UPDATE, isUpdate);
 
         return model;
     }
@@ -103,7 +96,7 @@ public class EmployerController {
         boolean isDeleted = employerPostingService.deletePost(post);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isDeleted", isDeleted);
+        model.put(MessagesConstant.IS_DELETED, isDeleted);
 
         return model;
     }
@@ -113,7 +106,7 @@ public class EmployerController {
         boolean isUpdate = employeePostingService.updateStatus(post);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isUpdate", isUpdate);
+        model.put(MessagesConstant.IS_UPDATE, isUpdate);
 
         return model;
     }
@@ -125,7 +118,7 @@ public class EmployerController {
         boolean isUpdate = employeePostingService.updateStatus(reviewEmployeePost.getEmployeePost());
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isRemoved", isAdd && isUpdate);
+        model.put(MessagesConstant.IS_REMOVED, isAdd && isUpdate);
 
         return model;
     }
@@ -137,7 +130,7 @@ public class EmployerController {
         boolean isUpdate = employeePostingService.updateStatus(reviewEmployeePost.getEmployeePost());
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isPaid", isAdd && isUpdate);
+        model.put(MessagesConstant.IS_PAID, isAdd && isUpdate);
 
         return model;
     }
@@ -148,7 +141,7 @@ public class EmployerController {
         boolean isClose = employerPostingService.updatePost(post);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isClose", isClose);
+        model.put(MessagesConstant.IS_CLOSE, isClose);
 
         return model;
     }
@@ -158,7 +151,7 @@ public class EmployerController {
         boolean isAllow = employerPostingService.allowNewPost();
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isAllow", isAllow);
+        model.put(MessagesConstant.IS_ALLOW, isAllow);
 
         return model;
     }
@@ -179,7 +172,7 @@ public class EmployerController {
         boolean isUpdate = employerService.updateGeneralInformation(employer);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isUpdate", isUpdate);
+        model.put(MessagesConstant.IS_UPDATE, isUpdate);
 
         return model;
     }
@@ -189,7 +182,7 @@ public class EmployerController {
         boolean isUpdate = employerService.updatePaymentInformation(employer);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isUpdate", isUpdate);
+        model.put(MessagesConstant.IS_UPDATE, isUpdate);
 
         return model;
     }
@@ -199,7 +192,7 @@ public class EmployerController {
         boolean isChanged = employerService.changePassword(changePassword);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("isChanged", isChanged);
+        model.put(MessagesConstant.IS_CHANGED, isChanged);
 
         return model;
     }

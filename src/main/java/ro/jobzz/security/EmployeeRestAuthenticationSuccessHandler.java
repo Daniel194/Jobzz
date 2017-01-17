@@ -6,6 +6,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 import ro.jobzz.entities.Employee;
 import ro.jobzz.repositories.EmployeeRepository;
+import ro.jobzz.utilities.EmployeeUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,17 +26,7 @@ public class EmployeeRestAuthenticationSuccessHandler extends SimpleUrlAuthentic
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         Employee employee = employeeRepository.findByEmail(authentication.getName());
-
-        employee.setPassword(null);
-        employee.setPhoneNumber(null);
-        employee.setCardNumber(null);
-        employee.setCvv(null);
-        employee.setExpirationDate(null);
-        employee.setDateOfBirth(null);
-        employee.setReputation(null);
-        employee.setEmployeePostings(null);
-        employee.setReviewEmployee(null);
-        employee.setJob(null);
+        EmployeeUtils.hiddenEmployeeDetails(employee);
 
         SecurityUtils.sendResponse(response, HttpServletResponse.SC_OK, employee);
     }
