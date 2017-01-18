@@ -1,8 +1,7 @@
 package ro.jobzz.entities;
 
+
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -33,9 +32,6 @@ public class EmployeePosting {
 
     @Column(nullable = false)
     private Integer status;
-
-    public EmployeePosting() {
-    }
 
     public Integer getEmployeePostingId() {
         return employeePostingId;

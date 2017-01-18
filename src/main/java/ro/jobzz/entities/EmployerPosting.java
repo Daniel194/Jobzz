@@ -43,9 +43,6 @@ public class EmployerPosting {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employerPosting")
     private Set<EmployeePosting> employeePostings;
 
-    public EmployerPosting() {
-    }
-
     public Integer getEmployerPostingId() {
         return employerPostingId;
     }

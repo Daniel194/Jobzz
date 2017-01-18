@@ -1,5 +1,6 @@
 package ro.jobzz.entities;
 
+
 import javax.persistence.*;
 
 @Entity
@@ -11,9 +12,6 @@ public class Job {
 
     @Column(nullable = false)
     private String description;
-
-    public Job() {
-    }
 
     public Integer getJobId() {
         return jobId;

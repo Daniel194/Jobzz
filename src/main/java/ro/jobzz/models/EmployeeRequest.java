@@ -16,9 +16,6 @@ public class EmployeeRequest {
     private String cvv;
     private Integer jobId;
 
-    public EmployeeRequest() {
-    }
-
     public String getEmail() {
         return email;
     }

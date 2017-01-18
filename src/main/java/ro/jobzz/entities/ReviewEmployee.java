@@ -26,9 +26,6 @@ public class ReviewEmployee {
 
     private String comment;
 
-    public ReviewEmployee() {
-    }
-
     public Integer getReviewId() {
         return reviewId;
     }

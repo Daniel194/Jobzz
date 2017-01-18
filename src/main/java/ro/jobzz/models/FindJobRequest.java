@@ -9,10 +9,6 @@ public class FindJobRequest {
     private Date startDate;
     private Date endDate;
 
-
-    public FindJobRequest() {
-    }
-
     public FindJobRequest(String name, Date startDate, Date endDate) {
         this.name = name;
         this.startDate = startDate;

@@ -15,4 +15,8 @@ angular.module('jobzz')
                 EmployeeAuthSharedService.login($scope.employee.email, $scope.employee.password);
             };
 
+            $scope.navigateTo = function (newPath) {
+                $location.path(newPath).replace();
+            };
+
         }]);
