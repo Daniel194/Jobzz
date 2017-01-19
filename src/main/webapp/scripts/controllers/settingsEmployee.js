@@ -127,12 +127,10 @@ angular.module('jobzz')
                     headers: {
                         'Content-Type': undefined
                     }
-                }).success(function (response) {
+                }).then(function (response) {
 
                     $scope.employee.picture = userProfilePictureService.employeeProfilePicture(response.profilePicture);
 
-                }).error(function () {
-                    //Empty
                 });
 
             };

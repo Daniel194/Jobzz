@@ -1,6 +1,7 @@
 angular.module('jobzz')
     .controller('EmployeeProfileEmployerCtrl', ['$scope', '$rootScope', '$http', 'employeeProfileService', 'userProfilePictureService',
-        function ($scope, $rootScope, $http, employeeProfileService, userProfilePictureService) {
+        'dateToStringService',
+        function ($scope, $rootScope, $http, employeeProfileService, userProfilePictureService, dateToStringService) {
 
             $scope.employee = employeeProfileService.getEmployee();
             $scope.employee.picture = userProfilePictureService.employeeProfilePicture($scope.employee.picture);
