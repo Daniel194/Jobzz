@@ -112,8 +112,6 @@ angular.module('jobzz')
                             warningNewReview();
                         }
 
-                    }, function () {
-                        //Empty
                     });
 
                 } else {
