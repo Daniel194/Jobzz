@@ -42,8 +42,11 @@
                     $(document).ready(function () {
                         var container = $('#container');
                         var progressbar_text = container.find('.progressbar-text');
+                        var progressbar = container.find('svg');
 
-                        $(container.find('svg')[0]).hide();
+                        if (progressbar.length > 1) {
+                            $(progressbar[0]).hide();
+                        }
 
                         if (progressbar_text.length > 1) {
                             $(progressbar_text[0]).hide();

@@ -12,7 +12,8 @@
                         <span class="md-subhead"><strong>Phone Number : </strong> <br/> {{job.employerPosting.employer.phoneNumber}}</span>
                         <br/>
                         <span class="md-subhead">
-                            <div id="container"></div>
+                            <calculate-lvl color="#61B329"
+                                           reputation="{{job.employerPosting.employer.reputation}}"></calculate-lvl>
                         </span>
                     </md-card-title-text>
                     <md-card-title-media>
@@ -64,7 +65,7 @@
                         <p><strong>Comment : </strong> {{job.comment}}</p>
                     </div>
                     <md-button flex class="md-secondary md-primary btn-success btn-pay"
-                               ng-click="changePostEmployer(job)"
+                               ng-click="changePostEmployer()"
                                ng-if="job.status == 0 || job.status == 2">
                         Change
                     </md-button>
