@@ -1,35 +1,14 @@
 <div ng-controller="EmployerProfileEmployeeCtrl" flex ng-cloak class="job-details">
     <div class="row">
         <div class="col-md-4 post-details">
-            <md-card md-theme-watch class="post-details-card">
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline"><strong>{{employer.firstName + ' ' + employer.lastName}}</strong></span>
-                        <br/>
-                        <span class="md-subhead"><strong>Email : </strong> <br/>{{employer.email}}</span>
-                        <br/>
-                        <span class="md-subhead"><strong>Phone Number : </strong> <br/> {{employer.phoneNumber}}</span>
-                        <br/>
-                        <span class="md-subhead">
-                             <calculate-lvl color="#61B329" reputation="{{employer.reputation}}"></calculate-lvl>
-                        </span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <div class="md-media-lg">
-                            <img alt="No img" ng-src="{{employer.profilePicture}}">
-                        </div>
-                    </md-card-title-media>
-                </md-card-title>
-            </md-card>
+            <user-details color="#61B329" user="employer"></user-details>
         </div>
-
         <div flex-gt-sm flex class="col-md-8">
             <md-toolbar layout="row" class="review-employer-toolbar margin-top-10">
                 <div class="md-toolbar-tools">
                     <span>Reviews</span>
                 </div>
             </md-toolbar>
-
             <md-content>
                 <md-list flex>
                     <md-list-item class="md-3-line" ng-repeat="response in responses">

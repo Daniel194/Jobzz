@@ -4,18 +4,14 @@
     angular.module('jobzz').directive('starRating', function () {
         return {
             restrict: 'EA',
-            template: '<ul class="star-rating" ng-class="{readonly: readonly}">' +
-            '  <li ng-repeat="star in stars" class="star" ng-class="{filled: star.filled}" ng-click="toggle($index)">' +
-            '    <i class="fa fa-star" aria-hidden="true"></i>' +
-            '  </li>' +
-            '</ul>',
+            templateUrl: 'scripts/directives/star-rating/starRating.html',
             scope: {
                 ratingValue: '=ngModel',
-                max: '=?', // optional (default is 5)
+                max: '=?',
                 onRatingSelect: '&?',
                 readonly: '=?'
             },
-            link: function (scope, element, attributes) {
+            link: function (scope) {
                 if (scope.max == undefined) {
                     scope.max = 5;
                 }

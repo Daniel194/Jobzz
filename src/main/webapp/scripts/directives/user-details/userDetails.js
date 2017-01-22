@@ -1,22 +1,35 @@
 (function () {
     'use strict';
 
-    angular.module('jobzz').directive('calculateLvl', function () {
+    angular.module('jobzz').directive('userDetails', function () {
         return {
             restrict: 'E',
-            template: '<div id="container"></div>',
+            templateUrl: 'scripts/directives/user-details/userDetails.html',
             scope: {
-                reputation: '@',
-                color: "@"
+                user: '=',
+                color: '@'
             },
             link: function ($scope) {
 
-                $scope.$watch("reputation", function () {
-                    var lvl = Math.floor($scope.reputation / 10);
-                    var exp = ($scope.reputation % 10) * 0.1;
+                $scope.$watch("user", function () {
+
+                    if ($scope.user.firstName != undefined) {
+
+                        if ($scope.user.profilePicture == undefined) {
+                            $scope.user.profilePicture = $scope.user.picture;
+                        }
+
+                        calculateLvl();
+                    }
+
+                });
+
+                function calculateLvl() {
+                    var lvl = Math.floor($scope.user.reputation / 10);
+                    var exp = ($scope.user.reputation % 10) * 0.1;
 
                     var bar = new ProgressBar.Circle(container, {
-                        color: $scope.color,
+                        color: $scope.user.color,
                         strokeWidth: 4,
                         trailWidth: 1,
                         easing: 'easeInOut',
@@ -52,8 +65,7 @@
                             $(progressbar_text[0]).hide();
                         }
                     });
-
-                });
+                }
             }
         };
     })

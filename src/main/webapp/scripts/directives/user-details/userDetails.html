@@ -1,0 +1,20 @@
+<md-card md-theme-watch class="post-details-card">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline"><strong>{{user.firstName + ' ' + user.lastName}}</strong></span>
+            <br/>
+            <span class="md-subhead"><strong>Email : </strong> <br/>{{user.email}}</span>
+            <br/>
+            <span class="md-subhead"><strong>Phone Number : </strong> <br/> {{user.phoneNumber}}</span>
+            <br/>
+            <span class="md-subhead">
+                <div id="container"></div>
+            </span>
+        </md-card-title-text>
+        <md-card-title-media>
+            <div class="md-media-lg">
+                <img alt="No img" ng-src="{{user.profilePicture}}">
+            </div>
+        </md-card-title-media>
+    </md-card-title>
+</md-card>

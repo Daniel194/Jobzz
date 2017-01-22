@@ -1,34 +1,8 @@
 <div ng-controller="PostDetailsEmployeeCtrl" flex ng-cloak class="job-details">
-
     <div class="row">
         <div class="col-md-4 post-details">
-            <md-card md-theme-watch class="post-details-card" ng-click="employerProfile(job.employerPosting.employer)">
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline"><strong>{{job.employerPosting.employer.firstName + ' ' + job.employerPosting.employer.lastName}}</strong></span>
-                        <br/>
-                        <span class="md-subhead"><strong>Email : </strong> <br/>{{job.employerPosting.employer.email}}</span>
-                        <br/>
-                        <span class="md-subhead"><strong>Phone Number : </strong> <br/> {{job.employerPosting.employer.phoneNumber}}</span>
-                        <br/>
-                        <span class="md-subhead">
-                            <calculate-lvl color="#61B329"
-                                           reputation="{{job.employerPosting.employer.reputation}}"></calculate-lvl>
-                        </span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <div class="md-media-lg">
-                            <img alt="No img" ng-src="{{job.employerPosting.employer.profilePicture}}">
-                        </div>
-                    </md-card-title-media>
-                </md-card-title>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button class="md-primary btn-apply-job" ng-click="reviewEmployer()"
-                               ng-if="job.status == 4 || job.status == 5 || job.status == 6">
-                        Review
-                    </md-button>
-                </md-card-actions>
-            </md-card>
+            <user-details color="#61B329" user="job.employerPosting.employer"
+                          ng-click="employerProfile(job.employerPosting.employer)"></user-details>
         </div>
         <div class="col-md-4 post-details">
             <md-card md-theme-watch class="post-details-card">
@@ -39,6 +13,12 @@
                         <span class="md-subhead"><strong>From </strong> {{job.employerPosting.startDate}} <strong>to</strong> {{job.employerPosting.endDate}}</span>
                     </md-card-title-text>
                 </md-card-title>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button class="md-primary btn-apply-job" ng-click="reviewEmployer()"
+                               ng-if="job.status == 4 || job.status == 5 || job.status == 6">
+                        Review
+                    </md-button>
+                </md-card-actions>
             </md-card>
         </div>
         <div class="col-md-4">
@@ -47,14 +27,12 @@
             </ng-map>
         </div>
     </div>
-
     <div flex-gt-sm flex class="applications">
         <md-toolbar layout="row">
             <div class="md-toolbar-tools apply-job-toolbar">
                 <span>My Application</span>
             </div>
         </md-toolbar>
-
         <md-content>
             <md-list flex>
                 <md-list-item class="md-3-line">
@@ -73,6 +51,5 @@
                 </md-list-item>
             </md-list>
         </md-content>
-
     </div>
 </div>

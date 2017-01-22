@@ -1,27 +1,7 @@
 <div ng-controller="JobDetailsEmployeeCtrl" flex ng-cloak class="job-details">
-
     <div class="row">
         <div class="col-md-4 post-details">
-            <md-card md-theme-watch class="post-details-card" ng-click="employerProfile(job.employer)">
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline"><strong>{{job.employer.firstName + ' ' + job.employer.lastName}}</strong></span>
-                        <br/>
-                        <span class="md-subhead"><strong>Email : </strong> <br/>{{job.employer.email}}</span>
-                        <br/>
-                        <span class="md-subhead"><strong>Phone Number : </strong> <br/> {{job.employer.phoneNumber}}</span>
-                        <br/>
-                        <span class="md-subhead">
-                            <calculate-lvl color="#61B329" reputation="{{job.employer.reputation}}"></calculate-lvl>
-                        </span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <div class="md-media-lg">
-                            <img alt="No image" ng-src="{{job.employer.profilePicture}}">
-                        </div>
-                    </md-card-title-media>
-                </md-card-title>
-            </md-card>
+            <user-details color="#61B329" user="job.employer" ng-click="employerProfile(job.employer)"></user-details>
         </div>
         <div class="col-md-4 post-details">
             <md-card md-theme-watch class="post-details-card">
@@ -43,5 +23,4 @@
             </ng-map>
         </div>
     </div>
-
 </div>
