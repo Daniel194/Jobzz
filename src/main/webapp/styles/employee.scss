@@ -24,7 +24,7 @@ $employee-red: #ff8a80;
 
 .nav-bar-employee > .md-nav-bar,
 .apply-job-toolbar,
-.review-employer-toolbar,
+.review-employer-toolbar md-toolbar,
 .settings-employee md-toolbar {
   background-color: $employee-color !important;
 }

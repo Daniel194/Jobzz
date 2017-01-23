@@ -19,8 +19,6 @@ angular.module('jobzz')
                 $http(req).then(function (response) {
                     $scope.employee = response.data;
                     $scope.employee.picture = userProfilePictureService.employeeProfilePicture(response.data.picture);
-                    calculateLvl();
-
                 });
             })();
 

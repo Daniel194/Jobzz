@@ -3,27 +3,8 @@
         <div class="col-md-4 post-details">
             <user-details color="#61B329" user="employer"></user-details>
         </div>
-        <div flex-gt-sm flex class="col-md-8">
-            <md-toolbar layout="row" class="review-employer-toolbar margin-top-10">
-                <div class="md-toolbar-tools">
-                    <span>Reviews</span>
-                </div>
-            </md-toolbar>
-            <md-content>
-                <md-list flex>
-                    <md-list-item class="md-3-line" ng-repeat="response in responses">
-                        <div class="md-list-item-text md-list-item-padding">
-                            <h4><strong>{{response.employeeFullName}}</strong></h4>
-                            <h4><strong>Date : </strong> {{response.review.date}}</h4>
-                            <p><strong>Comment : </strong> {{response.review.comment}}</p>
-                        </div>
-                        <div flex class="md-secondary">
-                            <div star-rating ng-model="response.review.point" max="10" readonly="true"></div>
-                        </div>
-                        <md-divider></md-divider>
-                    </md-list-item>
-                </md-list>
-            </md-content>
+        <div flex-gt-sm flex class="col-md-8 margin-top-10">
+            <user-review reviews="responses" class="review-employer-toolbar"></user-review>
         </div>
     </div>
 </div>
