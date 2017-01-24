@@ -1,33 +1,19 @@
 angular.module('jobzz')
-    .controller('SettingsEmployerCtrl', ['$scope', '$rootScope', '$http', 'userProfilePictureService',
-        function ($scope, $rootScope, $http, userProfilePictureService) {
+    .controller('SettingsEmployerCtrl', ['$scope', '$rootScope', '$http', 'userProfilePictureService', 'intervalDateForCalendarsService',
+        function ($scope, $rootScope, $http, userProfilePictureService, intervalDateForCalendarsService) {
+
+            var dates = intervalDateForCalendarsService.getDates();
 
             $scope.employer = {};
             $scope.change = {};
-            $scope.currentDate = new Date();
 
-            $scope.minDate = new Date(
-                $scope.currentDate.getFullYear() - 100,
-                $scope.currentDate.getMonth(),
-                $scope.currentDate.getDate());
-
-            $scope.maxDate = new Date(
-                $scope.currentDate.getFullYear(),
-                $scope.currentDate.getMonth(),
-                $scope.currentDate.getDate());
-
-            $scope.minDateExp = new Date(
-                $scope.currentDate.getFullYear(),
-                $scope.currentDate.getMonth(),
-                $scope.currentDate.getDate());
-
-            $scope.maxDateExp = new Date(
-                $scope.currentDate.getFullYear() + 10,
-                $scope.currentDate.getMonth(),
-                $scope.currentDate.getDate());
+            $scope.minDate = dates.minDate;
+            $scope.maxDate = dates.maxDate;
+            $scope.minDateExp = dates.minDateExp;
+            $scope.maxDateExp = dates.maxDateExp;
 
 
-            var getEmployerFullDetails = function () {
+            (function () {
 
                 var req = {
                     method: 'GET',
@@ -45,13 +31,9 @@ angular.module('jobzz')
                     $scope.employer.expirationDate = new Date($scope.employer.expirationDate);
                     $scope.employer.profilePicture = userProfilePictureService.employerProfilePicture($scope.employer.profilePicture);
 
-                }, function () {
-                    //Empty
                 });
 
-            };
-
-            getEmployerFullDetails();
+            })();
 
             $scope.changeGeneralInformation = function () {
 
@@ -65,11 +47,7 @@ angular.module('jobzz')
                     data: $scope.employer
                 };
 
-                $http(req).then(function () {
-                    //Empty
-                }, function () {
-                    //Empty
-                });
+                $http(req);
 
             };
 
@@ -86,11 +64,7 @@ angular.module('jobzz')
                     data: $scope.employer
                 };
 
-                $http(req).then(function () {
-                    //Empty
-                }, function () {
-                    //Empty
-                });
+                $http(req);
 
             };
 
@@ -106,11 +80,7 @@ angular.module('jobzz')
                     data: $scope.change
                 };
 
-                $http(req).then(function () {
-                    //Empty
-                }, function () {
-                    //Empty
-                });
+                $http(req);
 
             };
 
@@ -128,12 +98,10 @@ angular.module('jobzz')
                     headers: {
                         'Content-Type': undefined
                     }
-                }).success(function (response) {
+                }).then(function (response) {
 
                     $scope.employer.profilePicture = userProfilePictureService.employerProfilePicture(response.profilePicture);
 
-                }).error(function () {
-                    //Empty
                 });
 
             };
