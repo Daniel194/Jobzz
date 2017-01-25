@@ -77,6 +77,15 @@ angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages', 'ht
                     authorizedRoles: [USER_ROLES.employer]
                 }
             })
+            .when('/employer/history', {
+                templateUrl: '/views/employer/history.html',
+                controller: 'HistoryEmployerCtrl',
+                controllerAs: 'HistoryEmployerCtrl',
+                access: {
+                    loginRequired: true,
+                    authorizedRoles: [USER_ROLES.employer]
+                }
+            })
             .when('/employee/home', {
                 templateUrl: '/views/employee/home.html',
                 controller: 'HomeEmployeeCtrl',
@@ -135,6 +144,15 @@ angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages', 'ht
                 templateUrl: '/views/employee/postDetails.html',
                 controller: 'PostDetailsEmployeeCtrl',
                 controllerAs: 'PostDetailsEmployeeCtrl',
+                access: {
+                    loginRequired: true,
+                    authorizedRoles: [USER_ROLES.employee]
+                }
+            })
+            .when('/employee/history', {
+                templateUrl: '/views/employee/history.html',
+                controller: 'HistoryEmployeeCtrl',
+                controllerAs: 'HistoryEmployeeCtrl',
                 access: {
                     loginRequired: true,
                     authorizedRoles: [USER_ROLES.employee]
