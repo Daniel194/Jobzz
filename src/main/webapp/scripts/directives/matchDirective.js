@@ -10,8 +10,11 @@
         };
 
         function link(scope, elem, attrs, ctrl) {
-            if (!ctrl) return;
-            if (!attrs[directiveId]) return;
+            if (!ctrl)
+                return;
+
+            if (!attrs[directiveId])
+                return;
 
             var firstPassword = $parse(attrs[directiveId]);
 

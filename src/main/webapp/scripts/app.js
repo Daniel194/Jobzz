@@ -166,10 +166,11 @@ angular.module('jobzz', ['ngRoute', 'ngAnimate', 'ngMaterial', 'ngMessages', 'ht
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
     })
-    .run(function ($rootScope, $location, $http, EmployerSession, EmployeeSession, EmployerAuthSharedService, EmployeeAuthSharedService, $q, $timeout, localStorageService) {
+    .run(function ($rootScope, $location, $http, EmployerSession, EmployeeSession, EmployerAuthSharedService,
+                   EmployeeAuthSharedService, $q, $timeout, localStorageService) {
 
 
-        $rootScope.$on('event:auth-forbidden', function (rejection) {
+        $rootScope.$on('event:auth-forbidden', function () {
             $rootScope.$evalAsync(function () {
                 $location.path('/error/403').replace();
             });

@@ -15,7 +15,7 @@ angular.module('jobzz').service('EmployerAuthSharedService', function ($rootScop
                     localStorageService.set('isEmployee', false);
 
                     authService.loginConfirmed(response.data);
-                }).catch(function (response) {
+                }).catch(function () {
 
                 $rootScope.employerAuthenticationError = true;
                 EmployerSession.invalidate();
@@ -79,7 +79,7 @@ angular.module('jobzz').service('EmployeeAuthSharedService', function ($rootScop
                     localStorageService.set('isEmployee', true);
 
                     authService.loginConfirmed(response.data);
-                }).catch(function (response) {
+                }).catch(function () {
 
                 $rootScope.employeeAuthenticationError = true;
                 EmployeeSession.invalidate();
