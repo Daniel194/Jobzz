@@ -1,6 +1,8 @@
 # Jobzz
 [![Build Status](https://travis-ci.org/Daniel194/Jobzz.svg?branch=master)](https://travis-ci.org/Daniel194/Jobzz)
 
+Jobzz is a web platform which improves communication between employers and employees. As a employer you can create a new post to hire employees to a specific task. As a employee you can apply to a post. The platform guarantees a safe mode to make payments to employees and it has a very clever way to show you most redoubtable employees for your task.
+
 **Technologies used in this project:**
   * Java 1.8
   * Spring Boot
