@@ -99,6 +99,12 @@ public class EmployeeController {
         return model;
     }
 
+    @RequestMapping(value = "/history/post", method = RequestMethod.GET)
+    @ResponseBody
+    public List<EmployeePosting> getHistoryEmployeePost() {
+        return postingService.getHistoryEmployeePost();
+    }
+
     @RequestMapping(value = "/all/available/jobs", method = RequestMethod.GET)
     @ResponseBody
     public List<EmployerPosting> getAllAvailableJobs() {

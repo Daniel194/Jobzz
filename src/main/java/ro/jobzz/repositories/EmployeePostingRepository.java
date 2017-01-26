@@ -19,6 +19,9 @@ public interface EmployeePostingRepository extends JpaRepository<EmployeePosting
     @Query("SELECT p FROM EmployeePosting p WHERE p.employee.email = ?1 AND p.status <> 7")
     List<EmployeePosting> findAllEmployeePosts(String email);
 
+    @Query("SELECT p FROM EmployeePosting p WHERE p.employee.email = ?1 AND p.status = 7")
+    List<EmployeePosting> findAllHistoryPosts(String email);
+
     void delete(EmployeePosting posting);
 
     @Modifying(clearAutomatically = true)

@@ -71,6 +71,17 @@ public class EmployeePostingService {
         return postings;
     }
 
+    public List<EmployeePosting> getHistoryEmployeePost() {
+        List<EmployeePosting> postings = postingRepository.findAllHistoryPosts(SecurityUtils.getCurrentLogin());
+
+        postings.forEach(pos -> {
+            pos.setEmployee(null);
+            hiddenEmployerPosting(pos);
+        });
+
+        return postings;
+    }
+
     public boolean createPost(EmployeePosting post) {
 
         try {
