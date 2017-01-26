@@ -1,3 +1,7 @@
-<div ng-controller="HistoryEmployeeCtrl">
-    {{todo}}
+<div ng-controller="HistoryEmployeeCtrl" class="home">
+    <div class="row">
+        <div ng-repeat="job in jobs" class="col-md-3">
+            <employee-post job="job"></employee-post>
+        </div>
+    </div>
 </div>
