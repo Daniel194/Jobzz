@@ -24,10 +24,7 @@ angular.module('jobzz')
                     $location.path('/employee/home').replace();
                 }
 
-            }, function () {
-                //Empty
             });
-
 
         };
 

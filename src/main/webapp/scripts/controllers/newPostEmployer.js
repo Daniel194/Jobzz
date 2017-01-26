@@ -16,7 +16,7 @@ angular.module('jobzz').controller('NewPostEmployerCtrl', ['$scope', '$rootScope
     $scope.post.latitude = 44.4266978;
     $scope.post.longitude = 26.1024562;
 
-    var getJobs = function () {
+    (function () {
         var req = {
             method: 'GET',
             dataType: 'json',
@@ -28,13 +28,9 @@ angular.module('jobzz').controller('NewPostEmployerCtrl', ['$scope', '$rootScope
 
         $http(req).then(function (response) {
             $scope.jobs = response.data.jobs;
-        }, function () {
-            //Empty
         });
 
-    };
-
-    getJobs();
+    })();
 
     $scope.$on('mapInitialized', function (event, map) {
         window.setTimeout(function () {
@@ -78,8 +74,6 @@ angular.module('jobzz').controller('NewPostEmployerCtrl', ['$scope', '$rootScope
                     $scope.closeDialog();
                 }
 
-            }, function () {
-                //Empty
             });
         }
     }

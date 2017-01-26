@@ -34,8 +34,6 @@ angular.module('jobzz')
                         $scope.closeDialog();
                     }
 
-                }, function () {
-                    //Empty
                 });
 
             };

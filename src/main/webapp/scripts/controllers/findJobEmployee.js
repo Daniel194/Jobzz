@@ -17,7 +17,7 @@ angular.module('jobzz')
             $scope.job.startDate = $scope.minDate;
             $scope.job.endDate = $scope.maxDate;
 
-            var getJobs = function () {
+            (function () {
                 var req = {
                     method: 'GET',
                     dataType: 'json',
@@ -31,13 +31,9 @@ angular.module('jobzz')
 
                     $scope.jobs = response.data;
 
-                }, function () {
-                    // Empty
                 });
 
-            };
-
-            getJobs();
+            })();
 
             $scope.findJob = function () {
 
@@ -105,10 +101,7 @@ angular.module('jobzz')
 
                     }
 
-                }, function () {
-                    // Empty
                 });
-
 
             };
 

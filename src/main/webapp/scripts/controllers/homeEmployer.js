@@ -14,8 +14,6 @@ angular.module('jobzz')
 
                 $http(req).then(function (response) {
                     $rootScope.posts = response.data;
-                }, function () {
-                    //Empty
                 });
             };
 

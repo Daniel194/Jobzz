@@ -61,8 +61,6 @@ angular.module('jobzz')
                         $rootScope.panelRef = result;
                     });
 
-                }, function () {
-                    //Empty
                 });
 
             };
@@ -95,9 +93,8 @@ angular.module('jobzz')
                 $http(req).then(function (response) {
                     $scope.employer = response.data;
                     $scope.employer.profilePicture = userProfilePictureService.employerProfilePicture($scope.employer.profilePicture);
-                }, function () {
-                    //Empty
                 });
+
             })();
 
         }]);

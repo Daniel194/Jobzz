@@ -22,8 +22,6 @@ angular.module('jobzz')
                         $location.path('/employer/home').replace();
                     }
 
-                }, function () {
-                    // Empty
                 });
 
             };

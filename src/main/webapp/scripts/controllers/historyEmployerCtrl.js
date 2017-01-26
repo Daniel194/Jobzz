@@ -1,13 +1,19 @@
 angular.module('jobzz')
-    .controller('HistoryEmployerCtrl', ['$scope', function ($scope) {
+    .controller('HistoryEmployerCtrl', ['$scope', '$http', function ($scope, $http) {
 
-        $scope.posts = [{
-            name: 'Test',
-            description: 'Test',
-            startDate: new Date(),
-            endDate: new Date,
-            status: 3,
-            employeePostings: []
-        }];
+        (function () {
+            var req = {
+                method: 'GET',
+                dataType: 'json',
+                url: '/employer/history/posts',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                }
+            };
+
+            $http(req).then(function (response) {
+                $scope.posts = response.data;
+            });
+        })();
 
     }]);

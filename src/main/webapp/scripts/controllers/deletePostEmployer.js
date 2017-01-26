@@ -1,38 +1,38 @@
 angular.module('jobzz')
-    .controller('DeletePostEmployerCtrl', ['$scope', '$rootScope', '$http', '$mdPanel', '$location', 'postService', function ($scope, $rootScope, $http, $mdPanel, $location, postService) {
-        $scope.post = postService.getPost();
+    .controller('DeletePostEmployerCtrl', ['$scope', '$rootScope', '$http', '$mdPanel', '$location', 'postService',
+        function ($scope, $rootScope, $http, $mdPanel, $location, postService) {
 
-        $scope.closeDialog = function () {
-            $rootScope.panelRef && $rootScope.panelRef.close().then(function () {
-                angular.element(document.querySelector('.dialog-button')).focus();
-                $rootScope.panelRef.destroy();
-            });
-        };
+            $scope.post = postService.getPost();
 
-        $scope.deletePost = function () {
-
-            var req = {
-                method: 'DELETE',
-                dataType: 'json',
-                url: '/employer/delete/post',
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
-                },
-                data: $scope.post
+            $scope.closeDialog = function () {
+                $rootScope.panelRef && $rootScope.panelRef.close().then(function () {
+                    angular.element(document.querySelector('.dialog-button')).focus();
+                    $rootScope.panelRef.destroy();
+                });
             };
 
-            $http(req).then(function (response) {
+            $scope.deletePost = function () {
 
-                if (response.data.isDeleted) {
-                    $scope.closeDialog();
+                var req = {
+                    method: 'DELETE',
+                    dataType: 'json',
+                    url: '/employer/delete/post',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    },
+                    data: $scope.post
+                };
 
-                    $location.path('/employer/home').replace();
-                }
+                $http(req).then(function (response) {
 
-            }, function () {
-                //Empty
-            });
+                    if (response.data.isDeleted) {
+                        $scope.closeDialog();
 
-        }
+                        $location.path('/employer/home').replace();
+                    }
 
-    }]);
+                });
+
+            }
+
+        }]);
