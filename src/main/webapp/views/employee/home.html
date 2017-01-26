@@ -3,16 +3,7 @@
         <h3>Waiting</h3>
         <div class="row">
             <div ng-repeat="job in jobsWaiting" class="col-md-6">
-                <md-card md-theme-watch ng-class="'job' + job.status" ng-click="postDetails(job)">
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline"><strong>{{job.employerPosting.name}}</strong></span>
-                            <hr/>
-                            <span class="md-subhead"><strong>From </strong> {{job.employerPosting.startDate}} <strong>to</strong> {{job.employerPosting.endDate}}</span>
-                            <span class="md-subhead"> <strong>Price : </strong> {{job.price + ' ' + job.currency}}</span>
-                        </md-card-title-text>
-                    </md-card-title>
-                </md-card>
+                <employee-post job="job"></employee-post>
             </div>
         </div>
     </div>
@@ -20,16 +11,7 @@
         <h3>In Progress</h3>
         <div class="row">
             <div ng-repeat="job in jobsProgress" class="col-md-6">
-                <md-card md-theme-watch ng-class="'job' + job.status" ng-click="postDetails(job)">
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline"><strong>{{job.employerPosting.name}}</strong></span>
-                            <hr/>
-                            <span class="md-subhead"><strong>From </strong> {{job.employerPosting.startDate}} <strong>to</strong> {{job.employerPosting.endDate}}</span>
-                            <span class="md-subhead"> <strong>Price : </strong> {{job.price + ' ' + job.currency}}</span>
-                        </md-card-title-text>
-                    </md-card-title>
-                </md-card>
+                <employee-post job="job"></employee-post>
             </div>
         </div>
     </div>
@@ -37,16 +19,7 @@
         <h3>Done</h3>
         <div class="row">
             <div ng-repeat="job in jobsDone" class="col-md-6">
-                <md-card md-theme-watch ng-class="'job' + job.status" ng-click="postDetails(job)">
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline"><strong>{{job.employerPosting.name}}</strong></span>
-                            <hr/>
-                            <span class="md-subhead"><strong>From </strong> {{job.employerPosting.startDate}} <strong>to</strong> {{job.employerPosting.endDate}}</span>
-                            <span class="md-subhead"> <strong>Price : </strong> {{job.price + ' ' + job.currency}}</span>
-                        </md-card-title-text>
-                    </md-card-title>
-                </md-card>
+                <employee-post job="job"></employee-post>
             </div>
         </div>
     </div>
