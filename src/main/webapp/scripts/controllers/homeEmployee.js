@@ -2,7 +2,7 @@ angular.module('jobzz')
     .controller('HomeEmployeeCtrl', ['$scope', '$rootScope', '$http', '$location', 'jobService',
         function ($scope, $rootScope, $http, $location, jobService) {
 
-            var getJobs = function () {
+            (function () {
                 var req = {
                     method: 'GET',
                     dataType: 'json',
@@ -16,13 +16,8 @@ angular.module('jobzz')
                     $scope.jobsWaiting = response.data.jobsWaiting;
                     $scope.jobsProgress = response.data.jobsProgress;
                     $scope.jobsDone = response.data.jobsDone;
-                }, function () {
-                    // Empty
                 });
-
-            };
-
-            getJobs();
+            })();
 
             $scope.postDetails = function (job) {
                 jobService.setJob(job);
