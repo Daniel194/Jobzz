@@ -81,6 +81,12 @@ public class EmployerController {
         return employerPostingService.findAllEmployerPosts();
     }
 
+    @RequestMapping(value = "/history/posts", method = RequestMethod.GET)
+    @ResponseBody
+    public List<EmployerPosting> getHistoryPosts() {
+        return employerPostingService.findHistoryEmployerPosts();
+    }
+
     @RequestMapping(value = "/update/post", method = RequestMethod.PUT)
     public Map<String, Object> updateEmployerPost(@RequestBody EmployerPosting post) {
         boolean isUpdate = employerPostingService.updatePost(post);

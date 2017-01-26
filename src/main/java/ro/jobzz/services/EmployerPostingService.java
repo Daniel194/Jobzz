@@ -115,6 +115,21 @@ public class EmployerPostingService {
         return postings;
     }
 
+    public List<EmployerPosting> findHistoryEmployerPosts() {
+        List<EmployerPosting> postings = postingRepository.findHistoryEmployerPosts(SecurityUtils.getCurrentLogin());
+
+        postings.forEach(posting -> {
+            posting.setEmployer(null);
+
+            if (posting.getEmployeePostings() != null && (!posting.getEmployeePostings().isEmpty())) {
+                hiddenEmployeePostingDetails(posting);
+            }
+
+        });
+
+        return postings;
+    }
+
     public List<EmployerPosting> findAllAvailablePostsForEmployee() {
         Employee employee = employeeRepository.findByEmail(SecurityUtils.getCurrentLogin());
 

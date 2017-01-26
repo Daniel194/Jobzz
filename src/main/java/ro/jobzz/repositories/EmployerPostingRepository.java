@@ -17,6 +17,9 @@ public interface EmployerPostingRepository extends JpaRepository<EmployerPosting
     @Query("SELECT p from EmployerPosting p WHERE p.employer.email = ?1 AND p.status <> 3")
     List<EmployerPosting> findAllEmployerPosts(String email);
 
+    @Query("SELECT p from EmployerPosting p WHERE p.employer.email = ?1 AND p.status = 3")
+    List<EmployerPosting> findHistoryEmployerPosts(String email);
+
     void delete(EmployerPosting posting);
 
     @Query("SELECT p from EmployerPosting p WHERE p.jobId = ?1 AND p.startDate > current_date")
