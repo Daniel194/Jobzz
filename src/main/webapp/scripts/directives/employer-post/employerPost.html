@@ -1,0 +1,10 @@
+<md-card md-theme-watch ng-class="'post' + post.status">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline"><strong>{{post.name}}</strong></span>
+            <span class="md-subhead"><strong>Description : </strong>{{post.description}}</span>
+            <span class="md-subhead"><strong>From </strong> {{post.startDate}} <strong>to</strong> {{post.endDate}}</span>
+            <span class="md-subhead" ng-if="showApplications"><strong>Applications : </strong> {{post.employeePostings.length}}</span>
+        </md-card-title-text>
+    </md-card-title>
+</md-card>

@@ -1,3 +1,7 @@
-<div ng-controller="HistoryEmployerCtrl">
-    {{todo}}
+<div ng-controller="HistoryEmployerCtrl" flex ng-cloak class="home-employer">
+    <div class="row">
+        <div ng-repeat="post in posts" class="col-md-3">
+            <employer-post post="post" show-applications="false"></employer-post>
+        </div>
+    </div>
 </div>
